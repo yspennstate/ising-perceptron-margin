@@ -1,0 +1,36 @@
+located q: [0.572053 +/- 9.25e-7]  psi: [2.7028 +/- 9.44e-5]
+rect a1 +-1.351, a2 +-0.76; EXCL (0.9833340416935004, 1.3333340416935004, 0.45815318462006016, 0.6681531846200601)
+1296 top cells, 2 workers, cell 0.056x0.056
+  40/1296 top cells, 2 leaves, 0 fails, 3s
+  80/1296 top cells, 5 leaves, 0 fails, 3s
+  120/1296 top cells, 15 leaves, 0 fails, 4s
+  160/1296 top cells, 20 leaves, 0 fails, 4s
+  200/1296 top cells, 34 leaves, 0 fails, 5s
+  240/1296 top cells, 41 leaves, 0 fails, 6s
+  280/1296 top cells, 56 leaves, 0 fails, 7s
+  320/1296 top cells, 64 leaves, 0 fails, 7s
+  360/1296 top cells, 78 leaves, 0 fails, 8s
+  400/1296 top cells, 88 leaves, 0 fails, 8s
+  440/1296 top cells, 101 leaves, 0 fails, 9s
+  480/1296 top cells, 115 leaves, 0 fails, 10s
+  520/1296 top cells, 125 leaves, 0 fails, 10s
+  560/1296 top cells, 142 leaves, 0 fails, 11s
+  600/1296 top cells, 151 leaves, 0 fails, 12s
+  640/1296 top cells, 169 leaves, 0 fails, 13s
+  680/1296 top cells, 178 leaves, 0 fails, 13s
+  720/1296 top cells, 196 leaves, 0 fails, 14s
+  760/1296 top cells, 207 leaves, 0 fails, 15s
+  800/1296 top cells, 228 leaves, 0 fails, 16s
+  840/1296 top cells, 247 leaves, 0 fails, 17s
+  880/1296 top cells, 278 leaves, 0 fails, 20s
+  920/1296 top cells, 312 leaves, 0 fails, 23s
+  960/1296 top cells, 343 leaves, 0 fails, 25s
+  1000/1296 top cells, 417 leaves, 0 fails, 33s
+  1040/1296 top cells, 452 leaves, 0 fails, 39s
+  1080/1296 top cells, 613 leaves, 0 fails, 59s
+  1120/1296 top cells, 702 leaves, 0 fails, 69s
+  1160/1296 top cells, 807 leaves, 0 fails, 80s
+  1200/1296 top cells, 807 leaves, 0 fails, 81s
+  1240/1296 top cells, 828 leaves, 0 fails, 83s
+  1280/1296 top cells, 838 leaves, 0 fails, 84s
+DONE: 1296 top cells -> 868 leaves, 0 fails, 89s

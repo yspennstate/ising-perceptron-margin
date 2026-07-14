@@ -1,0 +1,8 @@
+# Reproduction environment for the margin certificates.
+# Reference interpreter: CPython 3.12.
+python-flint==0.9.0   # Arb ball arithmetic; built against FLINT 3.6.0
+numpy
+scipy
+mpmath
+sympy
+matplotlib

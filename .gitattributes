@@ -1,0 +1,3 @@
+# Proof artifacts are byte-exact: the manifests are hash-bound and
+# the scripts run on POSIX hosts. No end-of-line conversion for any file.
+* -text

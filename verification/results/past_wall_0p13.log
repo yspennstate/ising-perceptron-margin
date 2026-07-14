@@ -1,0 +1,9 @@
+rectangle product bound on the box: [1.3231898829650627440934 +/- 3.90e-23] FAILS (>= 1) - the wall
+alpha_lb: located q in [[0.58322296141895437704417 +/- 4.86e-24], [0.58322298049244080619946 +/- 3.85e-25]] (width 1.91e-08)
+  contraction on located interval: [0.79450021191992776902723 +/- 5.79e-24] < 1 PASS
+  G(alpha_lb) = [[0.0019657378619493818623112 +/- 4.62e-26], [0.0019949954741472345849132 +/- 1.13e-26]]  want >0: PASS
+alpha_ub: located q in [[0.58618289947964200434227 +/- 1.65e-24], [0.58618290424801361163110 +/- 4.55e-24]] (width 4.77e-09)
+  contraction on located interval: [0.79791954218191061919324 +/- 2.73e-24] < 1 PASS
+  G(alpha_ub) = [[-0.0020029183680821124218523 +/- 1.24e-26], [-0.0019732918175110743979344 +/- 4.81e-26]]  want <0: PASS
+alpha_c(0.13) = [1.0394353835451314105861 +/- 2.66e-23]; alpha_ub < alpha_c: PASS (uniqueness by Nakajima)
+(10s)
