@@ -24,7 +24,11 @@ algorithmic threshold; the found-solution histograms meanwhile track
 the derived $p(h)$ closely at moderate load and deform toward
 mid-gaps near the wall.  Both effects are schedule-dependent
 observations, not thresholds; the certified curve is what they are
-measured against.
+measured against, and the comparison compresses neatly: within each
+size and budget the wall sits at a $\kappa$-independent fraction of
+$\alpha_\star(\kappa)$ ($0.90$ at $N=101$, $0.75$ at $N=201$, flat
+across margins to a few percent), so the demanded margin costs the
+algorithm the same relative capacity it costs the storage bound.
 
 The margin price also depends on the weight alphabet.  Solving the
 replica-symmetric system for ternary weights $\{-1,0,+1\}$ with a
