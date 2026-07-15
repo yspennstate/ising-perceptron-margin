@@ -1,0 +1,66 @@
+ternary perceptron, RS exploration (float diagnostics)
+  bisection at kappa=+0.000
+    level 0: alpha in [0.500000, 2.500000]
+    level 4: alpha in [1.125000, 1.250000]
+    level 8: alpha in [1.171875, 1.179688]
+    level 12: alpha in [1.174316, 1.174805]
+    level 16: alpha in [1.174469, 1.174500]
+    level 20: alpha in [1.174480, 1.174482]
+kappa=+0.00  alpha*=1.174482107  q=0.45444437  Q=0.63054339  annealed=1.5849625  residuals: q=-1.4e-6 Q=9.9e-7 psi=-6.9e-10 c=0.0
+  bisection at kappa=+0.050
+    level 0: alpha in [0.500000, 2.500000]
+    level 4: alpha in [1.000000, 1.125000]
+    level 8: alpha in [1.078125, 1.085938]
+    level 12: alpha in [1.079102, 1.079590]
+    level 16: alpha in [1.079498, 1.079529]
+    level 20: alpha in [1.079508, 1.079510]
+kappa=+0.05  alpha*=1.079509497  q=0.47722955  Q=0.6510548  annealed=1.4782003  residuals: q=-1.6e-6 Q=1.2e-6 psi=-8.3e-10 c=0.0
+  bisection at kappa=+0.100
+    level 0: alpha in [0.500000, 2.500000]
+    level 4: alpha in [0.875000, 1.000000]
+    level 8: alpha in [0.992188, 1.000000]
+    level 12: alpha in [0.995605, 0.996094]
+    level 16: alpha in [0.995605, 0.995636]
+    level 20: alpha in [0.995632, 0.995634]
+kappa=+0.10  alpha*=0.9956333637  q=0.4979442  Q=0.66936329  annealed=1.3816054  residuals: q=-1.8e-6 Q=1.4e-6 psi=6.9e-10 c=0.0
+  bisection at kappa=+0.130
+    level 0: alpha in [0.500000, 2.500000]
+    level 4: alpha in [0.875000, 1.000000]
+    level 8: alpha in [0.945312, 0.953125]
+    level 12: alpha in [0.948242, 0.948730]
+    level 16: alpha in [0.948334, 0.948364]
+    level 20: alpha in [0.948349, 0.948351]
+kappa=+0.13  alpha*=0.9483492374  q=0.50991609  Q=0.67979909  annealed=1.3261913  residuals: q=-2.0e-6 Q=1.6e-6 psi=-8.3e-10 c=2.8e-10
+  bisection at kappa=+0.200
+    level 0: alpha in [0.500000, 2.500000]
+    level 4: alpha in [0.750000, 0.875000]
+    level 8: alpha in [0.843750, 0.851562]
+    level 12: alpha in [0.850586, 0.851074]
+    level 16: alpha in [0.850769, 0.850800]
+    level 20: alpha in [0.850796, 0.850798]
+kappa=+0.20  alpha*=0.8507974148  q=0.53542121  Q=0.70167894  annealed=1.2096542  residuals: q=-2.4e-6 Q=2.0e-6 psi=-8.3e-10 c=2.8e-10
+  bisection at kappa=+0.250
+    level 0: alpha in [0.500000, 2.500000]
+    level 4: alpha in [0.750000, 0.875000]
+    level 8: alpha in [0.789062, 0.796875]
+    level 12: alpha in [0.789062, 0.789551]
+    level 16: alpha in [0.789246, 0.789276]
+    level 20: alpha in [0.789265, 0.789267]
+kappa=+0.25  alpha*=0.7892649174  q=0.55216967  Q=0.71578546  annealed=1.1345889  residuals: q=-2.7e-6 Q=2.3e-6 psi=8.3e-10 c=-1.4e-10
+  bisection at kappa=+0.300
+    level 0: alpha in [0.500000, 2.500000]
+    level 4: alpha in [0.625000, 0.750000]
+    level 8: alpha in [0.726562, 0.734375]
+    level 12: alpha in [0.733398, 0.733887]
+    level 16: alpha in [0.733551, 0.733582]
+    level 20: alpha in [0.733570, 0.733572]
+kappa=+0.30  alpha*=0.7335708141  q=0.56785513  Q=0.72880775  annealed=1.0655835  residuals: q=-3.1e-6 Q=2.6e-6 psi=2.8e-10 c=0.0
+  bisection at kappa=+0.350
+    level 0: alpha in [0.500000, 2.500000]
+    level 4: alpha in [0.625000, 0.750000]
+    level 8: alpha in [0.679688, 0.687500]
+    level 12: alpha in [0.682617, 0.683105]
+    level 16: alpha in [0.683014, 0.683044]
+    level 20: alpha in [0.683018, 0.683020]
+kappa=+0.35  alpha*=0.6830193996  q=0.58259303  Q=0.7408752  annealed=1.0020547  residuals: q=-3.5e-6 Q=3.0e-6 psi=-5.6e-10 c=0.0
+pm1 anchor via km.py: alpha*(0) = 0.8330785997 (certified 0.833078599...)

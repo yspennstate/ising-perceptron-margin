@@ -9,13 +9,18 @@ points).  The output tests the simplest law: wall(kappa; N, budget)
 Floats, diagnostics.  Reads results/finite_size_N*.csv.
 """
 import csv
+import os
 
 import numpy as np
 
 ASTAR = {0.0: 0.8330786, 0.05: 0.7810743, 0.1: 0.7330167}
-RUNS = [('N=101, 400 sweeps/spin', 'results/finite_size_N101.csv'),
-        ('N=201, 400 sweeps/spin', 'results/finite_size_N201.csv'),
-        ('N=201, 1600 sweeps/spin', 'results/finite_size_N201_s1600.csv')]
+RUNS = [(label, path) for label, path in
+        [('N=101, 400 sweeps/spin', 'results/finite_size_N101.csv'),
+         ('N=201, 400 sweeps/spin', 'results/finite_size_N201.csv'),
+         ('N=201, 1600 sweeps/spin', 'results/finite_size_N201_s1600.csv'),
+         ('N=201, 6400 sweeps/spin', 'results/finite_size_N201_s6400.csv'),
+         ('N=301, 400 sweeps/spin', 'results/finite_size_N301.csv')]
+        if os.path.exists(path)]
 
 
 def wall(rows, kappa):

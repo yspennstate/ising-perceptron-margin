@@ -15,7 +15,9 @@ from algorithmic_fraction import ASTAR, RUNS, wall
 
 COLORS = {'N=101, 400 sweeps/spin': '#4477aa',
           'N=201, 400 sweeps/spin': '#cc6677',
-          'N=201, 1600 sweeps/spin': '#228833'}
+          'N=201, 1600 sweeps/spin': '#228833',
+          'N=201, 6400 sweeps/spin': '#ccbb44',
+          'N=301, 400 sweeps/spin': '#aa3377'}
 
 
 def main():

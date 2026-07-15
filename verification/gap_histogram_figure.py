@@ -19,7 +19,10 @@ from margin_distribution import gap_density, be_polite
 import km
 from mpmath import mpf
 
-PANELS = [(0.0, 0.50), (0.0, 0.61), (0.05, 0.67)]
+PANELS_BY_N = {
+    '301': [(0.0, 0.50), (0.0, 0.56), (0.05, 0.56)],
+}
+PANELS_DEFAULT = [(0.0, 0.50), (0.0, 0.61), (0.05, 0.67)]
 C_EXP = '#2a78d6'
 C_RS = '#b0413e'
 
@@ -27,11 +30,12 @@ C_RS = '#b0413e'
 def main():
     be_polite()
     N = sys.argv[1] if len(sys.argv) > 1 else '201'
+    panels = PANELS_BY_N.get(N, PANELS_DEFAULT)
     rows = list(csv.DictReader(
         open('results/finite_size_gaps_N%s.csv' % N, newline='')))
-    fig, axes = plt.subplots(1, len(PANELS), figsize=(4.0 * len(PANELS),
+    fig, axes = plt.subplots(1, len(panels), figsize=(4.0 * len(panels),
                                                       3.6), dpi=150)
-    for ax, (kappa, alpha) in zip(axes, PANELS):
+    for ax, (kappa, alpha) in zip(axes, panels):
         gaps = np.array([float(r['gap']) for r in rows
                          if abs(float(r['kappa']) - kappa) < 1e-9
                          and abs(float(r['alpha']) - alpha) < 1e-9])

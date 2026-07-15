@@ -26,16 +26,21 @@ mid-gaps near the wall.  Both effects are schedule-dependent
 observations, not thresholds; the certified curve is what they are
 measured against, and the comparison compresses neatly: within each
 size and budget the wall sits at a $\kappa$-independent fraction of
-$\alpha_\star(\kappa)$ ($0.90$ at $N=101$, $0.75$ at $N=201$, flat
-across margins to a few percent), so the demanded margin costs the
-algorithm the same relative capacity it costs the storage bound
-(Figure~\ref{fig:fraction}).
+$\alpha_\star(\kappa)$ ($0.90$ at $N=101$, $0.75$ at $N=201$, $0.69$
+at $N=301$, flat across margins to a few percent), so the demanded
+margin costs the algorithm the same relative capacity it costs the
+storage bound (Figure~\ref{fig:fraction}).  At fixed sweeps per spin
+the fraction falls with $N$, so holding a constant fraction of
+capacity requires superlinearly growing total work; at $N=201$ the
+fraction climbs $0.75$, $0.79$, $0.86$ as the budget quadruples
+twice, consistent with a fixed gain per quadrupling over the
+measured range.
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=0.8\linewidth]{algorithmic_fraction.png}
 \caption{The annealing wall as a fraction of the certified capacity
-$\alpha_\star(\kappa)$, for three size--budget pairs.  Within each
+$\alpha_\star(\kappa)$, across size--budget pairs.  Within each
 run the fraction is flat in $\kappa$ to a few percent, while its
 level depends on both size and budget.}
 \label{fig:fraction}
@@ -51,4 +56,20 @@ $\kappa=0.05$ and $0.99483$ at $\kappa=0.1$.  Per weight \emph{state} the richer
 more; per weight \emph{bit} it stores less --- $0.741$ against the
 binary $0.833$ constraints per bit at $\kappa=0$, and the gap widens
 monotonically with margin ($0.100$ at $\kappa=0.05$, $0.105$ at $0.1$).  At this level of the theory,
-binary remains the bit-efficient quantization for robust storage.
+binary remains the bit-efficient quantization for robust storage.  The full eight-point curve (Figure~\ref{fig:ternary},
+$\kappa$ up to $0.35$) makes this a statement about the whole margin
+range rather than three samples: per stored bit the binary curve sits
+above the ternary one everywhere, the absolute gap saturating near
+$0.11$ constraints per bit above $\kappa\approx 0.2$ while the
+relative advantage grows from $12$ to $26$ percent, since both
+capacities fall with margin.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.98\linewidth]{ternary_comparison.png}
+\caption{Replica-symmetric capacity of ternary against binary
+weights, per weight (left) and per stored bit (right, dividing by
+$\log_2 3$ and $1$).  The order reverses: the richer prior stores
+more per weight and less per bit, at every computed margin.}
+\label{fig:ternary}
+\end{figure}

@@ -16,7 +16,11 @@ atypical - wider margins than the typical-solution law.  Both effects
 are part of the ML story, not artifacts.
 
 Floats, diagnostics; the certified objects remain the alpha* bounds.
-Run: python finite_size_experiment.py [N] [seed]
+Run: python finite_size_experiment.py [N] [seed] [steps_per_spin]
+                                      [kappas] [alphas]
+where kappas/alphas are comma-separated overrides of the default
+grids (used to bracket walls at large budgets without paying for the
+easy points).
 """
 import csv
 import os
@@ -87,6 +91,11 @@ def main():
     N = int(sys.argv[1]) if len(sys.argv) > 1 else 101
     seed = int(sys.argv[2]) if len(sys.argv) > 2 else 20260715
     steps = int(sys.argv[3]) if len(sys.argv) > 3 else 400
+    kappas = (tuple(float(x) for x in sys.argv[4].split(','))
+              if len(sys.argv) > 4 else (0.0, 0.05, 0.1))
+    alphas = (tuple(float(x) for x in sys.argv[5].split(','))
+              if len(sys.argv) > 5 else
+              (0.40, 0.50, 0.55, 0.61, 0.67, 0.73, 0.79))
     tag = '%d' % N if steps == 400 else '%d_s%d' % (N, steps)
     rng = np.random.default_rng(seed)
     # reference points: kappa 0 and 0.05 are certified digits; 0.1 is
@@ -95,8 +104,8 @@ def main():
     rows = []
     gap_rows = []
     t0 = time.time()
-    for kappa in (0.0, 0.05, 0.1):
-        for alpha in (0.40, 0.50, 0.55, 0.61, 0.67, 0.73, 0.79):
+    for kappa in kappas:
+        for alpha in alphas:
             rate, gaps = run_point(N, alpha, kappa, rng, steps_per_spin=steps)
             gap_rows.extend((kappa, alpha, round(float(g), 5))
                             for g in gaps)
