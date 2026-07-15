@@ -38,7 +38,11 @@ machine learning: the price of demanded robustness (capacity halves
 per 0.50 of margin), the margin distribution among solutions and the
 free slack it implies, per-bit storage economics of binary versus
 ternary weights, and finite-size experiments locating the annealing
-wall against the certified ceiling.
+wall against the certified ceiling.  In those experiments the wall
+sits at a kappa-independent fraction of alpha_*(kappa) within each
+size and budget:
+
+![algorithmic fraction](verification/results/algorithmic_fraction.png)
 
 ## Layout
 

@@ -28,7 +28,18 @@ measured against, and the comparison compresses neatly: within each
 size and budget the wall sits at a $\kappa$-independent fraction of
 $\alpha_\star(\kappa)$ ($0.90$ at $N=101$, $0.75$ at $N=201$, flat
 across margins to a few percent), so the demanded margin costs the
-algorithm the same relative capacity it costs the storage bound.
+algorithm the same relative capacity it costs the storage bound
+(Figure~\ref{fig:fraction}).
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.8\linewidth]{algorithmic_fraction.png}
+\caption{The annealing wall as a fraction of the certified capacity
+$\alpha_\star(\kappa)$, for three size--budget pairs.  Within each
+run the fraction is flat in $\kappa$ to a few percent, while its
+level depends on both size and budget.}
+\label{fig:fraction}
+\end{figure}
 
 The margin price also depends on the weight alphabet.  Solving the
 replica-symmetric system for ternary weights $\{-1,0,+1\}$ with a
