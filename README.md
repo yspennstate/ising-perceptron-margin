@@ -1,9 +1,13 @@
 # The Ising perceptron at nonzero margin
 
 Verification code, certificates, and paper for the margin extension of
-the Ising perceptron capacity results: the storage threshold
-alpha_*(kappa) of the binary-weight perceptron with constraints
-<g_a, w>/sqrt(N) >= kappa.
+the Ising perceptron capacity results: the replica-symmetric predicted
+capacity alpha_*(kappa) of the binary-weight perceptron with
+constraints <g_a, w>/sqrt(N) >= kappa.  What is certified here are
+unconditional upper bounds at five margins; the matching lower bound
+is proved (by Ding-Sun) only at kappa = 0, so these are not exact
+thresholds at nonzero margin (see the "Toward the matching lower
+bound" section of the paper).
 
 Huang's general-margin capacity upper bound is conditional on four
 numerical hypotheses per margin.  This repository certifies all four
@@ -18,7 +22,7 @@ capacity upper bound is unconditional at each:
 |  0.0995 | [0.733478513, 0.733480205]          |
 |  0.13   | [0.705932217, 0.705933898]          |
 
-![capacity curve](verification/results/alpha_curve.png)
+![certified upper bounds at five margins, with the replica-symmetric predicted curve](verification/results/alpha_curve.png)
 
 Behind the five unconditional points: the fixed-point, AMP, and
 local-concavity hypotheses are certified on the whole strip kappa in
