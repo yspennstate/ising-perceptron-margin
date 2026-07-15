@@ -1,0 +1,52 @@
+% The kappa-interval question: measured obstruction and architecture.
+% Input at the end of the margins section.
+
+\subsection{From points to intervals}
+\label{sec:interval}
+
+The natural strengthening of Theorem~\ref{thm:main} replaces each
+margin by a $\kappa$-interval, so that $\alpha_\star(\kappa)$ becomes
+an unconditional bound on a continuum.  For
+Conditions~\ref{cond:fp}--\ref{cond:lc} this is what the strip
+certificates already provide: those inequalities hold with margins of
+order $10^{-1}$, and enclosing every input over a $\kappa$-slab costs
+far less than that.  Condition~\ref{cond:2var} is different in kind,
+and it is worth recording precisely why, because the obstruction is
+quantitative and, we believe, intrinsic.
+
+Certifying $S_\star\le 0$ over a slab means every certificate must
+hold with the located parameters $(\alpha, q_0, \psi_0)$ replaced by
+their hulls across the slab.  Three measurements fix the scales.
+First, the hull widths cannot be made small: the located enclosures
+carry irreducible floors (the inward fixed-point test resolves no
+finer than the quadrature fuzz, about $3.5\cdot10^{-4}$ in $q_0$, and
+$\alpha_\star$ itself drifts at $|d\alpha_\star/d\kappa|\approx
+1$--$3.4$ across any slab), which translate into a moment-plane
+origin ball of radius at least a few times $10^{-3}$ however narrow
+the slab.  Second, the evaluation fuzz of every certificate grows
+linearly with that ball: rerunning the $\kappa=-0.65$ sweep with
+slab-hulled parameters (ball $2.3\cdot10^{-2}$) inflates cell
+enclosures to $\pm 1.3$, and the scaling back to the floor ball
+leaves $\pm 0.2$.  Third, the certificates that matter are thin:
+the sweep's weakest certified cells at point margins sit at
+$-5\cdot10^{-4}$, and Region~I's thinnest bands at $-4.7\cdot10^{-5}$,
+because the two-variable function is genuinely flat at its degenerate
+maximizer.  A $10^{-4}$-margin certificate cannot survive
+$10^{-1}$-scale fuzz, at any slab width, with this evaluator
+architecture.
+
+The same comparison explains why the strip conditions posed no such
+problem and points at the correct construction.  Near the maximizer
+the certified Hessian gives quadratic control whose constants vary
+slowly in $\kappa$ (the fixed-tilt determinant moves by about
+$2\cdot10^{-4}$ per unit margin), so a $\kappa$-uniform neighborhood
+estimate is available from point certificates plus a crude
+$\kappa$-derivative bound --- crude is enough, because a Lipschitz
+constant needs no thin margin.  Far from the maximizer the
+certificates are fat and absorb hull fuzz directly.  What remains is
+the intermediate annulus, where quadratic control must be extended
+beyond the star radius with explicit remainder bounds before the two
+regimes meet.  We record this as the open engineering of the margin
+program: the obstruction is measured, the two easy regimes are in
+hand, and the annulus estimate is the one genuinely new ingredient an
+interval theorem requires.
