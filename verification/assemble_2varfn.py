@@ -20,6 +20,24 @@ def load(name):
     return json.loads(raw), hashlib.sha256(raw).hexdigest(), path
 
 
+def bad_leaves(records, check_nfail=False):
+    """ok records whose recorded worst-case S_star is positive, or
+    (optionally) that carry a subcell failure: a value replay so a
+    flipped ok flag or mismarked worst cannot ride the count check."""
+    n = 0
+    for r in records:
+        if not r.get('ok'):
+            continue
+        w = r.get('worst')
+        if w is None:
+            if check_nfail:
+                n += 1          # an ok band with no recorded worst
+            continue
+        if float(w) > 1e-9 or (check_nfail and r.get('nfail', 0) != 0):
+            n += 1
+    return n
+
+
 def assemble(tag):
     ok = True
     sweep, sweep_sha, _ = load('huang_sweep_%s.json' % tag)
@@ -27,17 +45,29 @@ def assemble(tag):
           % (sweep.get('failures'), sweep.get('total_leaves'),
              sweep_sha[:16]))
     ok &= (sweep.get('failures') == 0)
+    bad = bad_leaves(sweep.get('records', []))
+    print('  sweep leaf-value replay: %d ok cells with positive '
+          'worst' % bad)
+    ok &= (bad == 0)
 
     reg1, reg1_sha, _ = load('huang_region1_%s.json' % tag)
     nb = len(reg1.get('results', []))
     print('Region I: bands=%d fails=%s sha=%s'
           % (nb, reg1.get('fails'), reg1_sha[:16]))
     ok &= (reg1.get('fails') == 0 and nb == 1404)
+    bad = bad_leaves(reg1.get('results', []), check_nfail=True)
+    print('  Region I leaf-value replay: %d ok bands with '
+          'positive worst or a subcell failure' % bad)
+    ok &= (bad == 0)
 
     st2, st2_sha, _ = load('huang_sweep2_%s.json' % tag)
     print('Stage-2: failures=%s leaves=%s sha=%s'
           % (st2.get('failures'), st2.get('total_leaves'), st2_sha[:16]))
     ok &= (st2.get('failures') == 0)
+    bad = bad_leaves(st2.get('records', []))
+    print('  stage-2 leaf-value replay: %d ok cells with '
+          'positive worst' % bad)
+    ok &= (bad == 0)
     bound = st2.get('policy', {}).get('region1_manifest_sha256')
     print('  stage-2 bound to region1 manifest: %s (%s)'
           % (str(bound)[:16], 'MATCH' if bound == reg1_sha
