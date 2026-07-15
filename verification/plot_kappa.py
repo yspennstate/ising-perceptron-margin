@@ -69,6 +69,10 @@ def main():
     ax.plot(k, nak, color=C_GREEN, lw=2,
             label='saddle bound (Nakajima)')
     ax.plot([0], [0.8330786], marker='o', ms=5, color=C_BLUE)
+    # margins with Condition 2varfn certified end to end (all four
+    # conditions closed): alpha*(kappa) is an unconditional upper bound
+    ax.plot([0.05, -0.05], [0.781074, 0.889409], marker='D', ms=5,
+            color=INK, ls='none', label='certified upper bound')
     ax.set_yscale('log')
     ax.set_xlabel(r'margin $\kappa$', color=INK)
     ax.set_ylabel(r'constraint density $\alpha$', color=INK)

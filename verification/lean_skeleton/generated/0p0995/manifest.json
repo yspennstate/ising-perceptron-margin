@@ -1,0 +1,16 @@
+{
+ "inputs": {
+  "huang_region1_0p0995.json:extract_region1_bdef": "4dbe6ace7b71038921f91034013a9a887dc38e2d1eec6cfc0440987e7d2a86d4",
+  "huang_region1_0p0995.json:extract_region1_schedule": "4dbe6ace7b71038921f91034013a9a887dc38e2d1eec6cfc0440987e7d2a86d4",
+  "huang_star_interior_0p0995.json:extract_star_interior": "dde0abe8f18730153809874f32ac50655195326f7877221468cefb6892baae3c",
+  "huang_sweep2_0p0995.json:stage2_rect": "b6084565173bcc662ea6197bb12cf93c17844f35c812ab882a46d61f38b09ea0",
+  "huang_sweep_0p0995.json:sweep_rect": "d5cd7085467cd52f200d3d12a20958044e177f1319634c0d79d6efc394a052ac"
+ },
+ "outputs": {
+  "huang_region1_0p0995.json:extract_region1_bdef": "d85d7938c0a322b1c5bba41472a14ed607f76fc91bc13a92c2283d5d8ae5f907",
+  "huang_region1_0p0995.json:extract_region1_schedule": "d377113caefd4c2c5e3d30093b3fa471fb054cde5ab4044235d05905d7840435",
+  "huang_star_interior_0p0995.json:extract_star_interior": "de27638cd88db886bfffd196a6955be52c01b1e45347c89cf86a49cc5f9844c1",
+  "huang_sweep2_0p0995.json:stage2_rect": "e4ba6c7b791b25592df6e750f81a564c7407274b77de097c92681d13e1250aa1",
+  "huang_sweep_0p0995.json:sweep_rect": "9427a0e6cd032b288decd0fa8f1799de196211fee690fe268741ff387df79b1f"
+ }
+}

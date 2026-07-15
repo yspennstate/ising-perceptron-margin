@@ -34,8 +34,10 @@ def main():
     p.add_argument('--alpha-hi', type=str, required=True)
     p.add_argument('--q-lo', type=str, required=True)
     p.add_argument('--q-hi', type=str, required=True)
-    p.add_argument('--stages', default='sweep,region1,starint,stage2,'
-                                       'assemble')
+    p.add_argument('--psi-lo', type=str, default=None)
+    p.add_argument('--psi-hi', type=str, default=None)
+    p.add_argument('--stages', default='sweep,region1,supplement,'
+                                       'starint,stage2,assemble')
     p.add_argument('--workers', type=int, default=2)
     args = p.parse_args()
     klo = args.kappa_lo if args.kappa_lo is not None else args.kappa
@@ -47,13 +49,22 @@ def main():
     import certify_km_slab as C
     kappa = C.iv(C.dec(klo), C.dec(khi))
     alpha = C.iv(C.dec(args.alpha_lo), C.dec(args.alpha_hi))
-    q_seed = C.iv(C.dec(args.q_lo), C.dec(args.q_hi))
-    la = C.locate_fp_bisect(C.dec(args.alpha_lo), kappa, q_seed)
-    lb = C.locate_fp_bisect(C.dec(args.alpha_hi), kappa, q_seed)
-    if la is None or lb is None:
-        raise SystemExit('locate failed')
-    q = C.hull(la[0], lb[0])
-    psi = C.hull(la[1], lb[1])
+    if args.psi_lo is not None and args.psi_hi is not None:
+        # direct-enclosure mode: the caller supplies certified (q, psi)
+        # windows (hulled from the strip's per-slab located enclosures),
+        # so no fixed-point location runs here.  The locator is proven
+        # at the strip's 5e-4 slab width and fails on wide kappa balls;
+        # aggregation replaces re-derivation.
+        q = C.iv(C.dec(args.q_lo), C.dec(args.q_hi))
+        psi = C.iv(C.dec(args.psi_lo), C.dec(args.psi_hi))
+    else:
+        q_seed = C.iv(C.dec(args.q_lo), C.dec(args.q_hi))
+        la = C.locate_fp_bisect(C.dec(args.alpha_lo), kappa, q_seed)
+        lb = C.locate_fp_bisect(C.dec(args.alpha_hi), kappa, q_seed)
+        if la is None or lb is None:
+            raise SystemExit('locate failed')
+        q = C.hull(la[0], lb[0])
+        psi = C.hull(la[1], lb[1])
     kball = kappa if klo != khi else C.arb(C.dec(klo))
 
     import huang_cert_region1 as R1
@@ -74,6 +85,15 @@ def main():
     if 'region1' in stages:
         sys.argv = ['region1', str(args.workers)]
         R1.main()
+    if 'supplement' in stages:
+        import supplement_0p05 as SUPP
+        # outer radius 0.0105: the 0.13 run showed stage-2 leaf corners
+        # reach past 0.009 when their angular interval spans the
+        # wedge-shoulder boundary; wider arcs only add coverage
+        nf = SUPP.run_supplement(
+            R1, 'huang_region1_supp_%s.json' % ktag, t1b=0.0105)
+        if nf:
+            raise SystemExit('supplement failed %d chunks' % nf)
     if 'starint' in stages:
         import huang_cert_star_interior as SI
         out = os.path.join(R1.RESULTS_DIR,
@@ -87,16 +107,15 @@ def main():
         if SW.KTAG is None:
             SW.configure_sweep(ktag, kball, alpha, q, psi)
         import huang_cert_sweep2 as S2
-        S2.configure_sweep2(os.path.join(
-            R1.RESULTS_DIR, 'huang_region1_%s.json' % ktag))
+        S2.configure_sweep2(
+            os.path.join(R1.RESULTS_DIR,
+                         'huang_region1_%s.json' % ktag),
+            supplement_path=os.path.join(
+                R1.RESULTS_DIR, 'huang_region1_supp_%s.json' % ktag))
         S2.main(args.workers)
     if 'assemble' in stages:
-        if args.ktag != '0p05':
-            print('assemble stage is written per-ktag; see '
-                  'assemble_2varfn_0p05.py', flush=True)
-        else:
-            import assemble_2varfn_0p05 as A
-            A.main()
+        import assemble_2varfn as A
+        A.assemble(ktag)
 
 
 if __name__ == '__main__':

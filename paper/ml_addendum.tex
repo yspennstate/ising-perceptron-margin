@@ -1,0 +1,39 @@
+% Addendum to sec:ml, staged for the margins revision.  Two
+% paragraphs: the finite-size/algorithmic measurement the section
+% calls for, and the multi-state prior comparison.  Wire into main.tex
+% at the end of sec:ml when the margins set closes.
+
+The algorithmic gap the curve frames is directly measurable at
+moderate size.  A population annealer (hinge energy on violated
+margins, geometric schedule matched to the $2/\sqrt N$ energy scale;
+\texttt{finite\_size\_experi\-ment.py}) trained $N=101$ instances across
+$\alpha$ at $\kappa\in\{0,0.05,0.1\}$.  Its success walls (the half-success crossings) fall in the correct
+$\kappa$ order and sit below the corresponding
+$\alpha_\star(\kappa)$ by $0.08$--$0.12$ in $\alpha$ at this budget,
+while scattered successes persist to the bound itself: at
+$\kappa=0.1$ the last appear at $\alpha\approx0.73$, essentially at
+$\alpha_\star$, and none beyond.  The solutions the
+annealer does find are atypical in exactly the direction the
+clustering picture predicts: at low load their mean gap above
+$\kappa$ tracks the typical-solution law $p(h)$, while near the wall
+it holds around $0.65$--$0.70$ as the typical mean descends --- the
+algorithm reaches the wide, over-margined minority.  At $N=201$ under the same
+per-spin budget the walls sharpen and shift left, so what the
+annealer traces is a budget-dependent lower envelope of the true
+algorithmic threshold; the found-solution histograms meanwhile track
+the derived $p(h)$ closely at moderate load and deform toward
+mid-gaps near the wall.  Both effects are schedule-dependent
+observations, not thresholds; the certified curve is what they are
+measured against.
+
+The margin price also depends on the weight alphabet.  Solving the
+replica-symmetric system for ternary weights $\{-1,0,+1\}$ with a
+self-overlap order parameter (\texttt{exploration/\allowbreak ternary\_km.py},
+anchored by reproducing the binary $\alpha_\star(0)=0.8330786$ to the
+certified digits) gives $\alpha_\star^{\mathrm{tern}}(0)=1.17448$
+against an annealed bound of $\log_2 3$, with $1.07951$ at
+$\kappa=0.05$ and $0.99483$ at $\kappa=0.1$.  Per weight \emph{state} the richer alphabet stores
+more; per weight \emph{bit} it stores less --- $0.741$ against the
+binary $0.833$ constraints per bit at $\kappa=0$, and the gap widens
+monotonically with margin ($0.100$ at $\kappa=0.05$, $0.105$ at $0.1$).  At this level of the theory,
+binary remains the bit-efficient quantization for robust storage.

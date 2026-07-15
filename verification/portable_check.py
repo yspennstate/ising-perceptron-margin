@@ -122,9 +122,32 @@ def main():
     check('stage-2 artifact hash',
           st2['artifact_sha256'] == payload_sha(st2, ('artifact_sha256',)))
     check('stage-2 zero failures', st2['failures'] == 0)
+    if 'GRID_N' in st2['policy']:
+        # a coarse evaluator grid weakens every cell certificate; runs
+        # that forgot the env pin must not pass silently
+        check('stage-2 ran the fine evaluator grid',
+              int(st2['policy']['GRID_N']) >= 3600)
     e = [frac(x) for x in st2['policy']['EXCL_OLD']]
     check('stage-2 schedule tiles the exclusion box',
           grid_tiling(st2['schedule'], (e[0], e[1], e[2], e[3])))
+    if 'EXCL' in sweep['policy']:
+        # the seam: stage-1 treats MIN_SIDE leaves overlapping its
+        # exclusion box as stage-2 territory (they extend at most
+        # MIN_SIDE beyond it), so stage-2's tiled box must reach at
+        # least 2*MIN_SIDE beyond EXCL on every side.  Containment is
+        # the soundness condition (covering more is fine); the slop
+        # absorbs shortest-decimal float reprs, and MIN_SIDE dwarfs it.
+        ex = [frac(x) for x in sweep['policy']['EXCL']]
+        ms = frac(sweep['policy']['MIN_SIDE'])
+        slop = Fraction(1, 10 ** 12)
+        check('sweep/stage-2 exclusion seam (>= EXCL + 2*MIN_SIDE)',
+              e[0] <= ex[0] - 2 * ms + slop and
+              e[1] >= ex[1] + 2 * ms - slop and
+              e[2] <= ex[2] - 2 * ms + slop and
+              e[3] >= ex[3] + 2 * ms - slop)
+    else:
+        print('note: pre-seam sweep manifest (no EXCL in policy); the '
+              'exclusion box is fixed by the hashed sources instead')
     reg1_path = os.path.join(r, f'huang_region1_{t}.json')
     reg1_sha = hashlib.sha256(open(reg1_path, 'rb').read()).hexdigest()
     check('stage-2 binds the shipped Region-I manifest',

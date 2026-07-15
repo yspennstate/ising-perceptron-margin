@@ -248,7 +248,18 @@ The star-containment test is manifest-driven: a certified Region-I
 band (t0, t1, th0, th1) covers every direction in its chunk out to
 min(t1, T_of_angle), so with a zero-failure manifest the certified
 star reach is exactly T_of_angle; failed bands (none expected) cap
-their directions at their inner radius.  Because the star is anchored
+their directions at their inner radius.  A supplementary Region-I run
+(supplement_0p05.run_supplement) certifies the four wedge-shoulder
+arcs on [0.0070, 0.0090] --- the ray certificates are indifferent to
+the zone policy that had excluded them, and leaves straddling the
+shoulder need the extra reach.  The containment evaluates the
+pointwise UNION of the two coverages: the angle interval is split at
+every zone boundary and supplement arc edge, each sub-interval takes
+the larger of its zone reach and (when it lies inside one certified
+arc with no radial gap) the supplement radius, and the minimum over
+sub-intervals is the certified reach.  The first union attempt
+required the WHOLE interval inside one arc and missed a straddling
+leaf; the split form is exact for the piecewise-constant coverage.  Because the star is anchored
 at the true a*, known only as a ball around the stored floats, the
 containment test inflates radially by the ball norm RB and widens the
 angular interval by asin(RB / d_min); cells too close for the angular

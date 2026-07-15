@@ -66,7 +66,8 @@ def gap_density(alpha, kappa, q, hs):
 
 def main():
     be_polite()
-    kappa = 0.05
+    kappa = float(sys.argv[1]) if len(sys.argv) > 1 else 0.05
+    tag = ('n' if kappa < 0 else '') + ('%g' % abs(kappa)).replace('.', 'p')
     rows = []
     hs = np.linspace(kappa, kappa + 6.0, 1201)
     curves = []
@@ -86,7 +87,8 @@ def main():
             rows.append({'alpha_frac': frac, 'alpha': alpha, 'q': q,
                          'h': h, 'density': d})
     os.makedirs('results', exist_ok=True)
-    with open('results/margin_gap_distribution.csv', 'w', newline='') as fh:
+    with open('results/margin_gap_distribution_%s.csv' % tag, 'w',
+              newline='') as fh:
         w = csv.DictWriter(fh, fieldnames=list(rows[0].keys()))
         w.writeheader()
         w.writerows(rows)
@@ -103,15 +105,15 @@ def main():
     ax.axvline(kappa, color='#52514e', lw=0.8, ls='--')
     ax.set_xlabel('constraint field $h$')
     ax.set_ylabel('density among solutions')
-    ax.set_title('RS margin distribution at $\\kappa=0.05$ '
-                 '(diagnostic, nonrigorous)', fontsize=10)
+    ax.set_title('RS margin distribution at $\\kappa=%g$ '
+                 '(diagnostic, nonrigorous)' % kappa, fontsize=10)
     ax.legend(frameon=False, fontsize=8)
     for s in ('top', 'right'):
         ax.spines[s].set_visible(False)
     ax.grid(True, alpha=0.25, linewidth=0.6)
     fig.tight_layout()
-    fig.savefig('results/margin_gap_distribution.png')
-    print('wrote results/margin_gap_distribution.csv and .png')
+    fig.savefig('results/margin_gap_distribution_%s.png' % tag)
+    print('wrote results/margin_gap_distribution_%s.csv and .png' % tag)
 
 
 if __name__ == '__main__':

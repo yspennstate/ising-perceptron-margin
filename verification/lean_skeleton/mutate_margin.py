@@ -10,34 +10,41 @@ import re
 import subprocess
 
 
-def mutate_first_int(text):
-    """Negate the largest integer in the data section: a sign flip
-    falsifies every claim family here (packet positivity, corner-product
-    determinants, chain seam equalities and nonemptiness), unlike a
-    trailing-digit flip, which can land inside an inequality's margin
-    and leave the mutated statement true."""
+def mutations(text, k=4):
+    """Yield up to k mutants, each negating one of the k largest
+    integers in the data section.  A single sign flip can land on the
+    favorable side of a one-sided inequality (negating the REQUIRED
+    radius leaves inradius > required true - seen at tag 0p13), so the
+    battery tries the top-k in turn and passes when ANY mutant is
+    rejected; only all-survive is an alarm."""
     body = text.split("theorem", 1)[0]
     body = re.sub(r'^set_option[^\n]*$', lambda m: ' ' * len(m.group(0)),
                   body, flags=re.M)      # options are not certificate data
-    best = None
+    found = []
     for m in re.finditer(r'(?<=[(,\s])(-?\d+)(?=[),\s])', body):
         v = m.group(1)
-        mag = int(v.lstrip('-'))
-        if best is None or mag > best[0]:
-            best = (mag, m.span(1), v)
-    if best is None:
+        found.append((int(v.lstrip('-')), m.span(1), v))
+    if not found:
         raise ValueError('no mutable integer found')
-    (_, (start, end), val) = best
-    new_val = val[1:] if val.startswith('-') else '-' + val
-    return text[:start] + new_val + text[end:]
+    found.sort(key=lambda t: -t[0])
+    for (_, (start, end), val) in found[:k]:
+        new_val = val[1:] if val.startswith('-') else '-' + val
+        yield text[:start] + new_val + text[end:]
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--lean', required=True)
-    ap.add_argument('--src', default='generated')
-    ap.add_argument('--out', default='mutants')
+    ap.add_argument('--tag', default='0p05')
+    ap.add_argument('--src', default=None,
+                    help='source dir (default: generated/<tag>)')
+    ap.add_argument('--out', default=None,
+                    help='mutant dir (default: mutants/<tag>)')
     args = ap.parse_args()
+    if args.src is None:
+        args.src = os.path.join('generated', args.tag)
+    if args.out is None:
+        args.out = os.path.join('mutants', args.tag)
     os.makedirs(args.out, exist_ok=True)
     n_ok = 0
     n_bad = 0
@@ -45,16 +52,20 @@ def main():
         if not name.endswith('.lean'):
             continue
         text = open(os.path.join(args.src, name), encoding='utf-8').read()
-        mut = mutate_first_int(text)
-        if mut == text:
-            raise ValueError(f'{name}: mutation produced identical text')
-        mpath = os.path.join(args.out, name)
-        with open(mpath, 'w', encoding='utf-8', newline='\n') as f:
-            f.write(mut)
-        r = subprocess.run([args.lean, mpath], capture_output=True,
-                           text=True)
-        rejected = r.returncode != 0
-        print(f'{name}: mutant {"REJECTED" if rejected else "ACCEPTED"}')
+        rejected = False
+        tried = 0
+        for mut in mutations(text):
+            tried += 1
+            mpath = os.path.join(args.out, name)
+            with open(mpath, 'w', encoding='utf-8', newline='\n') as f:
+                f.write(mut)
+            r = subprocess.run([args.lean, mpath], capture_output=True,
+                               text=True)
+            if r.returncode != 0:
+                rejected = True
+                break
+        print(f'{name}: mutant {"REJECTED" if rejected else "ACCEPTED"}'
+              f' (tried {tried})')
         if rejected:
             n_ok += 1
         else:

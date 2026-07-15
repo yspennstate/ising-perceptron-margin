@@ -143,16 +143,27 @@ def _T_star_min(lo, hi):
                         cuts.add(s)
     for (a, b) in SUPP_ARCS:
         for s in (a, b):
-            if lo < s < hi:
-                cuts.add(s)
+            # arc edges are stored in [0, 2pi); the query interval may
+            # sit on the negative atan2 branch, so test every branch
+            # image of the edge (the miss cost a certified-coverage
+            # gap at 0.13: the supplement was invisible to negative-
+            # branch leaves, weakening containment only)
+            for shift in (-2 * math.pi, 0.0, 2 * math.pi):
+                if lo < s + shift < hi:
+                    cuts.add(s + shift)
     pts = sorted(cuts)
     T = None
     for a, b in zip(pts[:-1], pts[1:]):
         Tz = _zone_T(a, b)
         Tu = Tz
         if SUPP_ARCS and Tz >= SUPP_T0:
+            # normalize the piece midpoint into the arcs' branch and
+            # test containment with the piece's own width
+            m = 0.5 * (a + b)
+            w = 0.5 * (b - a)
+            mn = m % (2 * math.pi)
             for (sa, sb) in SUPP_ARCS:
-                if sa - 1e-12 <= a and b <= sb + 1e-12:
+                if sa - 1e-12 <= mn - w and mn + w <= sb + 1e-12:
                     Tu = max(Tz, SUPP_T1)
                     break
         T = Tu if T is None else min(T, Tu)
@@ -309,6 +320,11 @@ def main(nw=None):
         'source_sha256': sources, 'runtime': exact.runtime_record(50, nw),
         'policy': {'n1': n1, 'n2': n2,
                    'EXCL_OLD': [repr(x) for x in EXCL_OLD],
+                   # the evaluator grid must be visible here: a run on
+                   # the coarse default is weaker cell-for-cell, and
+                   # tonight a missing env pin cost an hour because no
+                   # manifest field recorded which grid evaluated
+                   'GRID_N': __import__('huang_cert_grid').GRID_N,
                    'MIN_SIDE': repr(MIN_SIDE), 'RB': repr(RB),
                    'SAFE_R': repr(SAFE_R),
                    'region1_manifest_sha256': MANIFEST_SHA,

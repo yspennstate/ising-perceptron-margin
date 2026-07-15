@@ -73,7 +73,18 @@ def configure_sweep(ktag, kappa, alpha, q, psi):
     A2MAX = round(float(a2max) * 1.005, 3)
     A1S = float((hg.PSI * (1 - hg.Q)).mid())
     A2S = float(hg.Q.mid())
-    EXCL = (A1S - 0.1733, A1S + 0.1767, A2S - 0.1139, A2S + 0.0961)
+    # The +a2 offset was 0.0961 through the kappa = 0.05 and -0.05 runs;
+    # at kappa = 0.0995 the sweep found a degenerate ridge just above
+    # that top edge (a MIN_SIDE leaf at a2 - A2S in [0.0967, 0.0986]
+    # returning [+/- 0.181], certifiable again two leaf-widths higher),
+    # so the edge moved to +0.1030.  Enlarging this box is safe only
+    # because stage-2 tiles its jobs from this tuple (EXCL_OLD = EXCL +
+    # sliver pad) and certifies every tile: an EXCL that outgrows what
+    # the star and supplement cover fails stage-2 loudly rather than
+    # leaving a gap between the pieces.  (Star-interior is independent
+    # of this box; it certifies the star itself sits in the moment
+    # body.)
+    EXCL = (A1S - 0.1733, A1S + 0.1767, A2S - 0.1139, A2S + 0.1030)
 
 
 def dec_f(x, nd=6):
@@ -406,7 +417,12 @@ def main():
         'source_sha256': sources, 'runtime': exact.runtime_record(50, nw),
         'policy': {'coarse': coarse, 'A1MAX': repr(A1MAX),
                    'A2MAX': repr(A2MAX), 'MIN_SIDE': repr(MIN_SIDE),
-                   'MAX_DEPTH': MAX_DEPTH, 'GRID_N': hg.GRID_N},
+                   'MAX_DEPTH': MAX_DEPTH, 'GRID_N': hg.GRID_N,
+                   # the exclusion box this sweep skipped (leaves inside
+                   # it are invisible in the records), so the seam with
+                   # stage-2's EXCL_OLD is checkable from manifests
+                   # alone rather than through the source hashes
+                   'EXCL': [repr(x) for x in EXCL]},
         'schedule': schedule,
         'schedule_sha256': exact.payload_sha256(schedule, omit=()),
         'records': records, 'total_leaves': total_cells,

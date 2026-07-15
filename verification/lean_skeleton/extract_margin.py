@@ -336,9 +336,22 @@ def extract_region1_bdef(path, out_dir):
         if not (lo11 > 0 and lo22 > 0 and b * b < lo11 * lo22):
             raise ValueError('mirror B-definiteness failed')
         rows.append((m11, r11, m22, r22, m12, r12))
-    lists = ',\n  '.join(
-        f'({lean_int(a)}, {lean_int(b_)}, {lean_int(c)}, {lean_int(d)}, '
-        f'{lean_int(e)}, {lean_int(f)})' for a, b_, c, d, e, f in rows)
+    # One decide over all bands exceeds the kernel recursion limit, so
+    # the list is partitioned into fixed-size chunks with one theorem
+    # each, plus a kernel-decided total count (no band dropped).
+    CH = 108
+    chunks = [rows[i:i + CH] for i in range(0, len(rows), CH)]
+    parts = []
+    for k, ch in enumerate(chunks, 1):
+        lists = ',\n  '.join(
+            f'({lean_int(a)}, {lean_int(b_)}, {lean_int(c)}, {lean_int(d)}, '
+            f'{lean_int(e)}, {lean_int(f)})' for a, b_, c, d, e, f in ch)
+        parts.append(
+            f'def r1BMat_{k} : List (Int × Int × Int × Int × Int × Int) '
+            f':= [\n  {lists}]\n\n'
+            f'theorem r1_bdef_{k} : r1BMat_{k}.all bDefOk = true := '
+            f'by decide\n')
+    total = ' + '.join(f'r1BMat_{k}.length' for k in range(1, len(chunks) + 1))
     body = f'''
 def bDefOk : Int × Int × Int × Int × Int × Int → Bool
   | (m11, r11, m22, r22, m12, r12) =>
@@ -347,10 +360,8 @@ def bDefOk : Int × Int × Int × Int × Int × Int → Bool
     let b := (max (m12 - r12).natAbs (m12 + r12).natAbs : Int)
     decide (0 < l11) && decide (0 < l22) && decide (b * b < l11 * l22)
 
-def r1BMat : List (Int × Int × Int × Int × Int × Int) := [
-  {lists}]
-
-theorem r1_bdef : r1BMat.all bDefOk = true := by decide
+{chr(10).join(parts)}
+theorem r1_bdef_total : {total} = {len(rows)} := by decide
 '''
     return emit(os.path.join(out_dir, 'R1BDef.lean'), 'R1BDef', body)
 
@@ -413,8 +424,12 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--results', default=os.path.join('..', 'results'))
     ap.add_argument('--tag', default='0p05')
-    ap.add_argument('--out', default='generated')
+    ap.add_argument('--out', default=None,
+                    help='output dir (default: generated/<tag>, so '
+                         'margins never overwrite each other)')
     args = ap.parse_args()
+    if args.out is None:
+        args.out = os.path.join('generated', args.tag)
     os.makedirs(args.out, exist_ok=True)
     r = args.results
     t = args.tag
