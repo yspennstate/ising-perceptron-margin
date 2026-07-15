@@ -106,6 +106,12 @@ iteration, a local-concavity condition at a witness point, and a
 global nonpositivity condition for a two-variable rate function
 $\sS_\star$.  At $\kappa=0$ these are exactly the hypotheses closed in
 \cite{shmalo2026capacity}; at $\kappa\ne0$ they were open.
+The general-$\kappa$ curve has been predicted before by non-rigorous
+means --- Stojnic's fully-lifted random duality
+theory~\cite{stojnic2023} reproduces the same replica-symmetric
+values across margins --- so what is new here is not the numerical
+value but its rigorous certification, which had stopped at
+$\kappa=0$.
 
 This paper is a certified study of the whole margin axis.  Its
 contributions are of three kinds.
@@ -322,7 +328,7 @@ $10^{-15}$ level along the whole continuation) and symbolically.
 \caption{The replica-symmetric threshold
 $\alpha_\star(\kappa)$ (warm-started continuation from the certified
 value at $\kappa=0$), the annealed bound $\log 2/(-\log\Psi(\kappa))$,
-the Gardner spherical capacity, and Nakajima's saddle-existence bound
+the Gardner spherical capacity~\cite{gardner1988}, and Nakajima's saddle-existence bound
 $\alpha_c(\kappa)=2/(\pi\,\E[(\kappa-Z)_+^2])$ for $\kappa\ge0$.  The
 inset shows the certified per-slab $\alpha_\star$ intervals on the
 strip.}
@@ -469,15 +475,27 @@ map is endpoint-inward at both $\alpha$ ends with margins above
 $2.3\cdot10^{-4}$, the $G$ signs at the located fixed points are
 $+1.6\cdot10^{-7}$ and $-1.6\cdot10^{-6}$, and $\E\log\Psi<0$
 over the rectangle (\texttt{rect\_cond31\_0p13.json}; locate and
-$G$ evaluator depth $16000$).  The wide-rectangle product $1.32$ was
-a bound artifact, not a property of the map: on a thin located
-rectangle the certified contraction clears $1$ at $\kappa=0.13$ and
-on the sampled slabs at the lane's lower edge (per $\kappa$
-sub-ball, matching the lane's own subdivision;
-\texttt{rect\_strip\_nak.jsonl}), so the same driver discharges the
-rectangle clause slab by slab where run.  We certify it in full only
-at $\kappa=0.13$; extending it across the lane is compute, not new
-mathematics.
+$G$ evaluator depth $16000$).  The wide-rectangle product $1.32$ is a
+pad artifact, not a property of the map, and the map itself carries
+no wall across the lane: the true fixed-point contraction
+$(P\circ R_\alpha)'(q_\star)$ is nearly flat, rising only from
+$0.758$ at $\kappa=0.10$ to $0.770$ at $\kappa=0.19$, everywhere
+below $1$ with margin above $0.22$.  What decides the rectangle
+clause is therefore the pad width, not the margin: a probe over the
+lane (\texttt{rect\_strip\_nak.jsonl}, per $\kappa$ sub-ball) clears
+$1$ at the lower edge with a $2\cdot10^{-3}$ half-pad but crosses it
+($1.012$) by $\kappa=0.15$ as that same pad inflates the flat
+$0.765$, exactly as a thinner located rectangle pulls $\kappa=0.13$
+back to $0.844$.  The pad that matters is the located $q$ interval,
+whose width is set mostly by the slab's $\alpha$ width
+($3\cdot10^{-3}$) through $\partial q_\star/\partial\alpha\approx0.9$;
+narrowing it means deep-locating $\alpha_\star$ per slab to
+$\sim10^{-6}$, the same tightening the five point margins already
+carry, after which the flat contraction leaves a thin rectangle that
+clears $1$.  We certify the clause in full only at $\kappa=0.13$;
+extending it across the lane is that per-slab deep location plus a
+thin rectangle --- compute, not new mathematics, since the
+contraction the clause bounds never approaches its limit.
 
 The second lane certifies $[0.10,0.19]$ ($180$ slabs) on that
 design: existence by the same inward sweep; location by certified
@@ -1098,11 +1116,6 @@ arXiv:2312.00073.
 S.~Li, T.~Schramm and K.~Zhou,
 Discrepancy algorithms for the binary perceptron,
 arXiv:2408.00796.
-
-\bibitem{talagrand2011}
-M.~Talagrand,
-\emph{Mean Field Models for Spin Glasses}, Volumes I--II,
-Springer (2011).
 
 \end{thebibliography}
 
