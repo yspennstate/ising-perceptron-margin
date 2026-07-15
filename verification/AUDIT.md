@@ -107,10 +107,14 @@ certify_nak.py):
   the closed form is sympy-verified against the defining integral).
 - Existence: the same inward sweep (already contraction-free).
 - Location: `locate_fp_bisect` - certified sign bisection of the
-  displacement P(R(q)) - q at thin q points, pure intermediate-value
-  invariant (d > 0 to the left of the fixed point, < 0 to the right;
-  monotonicity of P o R from dR/dq > 0 and P' > 0), with quartile
-  fallback at the kappa-width resolution floor.  No contraction input.
+  displacement P(R(q)) - q at thin q points.  The sign pattern
+  (d > 0 to the left of the fixed point, < 0 to the right) follows
+  from continuity, the certified endpoint signs, and uniqueness of
+  the zero on the interval (Nakajima under the certified premise) -
+  monotonicity of P o R alone would not give it, since the
+  displacement's derivative (P o R)' - 1 has no fixed sign.
+  Quartile fallback at the kappa-width resolution floor.  No
+  contraction input.
 - The located-interval contraction (the local form Huang's
   perturbation argument consumes) and the G crossing run per kappa
   sub-ball (n_k = 8), because the kappa width floors the

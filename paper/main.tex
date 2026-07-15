@@ -13,6 +13,7 @@
 \newtheorem{rmk}{Remark}
 
 \newcommand{\E}{\mathbb{E}}
+\newcommand{\Prob}{\mathbb{P}}
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\sS}{\mathcal{S}}
 \DeclareMathOperator{\sech}{sech}
@@ -38,11 +39,12 @@ verified in interval arithmetic.  This paper moves the verified upper
 bound off the point $\kappa=0$.  Two elementary identities make the
 general-margin system as tractable as the zero-margin one: the
 replica-symmetric free energy is stationary in both order parameters
-exactly at the fixed point, so the threshold $\alpha_\star(\kappa)$ is
-the unique root of a strictly decreasing function; and $\partial R/
-\partial q$ has a one-term integral representation with positive
-integrand, extending the monotonicity lemma of Ding and Sun to every
-margin.  Building on these we verify, in ball arithmetic over
+exactly at the fixed point, so on each certified branch rectangle
+the threshold $\alpha_\star(\kappa)$ is the unique root of a strictly
+decreasing function; and $\partial R/\partial q$ collapses to a
+one-term integral with positive integrand, a form of the
+general-margin monotonicity of Ding and Sun that interval arithmetic
+can consume directly.  Building on these we verify, in ball arithmetic over
 sub-slabs of the margin axis, Huang's fixed-point, AMP, and
 local-concavity conditions on the strip $\kappa\in[-0.65,0.19]$
 ($1680$ contiguous slabs across two uniqueness lanes, the second
@@ -63,6 +65,13 @@ instance $\alpha_\star(0.05)\in[0.781073068,0.781074776]$ and
 $\alpha_\star(-0.45)\in[1.557652103,1.557654133]$.  The verification
 code, certificates, and replay instructions are at
 \url{https://github.com/yspennstate/ising-perceptron-margin}.
+  On the lower-bound side, open at every nonzero
+margin, we prove that unconditioned second moments fail at every
+margin (with a closure over nonnegative weights for
+$\kappa\ge0$), derive capacity lower bounds for all $\kappa<0$ by
+embedding a symmetric perceptron, and verify in floating point that
+the general-margin form of Ding--Sun's lower-bound condition holds
+at all five certified margins.
 \end{abstract}
 
 \section{Introduction}
@@ -105,9 +114,11 @@ First, two identities (Section~\ref{sec:identities}) that make the
 general-margin system as well behaved as the zero-margin one.  The
 replica-symmetric functional $G$ is stationary in both order
 parameters exactly on the fixed-point branch, at every $(\alpha,
-\kappa)$; by the envelope theorem $G_\star'(\alpha)=\E\log\Psi(u)<0$
-strictly, so $\alpha_\star(\kappa)$ is always the unique root of a
-strictly decreasing function.  And the derivative $\partial R/\partial
+\kappa)$; by the envelope theorem, along a differentiable fixed-point
+branch, $G_\star'(\alpha)=\E\log\Psi(u)<0$ strictly, so on every
+certified rectangle --- where the contraction makes the branch exist,
+stay unique, and vary smoothly --- $\alpha_\star(\kappa)$ is the
+unique root of a strictly decreasing function.  And the derivative $\partial R/\partial
 q$ of the constraint-side fixed-point map collapses, after an
 integration by parts, to a one-term integral with positive integrand
 --- the general-margin form of Ding--Sun's monotonicity lemma, and the
@@ -202,13 +213,18 @@ state in the form his proof consumes.
 
 \begin{cond}[fixed point]\label{cond:fp}
 On a stated rectangle, $q\mapsto P(R(q,\alpha))$ has a unique fixed
-point for every $\alpha$ in a stated interval, and $G_\star$ crosses
-zero inside that interval.
+point for every $\alpha$ in a stated interval, with
+$\sup_{q\in(q_{\mathrm{lb}},q_{\mathrm{ub}})}(P\circ R_\alpha)'(q)<1$
+uniformly on the rectangle, and $G_\star$ crosses zero inside that
+interval.  The rectangle is existentially quantified: Huang's own
+$\kappa=0$ instantiation (his Proposition~3.2) takes an interval of
+width $10^{-9}$ about the fixed point.
 \end{cond}
 
 \begin{cond}[AMP]\label{cond:amp}
 $\alpha\,\E[\sech^4(\sqrt{\psi_0}Z)]\;
-\E[M'(u(\sqrt{q_0}Z))^2]/(1-q_0)^2\;<\;1$ at the fixed point.
+\E[M'(u(Z;q_0,\kappa))^2]/(1-q_0)^2\;<\;1$ at the fixed point,
+with $u(z;q,\kappa)=(\kappa-\sqrt q\,z)/\sqrt{1-q}$ as above.
 \end{cond}
 
 \begin{cond}[local concavity]\label{cond:lc}
@@ -347,8 +363,8 @@ from $[-0.55,0]$ suggested a crossing near $-1.5$, and the
 measurement refutes it, a small lesson in not projecting fitted decay
 past its support.  On the positive branch $\alpha_\star(\kappa)$
 stays below Nakajima's bound at every grid point (worst ratio $0.874$
-at $\kappa=1.5$).  As $\kappa\to-2$ the threshold approaches the
-annealed bound from below, as it must where the constraints
+at $\kappa=1.5$).  Toward $\kappa=-2$, the lower edge of the computed range, the
+threshold approaches the annealed bound from below, as it must where the constraints
 trivialize.  The optimal tilt of the two-variable functional at its
 maximizer matches $\sqrt{1-q_0}$ to eight digits at every $\kappa$
 checked, extending Huang's zero-margin lemma along the curve --- this
@@ -426,8 +442,10 @@ All $1500$ slabs covering $[-0.65,0.10]$ pass every check, in forty
 independent worker runs whose collector also gates contiguity
 (consecutive slabs must share their $\kappa$ boundary).  Two first
 attempts failed and are kept as evidence: one at doubled slab width
-(the $q$ pad must cover the within-slab drift $dq_\star/d\kappa$,
-which is humped and reaches $3.4$ near $\kappa=-0.2$), and one on the
+(the $q$ pad must cover the fixed point's drift across the slab's
+$(\alpha,\kappa)$ rectangle, dominated by $\partial q_\star/\partial
+\alpha\approx0.92$ times the $\alpha$ pad; the direct drift
+$dq_\star/d\kappa$ stays near $0.18$ across the strip), and one on the
 separated-form $\lambda$ enclosure described above.
 
 \subsection{The Nakajima lane}\label{sec:nak}
@@ -435,12 +453,25 @@ separated-form $\lambda$ enclosure described above.
 The rectangle product bound saturates near $\kappa\approx0.12$, and
 we measure that this wall belongs to the method, not the condition:
 at $\kappa=0.13$ the box product reads $1.32$, while a certified sign
-bisection of the displacement $P(R(q))-q$ --- monotone by
-Lemma~\ref{lem:dR}, so the displacement is positive below the fixed
-point and negative above --- locates the fixed point at both $\alpha$
+bisection of the displacement $P(R(q))-q$ --- which has certified signs at the interval endpoints and, by
+the uniqueness of the fixed point, a single zero between them, so it
+is positive below the fixed point and negative above --- locates the fixed point at both $\alpha$
 endpoints to width $2\cdot10^{-8}$ with no contraction input, the
 contraction evaluated on the located intervals reads $0.79$, and the
 $G$ crossing resolves with margins $2\cdot10^{-3}$.
+
+The rectangle clause itself is then discharged at $\kappa=0.13$
+exactly as Huang's Proposition~3.2 discharges it at $\kappa=0$: on
+the rectangle $\alpha\in[0.705932217,\,0.705933898]$,
+$q\in[0.5836943,\,0.5857104]$ (the located fixed points
+$\pm10^{-3}$), the certified contraction product is $0.8435$, the
+map is endpoint-inward at both $\alpha$ ends with margins above
+$2.3\cdot10^{-4}$, the $G$ signs at the located fixed points are
+$+1.6\cdot10^{-7}$ and $-1.6\cdot10^{-6}$, and $\E\log\Psi<0$
+over the rectangle (\texttt{rect\_cond31\_0p13.json}; locate and
+$G$ evaluator depth $16000$).  The wide-rectangle product $1.32$ was
+a bound artifact, not a property of the map, and the same driver
+extends slab by slab.
 
 The second lane certifies $[0.10,0.19]$ ($180$ slabs) on that
 design: existence by the same inward sweep; location by certified
@@ -651,7 +682,8 @@ entirely:
 E'\in(0,1),\qquad
 0<E''<E-V ,
 \]
-the second being the variance of the one-sided truncated Gaussian,
+the second because the one-sided truncated Gaussian has variance
+$1-E'(V)\in(0,1)$,
 the third following from convexity of the Gaussian hazard together
 with $E''=E'\,(E+(E-V))-E<E-V$ when $E'<1$.  Intersecting a computed
 enclosure with a proven bound is always sound; on benign cells the
@@ -676,7 +708,7 @@ radians off the weak axes (margins $-0.35$ to $-2.7$): the zone
 policy, not the concavity, was the binding constraint there, and
 stage-2 leaves straddling the wedge shoulder need the extra reach.
 \item[(iii)] \emph{Stage 2}: the exclusion box minus the star,
-$1348$ leaves, zero failures, with star containment read from the
+$1365$ leaves, zero failures, with star containment read from the
 Region-I manifests themselves --- a certified band covers every
 direction of its chunk out to the star boundary, so the certified
 reach is the pointwise union of the main zone reach and the
@@ -711,8 +743,7 @@ $1-o(1)$ no $w\in\{-1,+1\}^N$ satisfies all $\alpha N$ constraints.
 \end{theorem}
 
 The same pipeline is parameterized over the located boxes of any
-certified slab, and nothing in it is specific to a point margin
-beyond compute time; what stands between the point theorem and a
+certified slab; what stands between the point theorem and a
 $\kappa$-interval version of Condition~\ref{cond:2var} is quantified
 in Section~\ref{sec:interval}.  The other three conditions do not
 wait for that extension: they are certified over the whole strip,
@@ -740,6 +771,8 @@ two-variable inequality at that single margin.
 
 \input{margins_appendix}
 
+\input{lower_bound_section}
+
 \section{Verifying the verification}\label{sec:metaverify}
 
 A verification of this size is itself software, and we treat its
@@ -766,10 +799,13 @@ AMP and $\lambda$ constants, his $C_j$ and $\det M$ intervals, and
 the ported quadrature layer is digit-identical against the
 zero-margin original at test points.
 
-\emph{Exact artifacts and replay.}  Certificates are canonical
-float-free JSON with outward decimal packets, SHA-256 source and
-payload binding, and atomic no-clobber publication; the stage-2
-artifact binds the hash of the Region-I manifest it consumed.  A
+\emph{Exact artifacts and replay.}  Certificates carry every
+sign-critical quantity as outward-rounded decimal packets in
+canonical JSON, with SHA-256 source and payload binding and atomic
+no-clobber publication; the stage-2 artifact binds the hash of the
+Region-I manifest it consumed.  (Some schedule-geometry fields
+remain ordinary JSON floats; they parameterize display and tiling
+bookkeeping, not the inequalities.)  A
 documentation self-check keeps the replay instructions honest, and
 the fresh-clone consumer test (clone cold, run as a reproducer
 would) is part of the release procedure --- on the zero-margin
@@ -777,7 +813,13 @@ release it caught a stale generator that no other layer could see.
 A dependency-free portable checker re-verifies the connection layer
 from the JSON artifacts alone: the envelope hashes, the
 stage-2-to-Region-I bindings, the star-interior chain recomputed
-outward in exact rationals, and the tilings.
+outward in exact rationals, and the tilings within each serialized
+chain.  Two global completeness clauses --- that radial chains reach
+the stated outer radius, and that angular runs close the full circle
+--- are not yet enforced mechanically by either the portable checker
+or the Lean layer; the shipped manifests satisfy both on direct
+inspection, and enforcing them is the next hardening step, since a
+malformed future artifact could otherwise pass the stated checks.
 
 \emph{A second proof system.}  The exact combinatorial and algebraic
 layer of the certificate chain --- the star-interior inequality chain
@@ -785,10 +827,13 @@ and the positivity of its perturbation determinant from the
 serialized packets, the definiteness of the Loewner majorants, and
 the gap-free tilings of the sweep grids and the Region-I band
 schedule --- is re-stated over the integers and kernel-checked in
-Lean~4, following the zero-margin release: four generated files
-whose forty-one kernel-decided theorems cover the $1404$-band radius
+Lean~4, following the zero-margin release: per-margin generated files
+whose kernel-decided theorems cover the $1404$-band radius
 chain and its angular runs, both sweep grid tilings, and the
-star-interior packet chain.  The extraction is mirrored in exact
+star-interior packet chain, with the Loewner-majorant family at the
+four margins whose manifests carry exact $B$-matrix packets (the
+$\kappa=0.05$ manifest predates that schema and its regeneration is
+queued).  The extraction is mirrored in exact
 rational arithmetic so an extraction bug cannot silently weaken the
 Lean claims, and a mutation battery (negating one certificate
 integer per file) is rejected four for four.  The slab-level sign claims
@@ -905,7 +950,9 @@ geometry to generalization bounds of the classical margin type.
 \section{Scope}\label{sec:scope}
 
 The certified statements are: Conditions~\ref{cond:fp}--\ref{cond:lc}
-on all of $\kappa\in[-0.65,0.19]$ (Theorem~\ref{thm:strip}); deep
+on $\kappa\in[-0.65,0.10]$, the same without the rectangle clause on
+$(0.10,0.19]$, and the rectangle clause again at $\kappa=0.13$
+(Theorem~\ref{thm:strip}); deep
 $\alpha_\star$ intervals at five margins; the center Hessian at six;
 Condition~\ref{cond:2var} at
 $\kappa\in\{-0.45,-0.05,0,0.05,0.0995,0.13\}$; and hence Huang's
@@ -917,12 +964,7 @@ is proved at $\kappa=0$ only, so nothing here is an exact threshold
 statement at $\kappa\ne0$.  All float scans are diagnostics, not
 certificates, and are labeled as such in the repository.
 
-\section*{Funding and declarations}
-The author acknowledges support from the European Research Council
-under the European Union's Horizon 2022 research and innovation
-programme, the Simons Foundation, Heights Labs, and Israel Science
-Foundation grants 2258/19 and 4101/25.
-
+\section*{Declarations}
 Most of the work reported here was done by Fable~5 (Anthropic), an AI
 system: the mathematical theory (the stationarity and derivative
 identities, the general-margin Hessian formulas, the symbolic-
@@ -974,19 +1016,45 @@ arXiv:2512.23195.
 Y.~Shmalo,
 The storage capacity of the Ising perceptron: verification of the
 outstanding numerical conditions,
-manuscript and verification repository,
-\url{https://github.com/yspennstate/ising-perceptron-capacity}
-(2026).
+arXiv:2607.11010 (2026); verification repository at
+\url{https://github.com/yspennstate/ising-perceptron-capacity}.
 
 \bibitem{aubin2019storage}
 B.~Aubin, W.~Perkins and L.~Zdeborov\'a,
 Storage capacity in symmetric binary perceptrons,
 \emph{J.~Phys.~A} \textbf{52} (2019), 294003.
 
+\bibitem{perkinsxu2021}
+W.~Perkins and C.~Xu,
+Frozen 1-RSB structure of the symmetric Ising perceptron,
+STOC 2021; arXiv:2102.05163.
+
+\bibitem{abbelisly2021}
+E.~Abbe, S.~Li and A.~Sly,
+Proof of the contiguity conjecture and lognormal limit for the
+symmetric perceptron,
+FOCS 2021; arXiv:2102.13069.
+
 \bibitem{gamarnik2022algorithms}
 D.~Gamarnik, E.~C.~Kizilda\u{g}, W.~Perkins and C.~Xu,
 Algorithms and barriers in the symmetric binary perceptron model,
 \emph{FOCS 2022}, 576--587.
+
+\bibitem{nakajimasun2022}
+S.~Nakajima and N.~Sun,
+Sharp threshold sequence and universality for Ising perceptron
+models,
+arXiv:2204.03469.
+
+\bibitem{stojnic2023}
+M.~Stojnic,
+Binary perceptrons capacity via fully lifted random duality theory,
+arXiv:2312.00073.
+
+\bibitem{lsz2024}
+S.~Li, T.~Schramm and K.~Zhou,
+Discrepancy algorithms for the binary perceptron,
+arXiv:2408.00796.
 
 \bibitem{talagrand2011}
 M.~Talagrand,

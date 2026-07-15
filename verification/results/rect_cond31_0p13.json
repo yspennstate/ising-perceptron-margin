@@ -1,0 +1,61 @@
+{
+ "kind": "huang_condition_3_1_rectangle",
+ "kappa": "0.13",
+ "alpha_lb": "[0.70593221700000000000000 +/- 9.50e-25]",
+ "alpha_ub": "[0.70593389800000000000000 +/- 1.52e-24]",
+ "q_lb": "[0.58369426839202867145662 +/- 4.12e-24]",
+ "q_ub": "[0.58571036636541109877877 +/- 5.77e-24]",
+ "contraction_hi": "[0.84345104042886251678913 +/- 2.89e-24]",
+ "evaluators": {
+  "n_loc": 16000,
+  "n_g": 16000
+ },
+ "checks": [
+  {
+   "name": "seed ball inward at both alpha ends",
+   "ok": true,
+   "detail": "locate returned"
+  },
+  {
+   "name": "inward at alpha_lb, low edge",
+   "ok": true,
+   "detail": "P(R(q_lo)) - q_lo >= [0.00024036337190693345007155 +/- 3.03e-27]"
+  },
+  {
+   "name": "inward at alpha_lb, high edge",
+   "ok": true,
+   "detail": "q_hi - P(R(q_hi)) >= [0.00023959821812520056257946 +/- 2.66e-27]"
+  },
+  {
+   "name": "inward at alpha_ub, low edge",
+   "ok": true,
+   "detail": "P(R(q_lo)) - q_lo >= [0.00024075860292959444597069 +/- 3.13e-27]"
+  },
+  {
+   "name": "inward at alpha_ub, high edge",
+   "ok": true,
+   "detail": "q_hi - P(R(q_hi)) >= [0.00023920376762156136024600 +/- 1.86e-27]"
+  },
+  {
+   "name": "contraction sup(P')*sup|dR/dq| < 1",
+   "ok": true,
+   "detail": "enclosure hi = [0.84345104042886251678913 +/- 2.89e-24]"
+  },
+  {
+   "name": "G(alpha_lb) > 0",
+   "ok": true,
+   "detail": "lo = [1.6094537636839103040939e-7 +/- 3.95e-30]"
+  },
+  {
+   "name": "G(alpha_ub) < 0",
+   "ok": true,
+   "detail": "hi = [-1.6018122999798065368552e-6 +/- 1.37e-29]"
+  },
+  {
+   "name": "E log Psi < 0 over the rectangle",
+   "ok": true,
+   "detail": "hi = [-1.3202935733742523875403 +/- 7.17e-24]"
+  }
+ ],
+ "ok": true
+}
