@@ -492,9 +492,14 @@ whose width is set mostly by the slab's $\alpha$ width
 narrowing it means deep-locating $\alpha_\star$ per slab to
 $\sim10^{-6}$, the same tightening the five point margins already
 carry, after which the flat contraction leaves a thin rectangle that
-clears $1$.  We certify the clause in full only at $\kappa=0.13$;
-extending it across the lane is that per-slab deep location plus a
-thin rectangle --- compute, not new mathematics, since the
+clears $1$.  We ran this recipe at both ends of the lane: with
+$\alpha_\star$ deep-located to width $7\cdot10^{-6}$ and a
+$5\cdot10^{-4}$ half-pad, the rectangle clause certifies at
+$\kappa=0.185$ (contraction $0.830$, inwardness above $1.1\cdot
+10^{-4}$; \texttt{rect\_cond31\_0p185.json}) just as at
+$\kappa=0.13$, so both lane endpoints carry the full
+Condition~\ref{cond:fp}.  Certifying every interior slab is those
+same two steps per slab --- compute, not new mathematics, since the
 contraction the clause bounds never approaches its limit.
 
 The second lane certifies $[0.10,0.19]$ ($180$ slabs) on that
@@ -807,13 +812,22 @@ wait for that extension: they are certified over the whole strip,
 which gives the conditional structure of the program a closed form.
 
 \begin{theorem}\label{thm:strip}
-For every $\kappa\in[-0.65,0.19]$,
-Conditions~\ref{cond:fp}--\ref{cond:lc} hold: $\alpha_\star(\kappa)$
-exists, is unique on the fixed-point branch, and lies in the
-certified $\alpha$ interval of the slab containing $\kappa$.
-Consequently, at every $\kappa$ in the strip at which
-Condition~\ref{cond:2var} holds, and for every $\alpha$ above that
-slab interval's upper endpoint, with probability $1-o(1)$ no
+For every $\kappa\in[-0.65,0.10]$, Conditions~\ref{cond:fp}--%
+\ref{cond:lc} hold, with the uniform rectangle contraction of
+Condition~\ref{cond:fp} certified on the slab rectangle itself.  For
+every $\kappa\in(0.10,0.19]$, the existence, uniqueness, and crossing
+of Condition~\ref{cond:fp} hold per slab (uniqueness from Nakajima's
+theorem under a certified premise), and Conditions~\ref{cond:amp}
+and~\ref{cond:lc} hold per slab; the rectangle contraction is
+additionally certified, on a deep-located thin rectangle, at the lane
+endpoints $\kappa\in\{0.13,0.185\}$.  In every case
+$\alpha_\star(\kappa)$ exists, is unique on the fixed-point branch,
+and lies in the certified $\alpha$ interval of the slab containing
+$\kappa$.  Consequently, at every $\kappa$ at which
+Condition~\ref{cond:2var} and the full Condition~\ref{cond:fp} both
+hold --- in particular the five margins of
+Theorem~\ref{thm:main} --- and for every $\alpha$ above that slab
+interval's upper endpoint, with probability $1-o(1)$ no
 $w\in\{-1,+1\}^N$ satisfies all $\alpha N$ constraints at margin
 $\kappa$.
 \end{theorem}
@@ -1012,7 +1026,7 @@ geometry to generalization bounds of the classical margin type.
 
 The certified statements are: Conditions~\ref{cond:fp}--\ref{cond:lc}
 on $\kappa\in[-0.65,0.10]$, the same without the rectangle clause on
-$(0.10,0.19]$, and the rectangle clause again at $\kappa=0.13$
+$(0.10,0.19]$, and the rectangle clause again at $\kappa\in\{0.13,0.185\}$
 (Theorem~\ref{thm:strip}); deep
 $\alpha_\star$ intervals at five margins; the center Hessian at six;
 Condition~\ref{cond:2var} at
