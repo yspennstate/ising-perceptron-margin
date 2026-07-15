@@ -3,12 +3,31 @@ sympy identities, then per certified margin the assembler, the
 portable checker, every Lean kernel file, and the mutation battery.
 One ledger, every exit code captured unmasked."""
 import os
+import shutil
 import subprocess
 import sys
 
 REPO = os.path.dirname(os.path.abspath(__file__))
-LEAN = os.path.expanduser(
-    '~/.elan/toolchains/leanprover--lean4---v4.31.0/bin/lean.exe')
+
+
+def _find_lean():
+    # resolve the Lean binary from the environment rather than pinning
+    # a toolchain version: PATH first (the elan shim, which also sets
+    # up the toolchain env), then the elan default-toolchain bin.  Set
+    # LEAN=/path/to/lean to override.
+    env = os.environ.get('LEAN')
+    if env and os.path.exists(env):
+        return env
+    onpath = shutil.which('lean')
+    if onpath:
+        return onpath
+    shim = os.path.expanduser('~/.elan/bin/lean')
+    if os.path.exists(shim) or os.path.exists(shim + '.exe'):
+        return shim
+    return 'lean'  # last resort; run() will report the failure
+
+
+LEAN = _find_lean()
 results = []
 
 
