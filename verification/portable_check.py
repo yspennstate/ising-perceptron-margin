@@ -165,13 +165,49 @@ def main():
     for (a, b), (c, d) in zip(radii[:-1], radii[1:]):
         ok &= (b == c and a < b)
     ok &= radii[-1][0] < radii[-1][1]
-    for key in radii:
-        arcs = sorted(levels[key])
-        for (a, b) in arcs:
-            ok &= a < b
-        for (_, b), (c, _) in zip(arcs[:-1], arcs[1:]):
-            ok &= b <= c            # seams chain or start a new arc run
     check('Region-I bands tile the radius axis from zero', ok)
+
+    def runs(arcs):
+        # merge seam-exact neighbors; any strict jump starts a new run
+        out = []
+        for (a, b) in sorted(arcs):
+            if out and a == out[-1][1]:
+                out[-1] = (out[-1][0], b)
+            elif out and a < out[-1][1]:
+                return None             # overlap: malformed
+            else:
+                out.append((a, b))
+        return out
+
+    # completeness, per direction: the innermost level must close the
+    # full circle, and each level's angular support must sit inside
+    # the previous level's.  Together these make every direction's
+    # radial chain contiguous from zero up to the radius where its
+    # support ends -- the property the stage-2 reach computation
+    # consumes.  (The supplement arcs live in their own manifest and
+    # extend support outward; they are bound by hash above.)
+    inner = runs(levels[radii[0]])
+    two_pi_lo = frac('6.283185307179585')
+    two_pi_hi = frac('6.283185307179587')
+    ok_closure = (inner is not None and len(inner) == 1
+                  and two_pi_lo <= inner[0][1] - inner[0][0] <= two_pi_hi)
+    check('Region-I innermost ring closes the circle '
+          '(single seam-exact run of width 2*pi)', ok_closure)
+
+    def contained(rs, prev):
+        return all(any(pa <= a and b <= pb for (pa, pb) in prev)
+                   for (a, b) in rs)
+
+    ok_mono = True
+    prev = inner
+    for key in radii[1:]:
+        rs = runs(levels[key])
+        if rs is None or prev is None or not contained(rs, prev):
+            ok_mono = False
+            break
+        prev = rs
+    check('Region-I angular support is seam-exact and shrinks '
+          'monotonically outward (per-direction contiguity)', ok_mono)
 
     si = json.load(open(os.path.join(r, f'huang_star_interior_{t}.json')))
     check('star-interior certificate hash',

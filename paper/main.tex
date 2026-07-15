@@ -814,12 +814,16 @@ A dependency-free portable checker re-verifies the connection layer
 from the JSON artifacts alone: the envelope hashes, the
 stage-2-to-Region-I bindings, the star-interior chain recomputed
 outward in exact rationals, and the tilings within each serialized
-chain.  Two global completeness clauses --- that radial chains reach
-the stated outer radius, and that angular runs close the full circle
---- are not yet enforced mechanically by either the portable checker
-or the Lean layer; the shipped manifests satisfy both on direct
-inspection, and enforcing them is the next hardening step, since a
-malformed future artifact could otherwise pass the stated checks.
+chain.  The checker also enforces two global completeness clauses on
+the band geometry: the innermost ring must close the full circle as
+a single seam-exact run, and each level's angular support must sit
+inside the previous level's, which together make every direction's
+radial chain contiguous out to the radius where its support ends ---
+a deliberately corrupted manifest with all hashes consistently
+rebound fails exactly this check.  Binding the outermost radius to
+the consuming stage's stated requirement awaits a schema field the
+current manifests predate, and the Lean tilings carry the same
+per-chain scope; both are recorded as open hardening.
 
 \emph{A second proof system.}  The exact combinatorial and algebraic
 layer of the certificate chain --- the star-interior inequality chain
