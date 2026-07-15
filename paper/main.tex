@@ -470,8 +470,14 @@ $2.3\cdot10^{-4}$, the $G$ signs at the located fixed points are
 $+1.6\cdot10^{-7}$ and $-1.6\cdot10^{-6}$, and $\E\log\Psi<0$
 over the rectangle (\texttt{rect\_cond31\_0p13.json}; locate and
 $G$ evaluator depth $16000$).  The wide-rectangle product $1.32$ was
-a bound artifact, not a property of the map, and the same driver
-extends slab by slab.
+a bound artifact, not a property of the map: on a thin located
+rectangle the certified contraction clears $1$ at $\kappa=0.13$ and
+on the sampled slabs at the lane's lower edge (per $\kappa$
+sub-ball, matching the lane's own subdivision;
+\texttt{rect\_strip\_nak.jsonl}), so the same driver discharges the
+rectangle clause slab by slab where run.  We certify it in full only
+at $\kappa=0.13$; extending it across the lane is compute, not new
+mathematics.
 
 The second lane certifies $[0.10,0.19]$ ($180$ slabs) on that
 design: existence by the same inward sweep; location by certified
@@ -526,7 +532,40 @@ unshifted law, of which $\alpha\,\E[N^2]=\psi_0$ survives at every
 margin (it is the same identity behind the unbounded-tilt directions
 of Section~\ref{sec:twovar}) while
 $\alpha\,\E[N\hat H]=-q_0(1-q_0)\psi_0$ does not.  We evaluate the
-general-margin $C_j$ directly at the shifted law.
+general-margin $C_j$ directly at the shifted law.  With
+$\hat H=\sqrt{q_0}\,Z$, $u=(\kappa-\hat H)/\sqrt{1-q_0}$,
+$N=M(u)/\sqrt{1-q_0}$, $F'=-M'(u)/(1-q_0)$, and
+$Q=-\hat H/q_0+\bigl(\kappa-\hat H-(1-q_0)N\bigr)/(1-q_0)$,
+every expectation over the single Gaussian $\hat H$,
+\[
+C_1=\frac{\alpha}{\psi_0^2}\,\E[F'N^2],\qquad
+C_2=-\frac{2\alpha}{\psi_0}\,\E[F'NQ]+\frac{2}{1-q_0},
+\]
+\[
+C_3=\alpha\,\E[F'Q^2]+\frac{2\alpha}{q_0(1-q_0)}\,\E[N\hat H]
+-\alpha\Bigl(\frac{3}{(1-q_0)^2}+\frac{1}{q_0(1-q_0)}\Bigr)
+\E\bigl[N\,(\kappa-\hat H-(1-q_0)N)\bigr].
+\]
+The certified evaluation encloses each expectation by the mean-value
+cell rule with explicit quadratic tail majorants ($N$ grows at most
+linearly on the left tail, $F'$ is bounded by $1/(1-q_0)$ in
+magnitude, and every integrand is degree at most two in $|z|$), and
+the near-cancelling prior moments are evaluated as single correlated
+integrands.  The certified enclosures at the six margins are
+one-sided where sign is the claim:
+\[
+\begin{array}{lll}
+\kappa=-0.45: & M_{11}\le-0.0647, & \det M\ge 2.9\cdot10^{-4},\\
+\kappa=-0.05: & M_{11}\le-0.0471, & \det M\ge 1.6\cdot10^{-4},\\
+\kappa=0:     & M_{11}\le-0.0451, & \det M\ge 1.8\cdot10^{-4},\\
+\kappa=0.05:  & M_{11}\le-0.0424, & \det M\ge 1.2\cdot10^{-4},\\
+\kappa=0.0995:& M_{11}\le-0.0400, & \det M\ge 1.0\cdot10^{-4},\\
+\kappa=0.13:  & M_{11}\le-0.0385, & \det M\ge 8.8\cdot10^{-5},
+\end{array}
+\]
+the trend --- both margins thinning as $\kappa$ grows --- being the
+quantitative form of the landscape flattening that
+Section~\ref{sec:interval} prices.
 
 Certification requires parameter boxes far tighter than the slabs
 provide ($\det M\sim10^{-4}$ moves at order $dC/dq\sim10$), which is

@@ -11,7 +11,7 @@ the negativity verdict M11 < 0, det M > 0.
 Tails: the hH-side integrands are bounded by polynomials in |z| times
 N-powers; on the right tail (z >> 0) u is large negative so N and F'
 vanish (bounded by their values at the cut via monotone endpoints); on
-the left tail N grows linearly, F' stays in (0, 1/(1-q0)), and the
+the left tail N grows linearly, F' stays in (-1/(1-q0), 0), and the
 integrands are bounded by explicit quadratics against Gaussian
 moments.  For the first version the z-cut is pushed to L = 10 and the
 crude bound max(integrand at cut) * tail mass is used; every discarded
@@ -315,6 +315,11 @@ def finish(h, kappa_str):
     for nm in ('I', 'C'):
         print(' ', nm, '=', ', '.join(str(x) for x in h[nm]))
     print(' M12 =', h['M12'], ' M22 =', h['M22'])
+    # explicit endpoints, quotable in the paper (the short arb display
+    # can round a strictly positive ball's midpoint to zero)
+    for nm in ('M11', 'M12', 'M22', 'det'):
+        lo, hi = endpoints(h[nm])
+        print(' %s endpoints = [%s, %s]' % (nm, lo, hi))
     print('fixed-tilt local maximality at kappa =', kappa_str,
           ':', 'CERTIFIED' if ok else 'NOT RESOLVED')
     raise SystemExit(0 if ok else 1)
