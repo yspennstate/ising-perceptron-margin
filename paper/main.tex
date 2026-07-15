@@ -713,14 +713,30 @@ $1-o(1)$ no $w\in\{-1,+1\}^N$ satisfies all $\alpha N$ constraints.
 The same pipeline is parameterized over the located boxes of any
 certified slab, and nothing in it is specific to a point margin
 beyond compute time; what stands between the point theorem and a
-$\kappa$-interval version is quantified in
-Section~\ref{sec:interval}.  On the strip minus
-that extension, the precise statement is:
-Conditions~\ref{cond:fp}--\ref{cond:lc} hold for every
-$\kappa\in[-0.65,0.19]$, and Condition~\ref{cond:2var} is certified
-at the five margins of Theorem~\ref{thm:main} and at $\kappa=0$
-(where our pipeline independently reproduces the zero-margin
-verification).
+$\kappa$-interval version of Condition~\ref{cond:2var} is quantified
+in Section~\ref{sec:interval}.  The other three conditions do not
+wait for that extension: they are certified over the whole strip,
+which gives the conditional structure of the program a closed form.
+
+\begin{theorem}\label{thm:strip}
+For every $\kappa\in[-0.65,0.19]$,
+Conditions~\ref{cond:fp}--\ref{cond:lc} hold: $\alpha_\star(\kappa)$
+exists, is unique on the fixed-point branch, and lies in the
+certified $\alpha$ interval of the slab containing $\kappa$.
+Consequently, at every $\kappa$ in the strip at which
+Condition~\ref{cond:2var} holds, and for every $\alpha$ above that
+slab interval's upper endpoint, with probability $1-o(1)$ no
+$w\in\{-1,+1\}^N$ satisfies all $\alpha N$ constraints at margin
+$\kappa$.
+\end{theorem}
+
+Condition~\ref{cond:2var} is certified at the five margins of
+Theorem~\ref{thm:main} and at $\kappa=0$, where our pipeline
+independently reproduces the zero-margin verification; at those six
+values the hypothesis of Theorem~\ref{thm:strip} discharges and the
+two theorems agree.  Everywhere else on the strip, the entire
+distance between the conditional and unconditional statements is one
+two-variable inequality at that single margin.
 
 \input{margins_appendix}
 
@@ -889,11 +905,13 @@ geometry to generalization bounds of the classical margin type.
 \section{Scope}\label{sec:scope}
 
 The certified statements are: Conditions~\ref{cond:fp}--\ref{cond:lc}
-on $\kappa\in[-0.65,0.19]$; deep $\alpha_\star$ intervals at five
-margins; the center Hessian at six; Condition~\ref{cond:2var} at
-$\kappa\in\{0,0.05\}$; and hence Huang's unconditional upper bound at
-those two margins, with the remaining margins of the strip
-conditional only on Condition~\ref{cond:2var} there.  The lower
+on all of $\kappa\in[-0.65,0.19]$ (Theorem~\ref{thm:strip}); deep
+$\alpha_\star$ intervals at five margins; the center Hessian at six;
+Condition~\ref{cond:2var} at
+$\kappa\in\{-0.45,-0.05,0,0.05,0.0995,0.13\}$; and hence Huang's
+unconditional upper bound at the five nonzero margins
+(Theorem~\ref{thm:main}), with the rest of the strip conditional
+only on Condition~\ref{cond:2var} at the margin in question.  The lower
 bound is untouched: Ding--Sun's conditioned second-moment reduction
 is proved at $\kappa=0$ only, so nothing here is an exact threshold
 statement at $\kappa\ne0$.  All float scans are diagnostics, not
