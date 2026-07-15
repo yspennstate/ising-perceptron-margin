@@ -114,6 +114,9 @@ def main():
           sweep['artifact_sha256'] == payload_sha(sweep,
                                                   ('artifact_sha256',)))
     check('sweep zero failures', sweep['failures'] == 0)
+    check('sweep ok cells have worst <= 0',
+          all(rec.get('worst') is None or float(rec['worst']) <= 1e-9
+              for rec in sweep['records'] if rec['ok']))
     a1m, a2m = frac(sweep['policy']['A1MAX']), frac(sweep['policy']['A2MAX'])
     check('sweep schedule tiles its rectangle',
           grid_tiling(sweep['schedule'], (-a1m, a1m, -a2m, a2m)))
@@ -122,6 +125,9 @@ def main():
     check('stage-2 artifact hash',
           st2['artifact_sha256'] == payload_sha(st2, ('artifact_sha256',)))
     check('stage-2 zero failures', st2['failures'] == 0)
+    check('stage-2 ok cells have worst <= 0',
+          all(rec.get('worst') is None or float(rec['worst']) <= 1e-9
+              for rec in st2['records'] if rec['ok']))
     if 'GRID_N' in st2['policy']:
         # a coarse evaluator grid weakens every cell certificate; runs
         # that forgot the env pin must not pass silently
@@ -156,6 +162,17 @@ def main():
     reg1 = json.load(open(reg1_path))
     check('Region-I zero failures',
           reg1['fails'] == 0 and all(rec['ok'] for rec in reg1['results']))
+    # leaf-value replay: an ok band's recorded worst S_star must
+    # actually be nonpositive and carry no subcell failure, so a
+    # flipped ok flag or a mismarked positive worst cannot pass the
+    # count-based check above (does not re-evaluate the integral --
+    # that is the ball-arithmetic layer -- but binds the recorded
+    # value to the S_star <= 0 claim it stands for)
+    check('Region-I ok bands have worst <= 0 and no subcell failure',
+          all(rec.get('worst') is not None
+              and float(rec['worst']) <= 1e-9
+              and rec.get('nfail', 0) == 0
+              for rec in reg1['results'] if rec['ok']))
     bands = [tuple(frac(x) for x in rec['band']) for rec in reg1['results']]
     levels = {}
     for (t0, t1, th0, th1) in bands:

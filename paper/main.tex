@@ -495,10 +495,11 @@ carry, after which the flat contraction leaves a thin rectangle that
 clears $1$.  We ran this recipe at both ends of the lane: with
 $\alpha_\star$ deep-located to width $7\cdot10^{-6}$ and a
 $5\cdot10^{-4}$ half-pad, the rectangle clause certifies at
-$\kappa=0.185$ (contraction $0.830$, inwardness above $1.1\cdot
-10^{-4}$; \texttt{rect\_cond31\_0p185.json}) just as at
-$\kappa=0.13$, so both lane endpoints carry the full
-Condition~\ref{cond:fp}.  Certifying every interior slab is those
+$\kappa=0.15$ and $\kappa=0.185$ (contraction $0.836$ and $0.830$;
+\texttt{rect\_cond31\_0p15.json}, \texttt{rect\_cond31\_0p185.json})
+just as at $\kappa=0.13$ ($0.844$), so both endpoints of the lane and
+its interior carry the full Condition~\ref{cond:fp}, all three
+clustered near the flat fixed-point value.  Certifying every interior slab is those
 same two steps per slab --- compute, not new mathematics, since the
 contraction the clause bounds never approaches its limit.
 
@@ -820,7 +821,7 @@ of Condition~\ref{cond:fp} hold per slab (uniqueness from Nakajima's
 theorem under a certified premise), and Conditions~\ref{cond:amp}
 and~\ref{cond:lc} hold per slab; the rectangle contraction is
 additionally certified, on a deep-located thin rectangle, at the lane
-endpoints $\kappa\in\{0.13,0.185\}$.  In every case
+points $\kappa\in\{0.13,0.15,0.185\}$.  In every case
 $\alpha_\star(\kappa)$ exists, is unique on the fixed-point branch,
 and lies in the certified $\alpha$ interval of the slab containing
 $\kappa$.  Consequently, at every $\kappa$ at which
@@ -885,7 +886,13 @@ A dependency-free portable checker re-verifies the connection layer
 from the JSON artifacts alone: the envelope hashes, the
 stage-2-to-Region-I bindings, the star-interior chain recomputed
 outward in exact rationals, and the tilings within each serialized
-chain.  The checker also enforces two global completeness clauses on
+chain.  It also binds each recorded leaf value to the inequality it
+stands for --- every cell or band marked passing must carry a
+nonpositive worst-case $\sS_\star$ and no subcell failure --- so a
+flipped flag or a mismarked positive value is caught rather than
+trusted (the transcendental re-evaluation itself remains the
+ball-arithmetic layer's job).  The checker also enforces two global
+completeness clauses on
 the band geometry: the innermost ring must close the full circle as
 a single seam-exact run, and each level's angular support must sit
 inside the previous level's, which together make every direction's
@@ -1026,7 +1033,7 @@ geometry to generalization bounds of the classical margin type.
 
 The certified statements are: Conditions~\ref{cond:fp}--\ref{cond:lc}
 on $\kappa\in[-0.65,0.10]$, the same without the rectangle clause on
-$(0.10,0.19]$, and the rectangle clause again at $\kappa\in\{0.13,0.185\}$
+$(0.10,0.19]$, and the rectangle clause again at $\kappa\in\{0.13,0.15,0.185\}$
 (Theorem~\ref{thm:strip}); deep
 $\alpha_\star$ intervals at five margins; the center Hessian at six;
 Condition~\ref{cond:2var} at

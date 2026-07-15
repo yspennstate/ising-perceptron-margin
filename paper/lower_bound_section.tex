@@ -150,14 +150,15 @@ certifies: the fixed point, its uniqueness rectangle, and the
 crossing (Theorem~\ref{thm:strip} and the deep enclosures of
 Theorem~\ref{thm:main}).
 
-We evaluated $S_{\kappa,\alpha_\star(\kappa)}$ in floating point at
-the five certified margins and at $\kappa=0$
-(\texttt{ds\_condition.py}; Gauss--Hermite and conditional
-Gauss--Legendre quadrature, with the seven endpoint identities
+We evaluated $S_{\kappa,\alpha_\star(\kappa)}$ in floating point
+(the driver \texttt{ds\_condition.py} uses Gauss--Hermite and
+conditional Gauss--Legendre quadrature) at the five certified margins
+and at $\kappa=0$, checking the seven endpoint identities
 $H(0)=P(0)=A(0)=0$, $H(1)=-H_\star$, $P(1)=-P_\star$,
-$G_\star=H_\star+P_\star\approx0$, with $H_\star,P_\star$ the entropy and constraint halves of the free energy in their notation, and the conditional-mean check
-resolving at $10^{-12}$ or better at every margin as implementation
-controls).  The result is uniform
+and $G_\star=H_\star+P_\star\approx0$ (with $H_\star$, $P_\star$ the
+entropy and constraint halves of the free energy), and the
+conditional-mean check resolving at $10^{-12}$ or better at every
+margin as implementation controls).  The result is uniform
 (Figure~\ref{fig:dscondition}): at every margin the curve is
 strictly negative off $\{0,1\}$ with its interior maximum at most
 $-5\cdot10^{-5}$, the maximum at $\lambda=0$ is degenerate exactly as
