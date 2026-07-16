@@ -322,3 +322,39 @@ The read surfaced the following, all addressed:
    stored-decimal origin at general kappa (replaced by the symbolic
    maximizer).  The failed batches are kept under results/box/ as
    evidence.
+
+
+## 2026-07-16 additions (verification-pass session)
+
+sympy_identities.py items 14-19: the E'' formula and its positivity
+equivalence (pure algebra given E' = E t), the truncated first and
+second moments as total derivatives, the psi-part IBP of Lemma 1,
+and the Stein assemblies of Lemma 1 (q part) and Lemma 2 as
+radical-cleared pointwise identities in (M, u, z) with a = sqrt(q),
+b = sqrt(1-q) independent positive symbols (sympy will not identify
+sqrt(q(1-q)) with sqrt(q) sqrt(1-q) without sign knowledge; the
+substitution is exact for 0 < q < 1).  Together with items 1-2 these
+machine-check every displayed equality in the proofs of Lemmas 1-2;
+the analytic remainder (domination, Stein regularity, boundary
+vanishing) is stated in the paper at the end of Lemma 2's proof.
+
+portable_check.py radial-reach clause: the outermost Region-I band
+level must reach the star T_LONG recorded in the same manifest
+(exact-rational compare, repr slop 1e-12).  Falsification evidence:
+dropping the outermost 40 bands of the 0p13 manifest and rebinding
+region1_manifest_sha256 plus the stage-2 self-hash passes the hash
+and tiling clauses and fails exactly this clause (exit 1).
+
+collect_rect_strip.py: verifies the thin-rectangle lane union before
+the paper cites it - one row per lane slab, kappa contiguity across
+worker seams, (kappa, alpha) windows equal to the lane CSV's rows,
+recipe uniformity (delta parsed from the arb repr the rows carry,
+locate depth, eight sub-balls), and the worst contraction enclosure
+below one; binds inputs by SHA-256.  Dry-run on the partial box data
+caught the arb-repr comparison defect before landing time and
+correctly flags partial coverage (count and seam-gap problems).
+
+hessian_kappa.py docstring: the anchor claim conflating the
+fixed-tilt Hessian with huang2var.py's tilt-optimized
+finite-difference Hessian corrected (different objects, rank-one
+Schur correction apart); no computational path consumed the claim.

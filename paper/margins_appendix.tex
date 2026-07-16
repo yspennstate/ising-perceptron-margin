@@ -1,7 +1,9 @@
 % Further certified margins.
-% Sync note: stage-2 counts refer to the enlarged exclusion box
-% (the 2026-07-15 re-emitted manifest, which reproduced the local
-% falsification run leaf for leaf).
+% Sync note: stage-2 counts refer to the enlarged exclusion box.
+% The 0.05 manifests were regenerated 2026-07-17 with exact B-matrix
+% packets (leaf counts shifted 867 -> 855 and 1365 -> 1363 under the
+% same policy, zero failures at every stage); the other margins ship
+% their original manifests.
 
 \section{Further margins}
 \label{sec:margins}
@@ -27,7 +29,7 @@ negative side).  The certified pieces at both margins:
 $\kappa$ & $\alpha^*(\kappa)$ window & sweep & Region I & stage 2 &
 inradius / required \\
 \hline
-$0.05$  & $[0.781073068,\ 0.781074776]$ & 867 & 1404 (+12) & 1365 &
+$0.05$  & $[0.781073068,\ 0.781074776]$ & 855 & 1404 (+12) & 1363 &
 $0.01481\ /\ 0.01209$ \\
 $-0.45$ & $[1.557652103,\ 1.557654133]$ & 655 & 1404 (+12) & 1196 &
 $0.01480\ /\ 0.01207$ \\
@@ -47,12 +49,13 @@ constructive moment-body inradius against the required star radius,
 both exact-arithmetic bounds.}
 \end{table}
 
-At $\kappa=-0.05$ the manifest also carries per-band interval packets
-for the frozen-tilt matrix $B$, and the kernel-checked skeleton gains
-a fifth family: Loewner definiteness of every band's $B$-matrix,
-decided over the integers in thirteen chunks of $108$ bands together
-with a decided total count ($55$ kernel theorems at this margin; the
-mutation battery rejects a sign corruption in each family).
+Every margin's Region-I manifest carries per-band interval packets
+for the frozen-tilt matrix $B$, and the kernel-checked skeleton
+includes for each a fifth family: Loewner definiteness of every
+band's $B$-matrix, decided over the integers in thirteen chunks of
+$108$ bands together with a decided total count ($55$ kernel theorems
+per margin; the mutation battery rejects a sign corruption in each
+family).
 
 The $0.13$ run additionally exposed a completeness
 defect in the stage-2 containment---supplement arcs stored on one

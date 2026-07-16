@@ -183,6 +183,15 @@ def main():
         ok &= (b == c and a < b)
     ok &= radii[-1][0] < radii[-1][1]
     check('Region-I bands tile the radius axis from zero', ok)
+    # radial reach: the outermost band level must reach the star
+    # radius recorded in this same manifest's star block -- the reach
+    # the stage-2 zone computation consumes (and binds by hash).  A
+    # band schedule that tiled a shorter radius would otherwise pass
+    # every tiling and closure clause.
+    t_long = frac(repr(reg1['star']['T_LONG']))
+    slop_r = Fraction(1, 10 ** 12)
+    check('Region-I outermost band level reaches the star radius',
+          radii[-1][1] >= t_long - slop_r)
 
     def runs(arcs):
         # merge seam-exact neighbors; any strict jump starts a new run

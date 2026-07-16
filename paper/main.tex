@@ -48,7 +48,8 @@ can consume directly.  Building on these we verify, in ball arithmetic over
 sub-slabs of the margin axis, Huang's fixed-point, AMP, and
 local-concavity conditions on the strip $\kappa\in[-0.65,0.19]$
 ($1680$ contiguous slabs across two uniqueness lanes, the second
-resting on Nakajima's saddle theorem under a certified premise), with
+carrying per-slab thin-rectangle contractions and, independently,
+Nakajima's saddle theorem under a certified premise), with
 $\alpha_\star(\kappa)$ located to width $2\cdot10^{-6}$ at five
 margins and the local maximality of the first-moment functional at its
 degenerate maximizer certified at six.  The remaining hypothesis, the
@@ -189,7 +190,8 @@ once no analytically certified parameter rectangle exists.
 
 Let $\varphi$ and $\Psi$ denote the standard Gaussian density and
 upper tail, $M=\varphi/\Psi$ the inverse Mills ratio (an increasing
-function; $M'=M\,(M-u)\in(0,1)$), and $Z\sim N(0,1)$.  Fix
+function; $M'=M\,(M-u)\in(0,1)$, proved with its second-derivative
+bounds in Lemma~\ref{lem:mills}), and $Z\sim N(0,1)$.  Fix
 $\kappa\in\R$ and write
 \[
 u(z;q,\kappa)=\frac{\kappa-\sqrt{q}\,z}{\sqrt{1-q}},\qquad 0<q<1 .
@@ -278,10 +280,14 @@ identity $M'(u)=M(u)^2-uM(u)$, collapses the two pieces:
 Hence $\partial_q G=\psi/2-\alpha\cdot R/(2\alpha)=(\psi-R)/2$.
 \end{proof}
 
-Both derivatives vanish exactly on the fixed-point branch, so the
-envelope theorem gives
-$G_\star'(\alpha)=\E\log\Psi(u)<0$ strictly, for every $\kappa$: the
-root $\alpha_\star(\kappa)$ is unique on the branch.  This is the
+Both derivatives vanish exactly on the fixed-point branch.  On a
+rectangle carrying the contraction of Condition~\ref{cond:fp} the
+branch $\alpha\mapsto(q_\star,\psi_\star)$ is $C^1$ (the implicit
+function theorem applies: $1-(P\circ R_\alpha)'$ is bounded away
+from zero), and the envelope theorem gives
+$G_\star'(\alpha)=\E\log\Psi(u)<0$ strictly ($\Psi<1$ pointwise), for
+every $\kappa$: the root $\alpha_\star(\kappa)$ is unique on the
+branch.  This is the
 general-margin form of the monotonicity clause in
 Condition~\ref{cond:fp}, and it is also what turns the located
 fixed-point boxes of Section~\ref{sec:slabs} into certified
@@ -306,8 +312,14 @@ $M''=M'(M-u)+MM'-M$) turns the cross term into
 \[
 \E[2MM'u_q]=\frac{\E[M'^2+2M^2M'-M^2]}{1-q},
 \]
-and the $-\E[M^2]/(1-q)^2$ piece cancels $R/(1-q)$ exactly.
-Positivity is immediate since $M'\in(0,1)$.
+and the $-\alpha\E[M^2]/(1-q)^2$ piece cancels $R/(1-q)$ exactly.
+Positivity is immediate since $M'\in(0,1)$.  In both proofs
+differentiation under the integral sign is dominated
+($|z\tanh(\sqrt\psi z)|\le\sqrt\psi\,z^2$, and the $q$-integrands
+grow at most quadratically in $|z|$, locally uniformly in the
+parameters), and Stein's lemma applies because $M(u(z))$ and
+$(MM')(u(z))$ are absolutely continuous with bounded derivative in
+$z$.
 \end{proof}
 
 Lemma~\ref{lem:dR} replaces Ding--Sun's Lemma~7.2 (monotonicity of
@@ -492,16 +504,22 @@ whose width is set mostly by the slab's $\alpha$ width
 narrowing it means deep-locating $\alpha_\star$ per slab to
 $\sim10^{-6}$, the same tightening the five point margins already
 carry, after which the flat contraction leaves a thin rectangle that
-clears $1$.  We ran this recipe at both ends of the lane: with
-$\alpha_\star$ deep-located to width $7\cdot10^{-6}$ and a
-$5\cdot10^{-4}$ half-pad, the rectangle clause certifies at
-$\kappa=0.15$ and $\kappa=0.185$ (contraction $0.836$ and $0.830$;
-\texttt{rect\_cond31\_0p15.json}, \texttt{rect\_cond31\_0p185.json})
-just as at $\kappa=0.13$ ($0.844$), so both endpoints of the lane and
-its interior carry the full Condition~\ref{cond:fp}, all three
-clustered near the flat fixed-point value.  Certifying every interior slab is those
-same two steps per slab --- compute, not new mathematics, since the
-contraction the clause bounds never approaches its limit.
+clears $1$.  We first ran this recipe at both ends of the lane and an interior
+point ($\kappa\in\{0.13,0.15,0.185\}$; contractions $0.844$, $0.836$,
+$0.830$ on deep-located rectangles;
+\texttt{rect\_cond31\_0p15.json}, \texttt{rect\_cond31\_0p185.json}),
+and then per slab across the whole lane: on each of the $180$ slabs,
+over eight $\kappa$ sub-balls of width $6.25\cdot10^{-5}$, the
+located rectangle with half-pad $5\cdot10^{-4}$ is endpoint-inward at
+both $\alpha$ ends and carries a certified contraction product below
+one, the worst bound across the lane being $0.958$
+(\texttt{rect\_strip\_nak\_thin\_*.jsonl}, collected with the input
+hashes bound in \texttt{rect\_strip\_thin\_summary.json}).  With the
+inward endpoints and Lemma~\ref{lem:dR}'s monotonicity this gives,
+for every $\kappa$ in the lane, a rectangle on which the fixed point
+is unique by the contraction itself, so the rectangle clause of
+Condition~\ref{cond:fp} holds on every slab with uniqueness carried
+both by the rectangle and, independently, by Nakajima's theorem.
 
 The second lane certifies $[0.10,0.19]$ ($180$ slabs) on that
 design: existence by the same inward sweep; location by certified
@@ -653,10 +671,16 @@ fixed-point equations), and Huang's lemma gives
 $\sS_\star=0$ there with optimal tilt $s_0=\sqrt{1-q_0}$, both in
 closed form.  And on roughly the half-plane $\lambda_1<0$ the
 $s$-infimum is genuinely $-\infty$: $\alpha\,\E[N^2]=\psi_0$ exactly
-at the fixed point, so the quadratic tilt coefficient cancels and a
-subleading linear term runs away; those directions satisfy the
-condition trivially and are the capped-tilt case in Huang's
-treatment.
+at the fixed point, so the quadratic tilt coefficient cancels, and
+wherever the surviving linear coefficient of the tilt is nonpositive
+the functional runs away (the measured boundary of that region at
+$\kappa=0.05$ crosses $\lambda_1=0.04$ on the $\lambda_2=0$ axis and
+bends left as $|\lambda_2|$ grows).  Nothing downstream consumes
+this observation: the condition asks for the uncapped infimum over
+$s\ge0$, so a certified negative value at one explicit finite tilt
+--- which is what the sweep certificates exhibit cell by cell --- is
+already a complete witness, and the runaway directions are the
+capped-tilt case handled inside Huang's own argument.
 
 Float diagnostics along the curve (the certified analogue follows)
 show a landscape essentially independent of $\kappa$: a single peak
@@ -737,18 +761,62 @@ $E=\varphi/\Psi$ evaluated at cavity arguments $V$ that reach
 $O(20)$ on far quadrature cells; there $E(V)-V$ is a difference of
 two large balls and the kernels explode (we measured certified
 upper bounds of $+2\cdot10^{3}$ on cells whose true ray second
-derivative is $-6.6$).  Three classical facts, applied as
+derivative is $-6.6$).  Three elementary bounds, applied as
 intersections with the computed balls, remove the failure mode
-entirely:
+entirely.
+
+\begin{lemma}[Mills clamps]\label{lem:mills}
+Let $E=\varphi/\Psi$ be the Gaussian hazard and $t=E-V$.  For every
+$V\in\R$,
 \[
-0<E(V)-V<\frac1V\ \ (V>0),\qquad
-E'\in(0,1),\qquad
-0<E''<E-V ,
+t>0\ \ \Bigl(\text{and } t<\frac1V \text{ for } V>0\Bigr),\qquad
+E'=Et\in(0,1),\qquad
+0<E''<t .
 \]
-the second because the one-sided truncated Gaussian has variance
-$1-E'(V)\in(0,1)$,
-the third following from convexity of the Gaussian hazard together
-with $E''=E'\,(E+(E-V))-E<E-V$ when $E'<1$.  Intersecting a computed
+\end{lemma}
+
+\begin{proof}
+For $t>0$: when $V\le0$ this follows from $E>0$, and when $V>0$ integrating
+$\varphi(z)\le(z/V)\varphi(z)$ over $z\ge V$ gives
+$\Psi(V)<\varphi(V)/V$.  For $t<1/V$: the function
+$r(V)=\Psi(V)-V\varphi(V)/(V^2+1)$ has
+$r'(V)=-2\varphi(V)/(V^2+1)^2<0$ and vanishes at $+\infty$, so $r>0$,
+which rearranges to $E<V+1/V$.  Next, $E'=E^2-VE=Et>0$, while the
+conditional moments $\E[Z\mid Z>V]=E$ and $\E[Z^2\mid Z>V]=1+VE$ give
+$1-E'=\operatorname{Var}(Z\mid Z>V)>0$.  The upper bound on $E''$ is
+the identity $E''-t=(E'-1)(E+t)$ with $E'<1$ and $E+t>0$.
+
+Positivity of $E''$ --- the convexity of the Gaussian hazard --- is
+the one clause that takes an argument.  Differentiating $E'$ gives
+$E''=E\,[\,t(E+t)-1\,]$, and for $W$ distributed as $Z-V$ conditioned
+on $\{Z>V\}$ the moment formulas above read $\E W=t$ and
+$\E[W^2]=1-VE+V^2$, whence $t(E+t)-1=2(\E W)^2-\E[W^2]$: the claim is
+that this residual law has coefficient of variation below one.  Its
+survival function is
+$\Prob(W>w)=\Psi(V+w)/\Psi(V)=e^{-H(w)}$ with
+$H(w)=\int_0^w E(V+x)\,dx$ convex, since $E'>0$.  Set $\theta=1/t$,
+so the rate-$\theta$ exponential has the same mean, and
+$J(w)=H(w)-\theta w$.  Then $J$ is convex with $J(0)=0$,
+$J'(0)=E-1/t<0$ (this is $Et=E'<1$ again), and $J(w)\to\infty$, so
+$J<0$ exactly on some interval $(0,w_0)$ and $J>0$ past it.  Hence
+$\Prob(W>w)-e^{-\theta w}=e^{-\theta w}(e^{-J(w)}-1)$ is positive
+before $w_0$ and negative after, while
+$\int_0^\infty(\Prob(W>w)-e^{-\theta w})\,dw=t-t=0$.  Therefore
+\[
+\tfrac12\,\E[W^2]-t^2
+=\int_0^\infty w\,\bigl(\Prob(W>w)-e^{-\theta w}\bigr)\,dw
+=\int_0^\infty (w-w_0)\bigl(\Prob(W>w)-e^{-\theta w}\bigr)\,dw<0,
+\]
+the last integrand being nonpositive and not almost everywhere zero.
+So $\E[W^2]<2(\E W)^2$, that is $E''>0$, at every real $V$.  (This
+specializes the classical fact that increasing-hazard laws have
+coefficient of variation at most one; strictness here is the strict
+monotonicity of the hazard.)  The algebraic steps --- the $E''$
+formula, the equivalence, and the moment identities --- are verified
+symbolically (\texttt{sympy\_identities.py}).
+\end{proof}
+
+Intersecting a computed
 enclosure with a proven bound is always sound; on benign cells the
 computed ball is returned unchanged, and the $\kappa=0$ regression is
 digit-identical.
@@ -816,12 +884,12 @@ which gives the conditional structure of the program a closed form.
 For every $\kappa\in[-0.65,0.10]$, Conditions~\ref{cond:fp}--%
 \ref{cond:lc} hold, with the uniform rectangle contraction of
 Condition~\ref{cond:fp} certified on the slab rectangle itself.  For
-every $\kappa\in(0.10,0.19]$, the existence, uniqueness, and crossing
-of Condition~\ref{cond:fp} hold per slab (uniqueness from Nakajima's
-theorem under a certified premise), and Conditions~\ref{cond:amp}
-and~\ref{cond:lc} hold per slab; the rectangle contraction is
-additionally certified, on a deep-located thin rectangle, at the lane
-points $\kappa\in\{0.13,0.15,0.185\}$.  In every case
+every $\kappa\in(0.10,0.19]$, Condition~\ref{cond:fp} holds per slab
+in full --- existence, crossing, and the rectangle contraction on a
+thin located rectangle over $\kappa$ sub-balls, with uniqueness from
+the rectangle contraction and, independently, from Nakajima's
+theorem under a certified premise --- and Conditions~\ref{cond:amp}
+and~\ref{cond:lc} hold per slab.  In every case
 $\alpha_\star(\kappa)$ exists, is unique on the fixed-point branch,
 and lies in the certified $\alpha$ interval of the slab containing
 $\kappa$.  Consequently, at every $\kappa$ at which
@@ -898,10 +966,11 @@ a single seam-exact run, and each level's angular support must sit
 inside the previous level's, which together make every direction's
 radial chain contiguous out to the radius where its support ends ---
 a deliberately corrupted manifest with all hashes consistently
-rebound fails exactly this check.  Binding the outermost radius to
-the consuming stage's stated requirement awaits a schema field the
-current manifests predate, and the Lean tilings carry the same
-per-chain scope; both are recorded as open hardening.
+rebound fails exactly this check.  The outermost band level is bound
+to the star radius recorded in the same manifest, which is the reach
+the stage-2 containment consumes and binds by hash.  The Lean
+tilings carry per-chain scope only; that remains recorded as open
+hardening.
 
 \emph{A second proof system.}  The exact combinatorial and algebraic
 layer of the certificate chain --- the star-interior inequality chain
@@ -912,13 +981,13 @@ schedule --- is re-stated over the integers and kernel-checked in
 Lean~4, following the zero-margin release: per-margin generated files
 whose kernel-decided theorems cover the $1404$-band radius
 chain and its angular runs, both sweep grid tilings, and the
-star-interior packet chain, with the Loewner-majorant family at the
-four margins whose manifests carry exact $B$-matrix packets (the
-$\kappa=0.05$ manifest predates that schema and its regeneration is
-queued).  The extraction is mirrored in exact
+star-interior packet chain, with the Loewner-majorant family at all
+five margins (the $\kappa=0.05$ manifests, which predated the
+$B$-packet schema, were regenerated through the full pipeline).  The
+extraction is mirrored in exact
 rational arithmetic so an extraction bug cannot silently weaken the
 Lean claims, and a mutation battery (negating one certificate
-integer per file) is rejected four for four.  The slab-level sign claims
+integer per file) rejects every mutant.  The slab-level sign claims
 join this layer as their manifests are regenerated with exact
 packets (the emitters now serialize them; the original strip
 manifests predate that and carry display strings only).  This layer
@@ -1032,8 +1101,9 @@ geometry to generalization bounds of the classical margin type.
 \section{Scope}\label{sec:scope}
 
 The certified statements are: Conditions~\ref{cond:fp}--\ref{cond:lc}
-on $\kappa\in[-0.65,0.10]$, the same without the rectangle clause on
-$(0.10,0.19]$, and the rectangle clause again at $\kappa\in\{0.13,0.15,0.185\}$
+on $\kappa\in[-0.65,0.10]$, and the same on
+$(0.10,0.19]$ with the rectangle clause certified per slab on thin
+located rectangles
 (Theorem~\ref{thm:strip}); deep
 $\alpha_\star$ intervals at five margins; the center Hessian at six;
 Condition~\ref{cond:2var} at
@@ -1116,6 +1186,11 @@ E.~Abbe, S.~Li and A.~Sly,
 Proof of the contiguity conjecture and lognormal limit for the
 symmetric perceptron,
 FOCS 2021; arXiv:2102.13069.
+
+\bibitem{altschuler2022}
+D.~J.~Altschuler,
+Critical window of the symmetric perceptron,
+arXiv:2205.02319.
 
 \bibitem{gamarnik2022algorithms}
 D.~Gamarnik, E.~C.~Kizilda\u{g}, W.~Perkins and C.~Xu,

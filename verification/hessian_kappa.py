@@ -33,10 +33,11 @@ kappa = 0 and is why his closed forms do not transfer.
 
 Anchors: at kappa = 0 this must land in his certified intervals
 (C_1 in [-0.7193, -0.7165], C_2 in [5.0439, 5.0568],
-C_3 in [1.1345, 1.1526]) and the assembled M must match the
-finite-difference Hessian of S_*(l1, l2) from huang2var.py
-(-0.1571, -0.1011; -0.1011, -0.0714) - the same object computed two
-ways.
+C_3 in [1.1345, 1.1526]).  The assembled M is the fixed-tilt Hessian
+(s frozen at sqrt(1-q0)), the object Huang certifies.  huang2var.py's
+finite-difference Hessian of S_*(l1, l2) (-0.1571, -0.1011; -0.1011,
+-0.0714) is the tilt-optimized one; the two differ by a rank-one
+Schur correction and are different objects, so they do not agree.
 """
 
 from mpmath import mp, mpf, exp, log, sqrt, tanh, erfc, pi, quad

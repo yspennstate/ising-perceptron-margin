@@ -40,7 +40,8 @@ $\E[Z^2]$ alone can do better, since a distribution placing mass
 $(\E Z)^2/\E[Z^2]$ at $\E[Z^2]/\E Z$ and the rest at zero matches
 both moments.  For $\kappa\ge0$ the same conclusion holds for every
 weighted count $Z_f=\sum_w\prod_a f(\langle g_a,w\rangle/\sqrt N)$
-with $f\ge0$ supported on $[\kappa,\infty)$ and $0<\int f\,d\Phi$.
+with $f\ge0$ supported on $[\kappa,\infty)$ and
+$0<\int f\,d\Phi<\infty$.
 \end{lemma}
 
 \begin{proof}
@@ -60,9 +61,10 @@ $(1+\rho_0)/2$),
 \frac1N\log\frac{\E[Z^2]}{(\E Z)^2}
 \ge\underbrace{H\Bigl(\tfrac{1+\rho_0}2\Bigr)-\log2
 +\alpha\bigl[\log q_{\rho_0}(\kappa)-2\log\Psi(\kappa)\bigr]}
-_{=:\,\psi_{\alpha,\kappa}(\rho_0)}\;+\;O(1/N),
+_{=:\,\psi_{\alpha,\kappa}(\rho_0)}\;+\;O(N^{-1}\log N),
 \]
-the error collecting the binomial prefactor, the $|\rho^*-\rho_0|\le
+the error, of order $N^{-1}\log N$, collecting the binomial
+prefactor, the $|\rho^*-\rho_0|\le
 2/N$ continuity of $\rho\mapsto\log q_\rho$ (differentiable, below),
 and $|M-\alpha N|\le1$.  Now $q_0=\Psi(\kappa)^2$ and $H(1/2)=\log2$
 give $\psi_{\alpha,\kappa}(0)=0$.  Reflecting the orthant to a joint
@@ -79,14 +81,16 @@ vanishes at $0$,
 \]
 so $\psi_{\alpha,\kappa}(\rho_0)\ge\rho_0\,\psi'(0)/2>0$ for all
 small $\rho_0>0$; fix such a $\rho_0$ and set
-$c=\psi_{\alpha,\kappa}(\rho_0)$.  For the weighted counts, Mehler's
-expansion gives
+$c=\psi_{\alpha,\kappa}(\rho_0)$.  For the weighted counts, the diagonal
+term of $\E[Z_f^2]$ is $2^N\E[f(X)^2]^M$, so either
+$\E[Z_f^2]=\infty$ and the claim is trivial, or $f\in L^2(\Phi)$ and
+Mehler's expansion gives
 $\E[f(X)f(Y)]=\sum_{j\ge0}\rho^j\langle f,\mathrm{He}_j\rangle^2/j!$,
 whose $\rho$-derivative at $0$ is $(\int xf\varphi\,dx)^2$; for
 $f\ge0$ supported on $[\kappa,\infty)$ with $\kappa\ge0$ the
 integrand $xf(x)\varphi(x)$ is nonnegative, and it vanishes almost
-everywhere only if $f\,d\Phi$ concentrates at $\{0\}$, which
-$0<\int f\,d\Phi$ together with $\E Z_f>0$ excludes; the argument
+everywhere only if $f$ vanishes almost everywhere off the origin,
+which $0<\int f\,d\Phi$ excludes; the argument
 then runs unchanged.
 \end{proof}
 
@@ -118,10 +122,14 @@ If $|\langle g_a,w\rangle|/\sqrt N\le-\kappa$ for all $a$ then in
 particular $\langle g_a,w\rangle/\sqrt N\ge\kappa$, so the symmetric
 solution set at width $|\kappa|$ embeds in the margin-$\kappa$
 solution set.  The symmetric threshold is
-$\alpha^{\mathrm{sym}}_c$~\cite{aubin2019storage}, with the
-satisfiability side holding with high probability by the lognormal
-limit of Abbe, Li, and Sly~\cite{abbelisly2021} (see also Perkins and
-Xu~\cite{perkinsxu2021}).
+$\alpha^{\mathrm{sym}}_c$~\cite{aubin2019storage}; for Gaussian
+disorder the satisfiability side below it holds with high
+probability by Altschuler's critical-window
+theorem~\cite{altschuler2022}.  (The lognormal limit of Abbe, Li,
+and Sly~\cite{abbelisly2021} is proved for Rademacher disorder, and
+Perkins and Xu~\cite{perkinsxu2021} treat the Gaussian case under a
+single-critical-point hypothesis, so neither alone covers the model
+here.)
 \end{proof}
 
 The bound is far from sharp --- at $\kappa=-0.05$ it gives
@@ -153,15 +161,18 @@ Theorem~\ref{thm:main}).
 We evaluated $S_{\kappa,\alpha_\star(\kappa)}$ in floating point
 (the driver \texttt{ds\_condition.py} uses Gauss--Hermite and
 conditional Gauss--Legendre quadrature) at the five certified margins
-and at $\kappa=0$, checking the seven endpoint identities
+and at $\kappa=0$, checking the six endpoint identities
 $H(0)=P(0)=A(0)=0$, $H(1)=-H_\star$, $P(1)=-P_\star$,
 and $G_\star=H_\star+P_\star\approx0$ (with $H_\star$, $P_\star$ the
-entropy and constraint halves of the free energy), and the
-conditional-mean check resolving at $10^{-12}$ or better at every
-margin as implementation controls).  The result is uniform
+entropy and constraint halves of the free energy), and that the
+conditional-mean check resolves at $10^{-12}$ or better at every
+margin, as implementation controls.  The result is uniform
 (Figure~\ref{fig:dscondition}): at every margin the curve is
-strictly negative off $\{0,1\}$ with its interior maximum at most
-$-5\cdot10^{-5}$, the maximum at $\lambda=0$ is degenerate exactly as
+strictly negative off $\{0,1\}$, at most
+$-5\cdot10^{-5}$ outside windows of half-width $0.02$ around the two
+roots (inside them it climbs to its maxima at the roots, reaching
+$-1.6\cdot10^{-6}$ at the closest grid points), the maximum at
+$\lambda=0$ is degenerate exactly as
 at $\kappa=0$, and the whole family collapses nearly onto a single
 shape, with $\lambda_{\min}$ drifting from $-0.441$ at
 $\kappa=-0.45$ to $-0.421$ at $\kappa=0.13$.  These are diagnostics,

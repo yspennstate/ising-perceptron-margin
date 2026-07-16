@@ -9,10 +9,15 @@ slab by the lane itself), take q-hull +- delta, check endpoint
 inwardness with the thin adaptive evaluators, and bound the
 contraction product on the rectangle at the larger alpha.
 
-Appends one JSON line per slab to results/rect_strip_nak.jsonl
-(checkpointed - rerun resumes after the last completed slab).
+Appends one JSON line per slab to the --out file (checkpointed -
+rerun resumes after the last completed slab); each row records the
+delta and locate depth it ran with.  --start/--end select a row
+range so the lane splits across workers.  The proven lane recipe is
+delta 5e-4 at n_loc 4000 (the 2e-3 default clears only the low edge:
+pad inflation crosses 1 by kappa = 0.15).
 
 Run: python rect_strip.py [--intervals results/certified_intervals_nak.csv]
+         [--delta 0.0005] [--start I] [--end J] [--out FILE]
 """
 import argparse
 import csv
@@ -98,23 +103,34 @@ def main():
                     default='results/certified_intervals_nak.csv')
     ap.add_argument('--delta', default='0.002')
     ap.add_argument('--limit', type=int, default=0)
+    ap.add_argument('--start', type=int, default=0,
+                    help='first CSV row index (0-based) to process')
+    ap.add_argument('--end', type=int, default=0,
+                    help='stop before this CSV row index (0 = all)')
+    ap.add_argument('--out', default=OUT)
     args = ap.parse_args()
     delta = dec(args.delta)
     rows = list(csv.DictReader(open(args.intervals, newline='')))
+    if args.end:
+        rows = rows[:args.end]
+    if args.start:
+        rows = rows[args.start:]
     if args.limit:
         rows = rows[:args.limit]
     done = set()
-    if os.path.exists(OUT):
-        for line in open(OUT):
+    if os.path.exists(args.out):
+        for line in open(args.out):
             r = json.loads(line)
             done.add((r['kappa_lo'], r['kappa_hi']))
     n_ok = n_fail = 0
-    with open(OUT, 'a') as fh:
+    with open(args.out, 'a') as fh:
         for row in rows:
             key = (row['kappa_lo'], row['kappa_hi'])
             if key in done:
                 continue
             out = one_slab(row, delta)
+            out['delta'] = str(delta)
+            out['n_loc'] = N_LOC
             fh.write(json.dumps(out) + '\n')
             fh.flush()
             n_ok += out['ok']

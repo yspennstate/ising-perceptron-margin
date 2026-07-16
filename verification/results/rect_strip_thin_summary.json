@@ -1,0 +1,23 @@
+{
+ "kind": "rect_strip_thin_summary",
+ "inputs_sha256": {
+  "results/rect_strip_nak_thin_A.jsonl": "ad47bcd6dbb213fbdb6cdc881eb13572add962f31c4febab829a8dcb97a76cfe",
+  "results/rect_strip_nak_thin_B.jsonl": "e2533f19c93b15b39096e1ca7f34e2d4a9d8a8e101a8c6a2a9a8def4ca7f265e",
+  "results/rect_thin_B0.jsonl": "9c35d4c731431565269fdad4cd5bd2aa9cfa06c286a4885213a73e48ec1e6299",
+  "results/rect_thin_B1.jsonl": "9911c1c50777b88c11f43b44427d54905692a1d1f14cd8714f26f3c1ee610c6b",
+  "results/rect_thin_B2.jsonl": "d225ab89b877b0740e97eff31fbf4e873fd12c096e3e331e15766ce3f7b56de7",
+  "results/rect_thin_B3.jsonl": "e6efbf30f0e7ad96c708d01e226a0a83dba8c14b4eec79afa14af361acefed3e",
+  "results/rect_thin_B4.jsonl": "7cb9194813d05cf688d9c1181e0822a12a187f067bcb00d4852aaa5f4eb05dd0"
+ },
+ "intervals_csv_sha256": "962f0f97dc46c45ed76bdcc32d3d2c406203c72d6bb4a48c5fa4469a6cc40bcb",
+ "slabs": 180,
+ "kappa_lo": "0.100000",
+ "kappa_hi": "0.190000",
+ "delta": "0.0005",
+ "n_loc": 4000,
+ "n_sub": 8,
+ "worst_contraction_upper": "0.9574422744327652",
+ "worst_contraction_slab": "0.189500",
+ "ok": true,
+ "problems": []
+}

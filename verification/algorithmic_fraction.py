@@ -19,7 +19,11 @@ RUNS = [(label, path) for label, path in
          ('N=201, 400 sweeps/spin', 'results/finite_size_N201.csv'),
          ('N=201, 1600 sweeps/spin', 'results/finite_size_N201_s1600.csv'),
          ('N=201, 6400 sweeps/spin', 'results/finite_size_N201_s6400.csv'),
-         ('N=301, 400 sweeps/spin', 'results/finite_size_N301.csv')]
+         ('N=201, 25600 sweeps/spin',
+          'results/finite_size_N201_s25600.csv'),
+         ('N=301, 400 sweeps/spin', 'results/finite_size_N301.csv'),
+         ('N=401, 400 sweeps/spin', 'results/finite_size_N401.csv'),
+         ('N=801, 400 sweeps/spin', 'results/finite_size_N801.csv')]
         if os.path.exists(path)]
 
 

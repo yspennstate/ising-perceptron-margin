@@ -17,7 +17,10 @@ COLORS = {'N=101, 400 sweeps/spin': '#4477aa',
           'N=201, 400 sweeps/spin': '#cc6677',
           'N=201, 1600 sweeps/spin': '#228833',
           'N=201, 6400 sweeps/spin': '#ccbb44',
-          'N=301, 400 sweeps/spin': '#aa3377'}
+          'N=201, 25600 sweeps/spin': '#999933',
+          'N=301, 400 sweeps/spin': '#aa3377',
+          'N=401, 400 sweeps/spin': '#66ccee',
+          'N=801, 400 sweeps/spin': '#222255'}
 
 
 def main():
@@ -42,7 +45,7 @@ def main():
     ax.set_ylabel(r'wall / $\alpha_\star(\kappa)$')
     ax.set_title('The annealing wall as a fraction of certified capacity')
     ax.set_xlim(-0.012, 0.155)
-    ax.set_ylim(0.6, 1.0)
+    ax.set_ylim(0.45, 1.0)
     ax.spines[['top', 'right']].set_visible(False)
     ax.grid(axis='y', lw=0.4, alpha=0.35)
     fig.tight_layout()

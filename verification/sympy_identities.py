@@ -131,6 +131,83 @@ def main():
     ok &= check('hazard_convexity_bound',
                 Epp_ - tt - (Ep_ - 1) * (E + tt))
 
+    # 14. The E'' formula itself: differentiating E' = E^2 - V E and
+    #     substituting E' back gives E'' = E (t(E+t) - 1), the form the
+    #     code evaluates and the convexity lemma signs.
+    ok &= check('epp_formula',
+                2 * E * Ep_ - E - V * Ep_ - Epp_)
+
+    # 15. The convexity lemma's moment algebra: with E[W] = t and
+    #     E[W^2] = 1 - V E + V^2 for the truncated residual W,
+    #     2 (E[W])^2 - E[W^2] = t(E+t) - 1 exactly, so E'' > 0 is
+    #     equivalent to E[W^2] < 2 (E[W])^2.
+    ok &= check('epp_positivity_equivalence',
+                2 * tt ** 2 - (1 - V * E + V ** 2)
+                - (tt * (E + tt) - 1))
+
+    # 16. Truncated first and second moments as total derivatives:
+    #     z phi = -(phi)' and z^2 phi = phi - (z phi)', which integrate
+    #     over (V, inf) to E[Z 1_{Z>V}] = phi(V) and
+    #     E[Z^2 1_{Z>V}] = Psi(V) + V phi(V).
+    phiz = sp.exp(-z ** 2 / 2) / sp.sqrt(2 * sp.pi)
+    ok &= check('trunc_first_moment', z * phiz + sp.diff(phiz, z))
+    ok &= check('trunc_second_moment',
+                z ** 2 * phiz - phiz + sp.diff(z * phiz, z))
+
+    # 17. Lemma 1 (stationarity), psi part, as integrand identities:
+    #     d/dpsi log 2cosh(sqrt(psi) z) = z tanh(sqrt(psi) z)/(2 sqrt(psi)),
+    #     and the Gaussian IBP z tanh(c z) phi = c sech^2(c z) phi
+    #     - (tanh(c z) phi)'.
+    c = sp.symbols('c', positive=True)
+    ok &= check('stationarity_psi_derivative',
+                sp.diff(sp.log(2 * sp.cosh(sp.sqrt(psi) * z)), psi)
+                - z * sp.tanh(sp.sqrt(psi) * z) / (2 * sp.sqrt(psi)))
+    ok &= check('stationarity_psi_ibp',
+                z * sp.tanh(c * z) * phiz
+                - c * sp.sech(c * z) ** 2 * phiz
+                + sp.diff(sp.tanh(c * z) * phiz, z))
+
+    # 18. Lemma 1, q part, assembled: with the calculus inputs
+    #     u_z = -sqrt(q/(1-q)), u_q = (:-z/sqrt(q) + u/sqrt(1-q):)/(2 sqrt(1-q)),
+    #     phi'/phi = -z, and the Mills rule M' = M(M-u), the Stein
+    #     rearrangement of the proof of Lemma 1 is the pointwise identity
+    #     M u_q - M^2/(2(1-q))
+    #       = (1/(2 sqrt(q(1-q)))) (M' u_z - z M),
+    #     whose right side is (d/dz)[M(u(z)) phi(z)]/phi times the constant.
+    #     (Boundary terms vanish: |M(u)| <= |u| + M(0) and phi kills a
+    #     linear factor.)
+    #     Radicals are cleared by hand (sympy will not identify
+    #     sqrt(q(1-q)) with sqrt(q) sqrt(1-q) without sign knowledge):
+    #     a = sqrt(q), b = sqrt(1-q) as independent positive symbols.
+    Msym = sp.symbols('Mv', positive=True)
+    a_, b_ = sp.symbols('a b', positive=True)
+    u_z = -a_ / b_
+    u_q = (-z / a_ + u / b_) / (2 * b_)
+    Mp_rule = Msym * (Msym - u)
+    ok &= check('stationarity_q_assembly',
+                Msym * u_q - Msym ** 2 / (2 * b_ ** 2)
+                - (Mp_rule * u_z - z * Msym) / (2 * a_ * b_))
+    #     ... and the u_q formula itself for u = (kappa - sqrt(q) z)/sqrt(1-q):
+    u_expr = (kap - sp.sqrt(q) * z) / sp.sqrt(1 - q)
+    ok &= check('u_q_formula',
+                sp.diff(u_expr, q)
+                - (-z / sp.sqrt(q) + u_expr / sp.sqrt(1 - q))
+                / (2 * sp.sqrt(1 - q)))
+
+    # 19. Lemma 2 (dR/dq), assembled the same way: with
+    #     (M M')' = M'^2 + M M'' and M'' = M'(M-u) + M(M'-1), the proof's
+    #     Stein rearrangement is the pointwise identity
+    #     2 M M' u_q - (M'^2 + 2 M^2 M' - M^2)/(1-q)
+    #       = (1/sqrt(q(1-q))) ((M M')' u_z - z M M').
+    Mpp_rule = Mp_rule * (Msym - u) + Msym * (Mp_rule - 1)
+    MMp_prime = Mp_rule ** 2 + Msym * Mpp_rule
+    ok &= check('dRdq_assembly',
+                2 * Msym * Mp_rule * u_q
+                - (Mp_rule ** 2 + 2 * Msym ** 2 * Mp_rule - Msym ** 2)
+                / b_ ** 2
+                - (MMp_prime * u_z - z * Msym * Mp_rule)
+                / (a_ * b_))
+
     raise SystemExit(0 if ok else 1)
 
 
