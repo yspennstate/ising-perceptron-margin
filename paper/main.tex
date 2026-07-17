@@ -166,8 +166,10 @@ second-derivative kernels by classical Mills-ratio bounds
 of the zero-margin architecture certify at $\kappa=0.05$, and Huang's
 theorem yields an unconditional upper bound at a nonzero margin.
 
-Everything here concerns the upper bound.  Ding--Sun's lower-bound
-argument is proved at $\kappa=0$ only, so no statement in this paper
+The certified theorems here are upper bounds.  The matching lower
+bound at $\kappa\ne0$ remains open --- the embedded bound of
+Section~\ref{sec:lower} is rigorous for every $\kappa<0$ but far
+from matching --- so no statement in this paper
 should be read as an exact threshold at $\kappa\ne0$
 (Section~\ref{sec:scope}).
 
@@ -939,13 +941,17 @@ AMP and $\lambda$ constants, his $C_j$ and $\det M$ intervals, and
 the ported quadrature layer is digit-identical against the
 zero-margin original at test points.
 
-\emph{Exact artifacts and replay.}  Certificates carry every
+\emph{Exact artifacts and replay.}  The two-variable chain's
+certificates carry every
 sign-critical quantity as outward-rounded decimal packets in
 canonical JSON, with SHA-256 source and payload binding and atomic
 no-clobber publication; the stage-2 artifact binds the hash of the
 Region-I manifest it consumed.  (Some schedule-geometry fields
-remain ordinary JSON floats; they parameterize display and tiling
-bookkeeping, not the inequalities.)  A
+remain ordinary JSON floats --- they parameterize display and tiling
+bookkeeping, not the inequalities --- and the strip-slab and
+rectangle files, which predate the packet schema, record their
+enclosures as display strings; their sign claims enter the kernel
+layer only as those manifests are regenerated.)  A
 documentation self-check keeps the replay instructions honest, and
 the fresh-clone consumer test (clone cold, run as a reproducer
 would) is part of the release procedure --- on the zero-margin
@@ -1110,10 +1116,12 @@ Condition~\ref{cond:2var} at
 $\kappa\in\{-0.45,-0.05,0,0.05,0.0995,0.13\}$; and hence Huang's
 unconditional upper bound at the five nonzero margins
 (Theorem~\ref{thm:main}), with the rest of the strip conditional
-only on Condition~\ref{cond:2var} at the margin in question.  The lower
-bound is untouched: Ding--Sun's conditioned second-moment reduction
-is proved at $\kappa=0$ only, so nothing here is an exact threshold
-statement at $\kappa\ne0$.  All float scans are diagnostics, not
+only on Condition~\ref{cond:2var} at the margin in question.  The matching lower
+bound is open: Ding--Sun's conditioned second-moment reduction
+is proved at $\kappa=0$ only, and the embedded bound of
+Section~\ref{sec:lower}, while rigorous at every $\kappa<0$, sits
+far below the replica-symmetric value; nothing here is an exact
+threshold statement at $\kappa\ne0$.  All float scans are diagnostics, not
 certificates, and are labeled as such in the repository.
 
 \section*{Declarations}

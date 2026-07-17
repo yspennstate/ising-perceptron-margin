@@ -3,14 +3,14 @@
   "huang_region1_n0p05.json:extract_region1_bdef": "d6b1c1326cc31d941981851086700cd2b4e94364e926a621bc4a999a55b75aa8",
   "huang_region1_n0p05.json:extract_region1_schedule": "d6b1c1326cc31d941981851086700cd2b4e94364e926a621bc4a999a55b75aa8",
   "huang_star_interior_n0p05.json:extract_star_interior": "9d734a7b1fca9aecf3dc9ce444c970ca325dd7686788c00902fd124812b4f851",
-  "huang_sweep2_n0p05.json:stage2_rect": "a0ad6835d1851529829411a162b0fae641f91e7471c5050ec0a681c845c63c1c",
+  "huang_sweep2_n0p05.json:stage2_rect": "0f2496aa1ccc7528dfb1d2e7906331519c76f058a1c8f869e60a7d948adbbb6a",
   "huang_sweep_n0p05.json:sweep_rect": "14227fc7a80f619cb1988ee1a871f64ed2229c95cc3290fd04e48ca73719f784"
  },
  "outputs": {
   "huang_region1_n0p05.json:extract_region1_bdef": "a48622e40523c52dcf9b1f1c780f1547b530055244ed919b7225d56c0a71ece3",
   "huang_region1_n0p05.json:extract_region1_schedule": "934f54a690a6fb02d3deffcb3a5cd4854c04cae8f83551a3be2716a26a5782a4",
   "huang_star_interior_n0p05.json:extract_star_interior": "15f9f97496ed02a5efc7c84a7ee91cb1ec24e427d7b661484202abf4889454dc",
-  "huang_sweep2_n0p05.json:stage2_rect": "a8d45069c125fb6847575c4311880d7f5524fb2104a0934adb271fad162eb9bc",
+  "huang_sweep2_n0p05.json:stage2_rect": "6405c2a0bd04b1f641f24b828e796793342c68f5e0de4cd69061bfc10b468ac7",
   "huang_sweep_n0p05.json:sweep_rect": "53b14caa2ea8f03afb3e3dc825e3a13c8ae9657a61027af4cfe545cce1ef6cea"
  }
 }

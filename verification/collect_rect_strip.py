@@ -85,7 +85,12 @@ def main():
             if r[fld] != ref[fld]:
                 problems.append('slab %s field %s differs from CSV'
                                 % (key, fld))
-        if not r['ok'] or r.get('pieces_ok') != r.get('n_sub', 8):
+        # the sub-ball count is part of the recipe, not row-supplied
+        # state: a row must claim exactly eight sub-balls and have all
+        # eight pass (a row carrying its own smaller n_sub must not
+        # pass - audit finding, 2026-07-17)
+        if (not r['ok'] or r.get('n_sub') != 8
+                or r.get('pieces_ok') != 8):
             problems.append('slab %s not fully certified' % key)
         # delta is recorded as an arb ball repr; compare numerically
         dm, dr = parse_arb(str(r.get('delta', 'nan')))

@@ -34,9 +34,10 @@ For every $\kappa\in\R$ and $\alpha>0$,
 \liminf_{N\to\infty}\frac1N\log\frac{\E[Z^2]}{(\E Z)^2}
 \;\ge\; c(\alpha,\kappa)\;>\;0 .
 \]
-Consequently the Paley--Zygmund bound applied to $Z$ gives only
-$\Prob(Z>0)\ge e^{-cN+o(N)}$, and no bound depending on $\E Z$ and
-$\E[Z^2]$ alone can do better, since a distribution placing mass
+Consequently the guarantee of the Paley--Zygmund bound,
+$\Prob(Z>0)\ge(\E Z)^2/\E[Z^2]$, is at most $e^{-cN+o(N)}$, and no
+bound depending on $\E Z$ and
+$\E[Z^2]$ alone can certify more, since a distribution placing mass
 $(\E Z)^2/\E[Z^2]$ at $\E[Z^2]/\E Z$ and the rest at zero matches
 both moments.  For $\kappa\ge0$ the same conclusion holds for every
 weighted count $Z_f=\sum_w\prod_a f(\langle g_a,w\rangle/\sqrt N)$
@@ -134,10 +135,13 @@ here.)
 
 The bound is far from sharp --- at $\kappa=-0.05$ it gives
 $0.215$ against the predicted $0.889$, at $\kappa=-0.45$ it gives
-$0.655$ against $1.558$ --- but it is, as far as we know, the only
-rigorous nonzero-margin lower bound presently available for the
-one-sided Ising perceptron, and it is strictly positive on the whole
-negative axis.
+$0.655$ against $1.558$ --- and it is not alone: Li, Schramm, and
+Zhou~\cite{lsz2024} prove lower bounds on the satisfiability
+threshold of the same one-sided perceptron at negative margin by a
+different route, with the sharpest statements in the
+$\kappa\to-\infty$ regime.  What the embedding adds is its
+elementary proof and margin-explicit values at the certified
+points, strictly positive on the whole negative axis.
 
 \subsection{The Ding--Sun condition at general margin}
 

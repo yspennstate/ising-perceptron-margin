@@ -128,11 +128,13 @@ def main():
     check('stage-2 ok cells have worst <= 0',
           all(rec.get('worst') is None or float(rec['worst']) <= 1e-9
               for rec in st2['records'] if rec['ok']))
-    if 'GRID_N' in st2['policy']:
-        # a coarse evaluator grid weakens every cell certificate; runs
-        # that forgot the env pin must not pass silently
-        check('stage-2 ran the fine evaluator grid',
-              int(st2['policy']['GRID_N']) >= 3600)
+    # a coarse evaluator grid weakens every cell certificate, and a
+    # manifest that does not RECORD its grid cannot prove the fine
+    # run - absence fails, it does not pass silently (audit finding,
+    # 2026-07-17: the conditional form was fail-open for manifests
+    # that predate the field)
+    check('stage-2 records and ran the fine evaluator grid',
+          int(st2['policy'].get('GRID_N', 0)) >= 3600)
     e = [frac(x) for x in st2['policy']['EXCL_OLD']]
     check('stage-2 schedule tiles the exclusion box',
           grid_tiling(st2['schedule'], (e[0], e[1], e[2], e[3])))
@@ -210,8 +212,25 @@ def main():
     # the previous level's.  Together these make every direction's
     # radial chain contiguous from zero up to the radius where its
     # support ends -- the property the stage-2 reach computation
-    # consumes.  (The supplement arcs live in their own manifest and
-    # extend support outward; they are bound by hash above.)
+    # consumes.
+    # The supplement arcs live in their own manifest; when stage-2's
+    # policy binds one, verify it here too (presence, hash, zero
+    # failures) rather than only asserting the binding (audit
+    # finding, 2026-07-17).
+    supp_sha = st2['policy'].get('region1_supplement_sha256')
+    if supp_sha:
+        supp_path = os.path.join(r, f'huang_region1_supp_{t}.json')
+        check('supplement manifest present for the bound hash',
+              os.path.exists(supp_path))
+        if os.path.exists(supp_path):
+            actual = hashlib.sha256(
+                open(supp_path, 'rb').read()).hexdigest()
+            check('stage-2 binds the shipped supplement manifest',
+                  actual == supp_sha)
+            supp = json.load(open(supp_path))
+            check('supplement zero failures',
+                  supp.get('fails', 1) == 0
+                  and all(rec.get('ok') for rec in supp['results']))
     inner = runs(levels[radii[0]])
     two_pi_lo = frac('6.283185307179585')
     two_pi_hi = frac('6.283185307179587')
