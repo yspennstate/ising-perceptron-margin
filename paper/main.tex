@@ -88,7 +88,10 @@ $w\in\{-1,+1\}^N$ satisfies
 Krauth and M\'ezard \cite{krauth1989storage} computed the
 replica-symmetric prediction for the largest such $\alpha$ and
 conjectured it sharp; at $\kappa=0$ their constant is
-$\alpha_\star=0.8330786\ldots$  Three decades later the zero-margin
+$\alpha_\star=0.8330786\ldots$, in the margin framework of Gardner
+and Derrida \cite{gardnerderrida1988}.  Rigorous bounds at zero margin
+go back to Kim and Roche \cite{kimroche1998} and Talagrand
+\cite{talagrand1999}.  Three decades later the zero-margin
 conjecture was resolved --- Ding and Sun \cite{ding2019capacity}
 proved the lower bound and Huang \cite{huang2024capacity} the upper
 bound --- but both proofs are conditional on numerical hypotheses
@@ -1112,8 +1115,8 @@ $(0.10,0.19]$ with the rectangle clause certified per slab on thin
 located rectangles
 (Theorem~\ref{thm:strip}); deep
 $\alpha_\star$ intervals at five margins; the center Hessian at six;
-Condition~\ref{cond:2var} at
-$\kappa\in\{-0.45,-0.05,0,0.05,0.0995,0.13\}$; and hence Huang's
+Condition~\ref{cond:2var} at the margins $\kappa=-0.45$, $-0.05$,
+$0$, $0.05$, $0.0995$ and $0.13$; and hence Huang's
 unconditional upper bound at the five nonzero margins
 (Theorem~\ref{thm:main}), with the rest of the strip conditional
 only on Condition~\ref{cond:2var} at the margin in question.  The matching lower
@@ -1124,7 +1127,19 @@ far below the replica-symmetric value; nothing here is an exact
 threshold statement at $\kappa\ne0$.  All float scans are diagnostics, not
 certificates, and are labeled as such in the repository.
 
-\section*{Declarations}
+\section*{Acknowledgements and funding}
+The author acknowledges support from the European Research Council under the
+European Union's Horizon Europe programme (grant 101041711), the Simons
+Foundation, Heights Labs, and Israel Science Foundation grants 2258/19 and
+4101/25.
+
+This work was done by multiple AI agents, Claude (Anthropic) and Codex (OpenAI), connected to Math Brain~\cite{MathBrainRepo} and working together inside the Brain framework~\cite{BrainFramework}, a shared, persistent memory in which the agents record claims, proofs, failed attempts and methods, retrieve one another's results, coordinate who works on what, and audit each other's work. For more on the details behind the Brain and Math Brain, see the Math Brain paper~\cite{MathBrainPaper}, the Math Brain repository~\cite{MathBrainRepo} and the Brain framework repository~\cite{BrainFramework}.
+
+\section*{Declaration of competing interest}
+The author holds equity in Heights Labs and in Convex Nexus Capital and
+has a management role at Convex Nexus Capital.
+
+\section*{Declaration of generative AI and AI-assisted technologies}
 Most of the work reported here was done by Fable~5 (Anthropic), an AI
 system: the mathematical theory (the stationarity and derivative
 identities, the general-margin Hessian formulas, the symbolic-
@@ -1139,13 +1154,18 @@ independent cross-checks (several such repairs are documented, with
 the failed artifacts preserved, in the repository), and iterating
 until the verifications closed.  The author supervised the runs,
 reviewed the mathematics, and accepts responsibility for the final
-manuscript.  This is part of a broader research project of the
-author on the extent to which current AI systems can resolve open
-problems in mathematics; the methodology by which these AI systems
-operated will be released as a separate research report in due
-course.
+manuscript.  The work is part of Math Brain, the author's project on
+methods for using AI systems to resolve open problems in
+mathematics~\cite{MathBrainPaper}.
 
-\begin{thebibliography}{9}
+\section*{Data availability}
+No data were used. The verification programs, certificates and raw
+records are available at
+\url{https://github.com/yspennstate/ising-perceptron-margin}.
+
+The paper is part of the Math Brain project, whose public repository is \url{https://github.com/yspennstate/math-brain-public}~\cite{MathBrainRepo}.
+
+\begin{thebibliography}{99}
 
 \bibitem{krauth1989storage}
 W.~Krauth and M.~M\'ezard,
@@ -1156,6 +1176,22 @@ Storage capacity of memory networks with binary couplings,
 E.~Gardner,
 The space of interactions in neural network models,
 \emph{J.~Phys.~A} \textbf{21} (1988), 257--270.
+
+\bibitem{gardnerderrida1988}
+E.~Gardner and B.~Derrida,
+Optimal storage properties of neural network models,
+\emph{J.~Phys.~A} \textbf{21} (1988), 271--284.
+
+\bibitem{kimroche1998}
+J.~H.~Kim and J.~R.~Roche,
+Covering cubes by random half cubes, with applications to binary
+neural networks,
+\emph{J.~Comput. System Sci.} \textbf{56} (1998), 223--252.
+
+\bibitem{talagrand1999}
+M.~Talagrand,
+Intersecting random half cubes,
+\emph{Random Structures Algorithms} \textbf{15} (1999), 436--449.
 
 \bibitem{ding2019capacity}
 J.~Ding and N.~Sun,
@@ -1220,6 +1256,12 @@ arXiv:2312.00073.
 S.~Li, T.~Schramm and K.~Zhou,
 Discrepancy algorithms for the binary perceptron,
 arXiv:2408.00796.
+
+\bibitem{MathBrainRepo} Y.~Shmalo, \emph{Math Brain: public snapshot, code and tests}, 2026, \url{https://github.com/yspennstate/math-brain-public}.
+
+\bibitem{MathBrainPaper} Y.~Shmalo, \emph{Math Brain: shared, auditable memory for multi-agent mathematical research}, October 2026, \url{https://github.com/yspennstate/math-brain-public/tree/main/papers/math-brain-2026-10-24}.
+
+\bibitem{BrainFramework} Y.~Shmalo, \emph{Brain Framework}, public software repository, 2026, \url{https://github.com/yspennstate/brain-framework-public}.
 
 \end{thebibliography}
 
