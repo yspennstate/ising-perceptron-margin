@@ -407,7 +407,7 @@ $[-0.65,0.19]$, with per-slab parameter rectangles seeded by the
 continuation (the certificate is the proof; a too-tight seed simply
 fails and is regenerated wider), we verify
 Conditions~\ref{cond:fp}--\ref{cond:lc} in ball arithmetic
-(\texttt{python-flint}, 80-bit working precision, every input a ball
+(\texttt{python-flint}~0.9.0 on FLINT~3.6.0, 80-bit working precision, every input a ball
 covering the whole slab).
 
 \subsection{Numerical architecture}\label{sec:architecture}
@@ -1014,7 +1014,8 @@ and the positivity of its perturbation determinant from the
 serialized packets, the definiteness of the Loewner majorants, and
 the gap-free tilings of the sweep grids and the Region-I band
 schedule) is re-stated over the integers and kernel-checked in
-Lean~4, following the zero-margin release: per-margin generated files
+Lean~4 (core library only, checked with v4.35.0), following the
+zero-margin release: per-margin generated files
 whose kernel-decided theorems cover the $1404$-band radius
 chain and its angular runs, both sweep grid tilings, and the
 star-interior packet chain, with the Loewner-majorant family at all

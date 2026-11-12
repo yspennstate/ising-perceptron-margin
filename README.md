@@ -72,8 +72,8 @@ size and budget:
 ## Replay
 
 Requirements: Python 3.11+ with `python-flint` (and `mpmath`, `numpy`,
-`scipy`, `matplotlib` for the nonrigorous layers); Lean 4 (v4.31.0)
-for the skeleton.  From `verification/`:
+`scipy`, `matplotlib` for the nonrigorous layers); Lean 4 (v4.31.0 or later, core
+library only; the shipped files were last checked with v4.35.0) for the skeleton.  From `verification/`:
 
     python selfcheck.py
     python full_battery.py            # assembler + portable checker +
