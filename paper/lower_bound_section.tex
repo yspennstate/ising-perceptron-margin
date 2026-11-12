@@ -17,8 +17,8 @@ half is Theorem~\ref{thm:main}.  For the lower half, the
 replica-symmetric free energy is proved at small constraint density
 by Talagrand~\cite{talagrand2000} and, for a wider class of
 activations, by Bolthausen, Nakajima, Sun, and Xu~\cite{bnsx2022};
-what has no analytic theorem to certify at present is a lower bound
-matching $\alpha_\star(\kappa)$.  There are three partial results: a
+no lower bound matching $\alpha_\star(\kappa)$ is known at
+$\kappa\ne0$.  There are three partial results: a
 lemma showing that plain second moments fail at every margin, an
 embedded bound that gives capacity lower bounds for $\kappa<0$, and a
 floating-point evaluation of the $\kappa$-dependent inputs of the
@@ -106,8 +106,10 @@ of~\cite{ding2019capacity} is built to circumvent at $\kappa=0$, and
 what any lower-bound proof must circumvent at every other margin.
 At $\kappa=0$ the failure is classical (see the introduction
 of~\cite{ding2019capacity}); Lemma~\ref{lem:secondmoment} extends it
-to every $\kappa$ and, for $\kappa\ge0$, to every weighted count.  For $\kappa<0$ the weighted closure fails: a window weight symmetric about the origin has zero
-linear Mehler coefficient, which is the next observation.
+to every $\kappa$ and, for $\kappa\ge0$, to every weighted count.  For $\kappa<0$ the conclusion for weighted counts can fail: a weight
+symmetric about the origin, such as the indicator
+$f=\mathbf 1_{[-|\kappa|,|\kappa|]}$ of an interval, has
+$\int xf\varphi\,dx=0$.
 
 \subsection{A capacity lower bound at negative margins}
 
@@ -127,11 +129,11 @@ solution set at width $|\kappa|$ embeds in the margin-$\kappa$
 solution set.  The value $\alpha^{\mathrm{sym}}_c(r)$ is the
 first-moment threshold of Aubin, Perkins and
 Zdeborov\'a~\cite{aubin2019storage}.  Altschuler's
-Theorem~1.4~\cite{altschuler2022} states that for every width $K>0$
+Theorem~1.4~\cite{altschuler2022} states that for every width $r>0$
 and every $\varepsilon>0$ there is $c>0$ such that, when the rows
 $g_a/\sqrt N$ are independent $N(0,N^{-1}I_N)$ vectors and their
-number is below $\alpha^{\mathrm{sym}}_c(K)N-c\log N$, a binary $w$
-with $|\langle g_a,w\rangle|/\sqrt N\le K$ for every $a$ exists with
+number is below $\alpha^{\mathrm{sym}}_c(r)N-c\log N$, a binary $w$
+with $|\langle g_a,w\rangle|/\sqrt N\le r$ for every $a$ exists with
 probability at least $1-\varepsilon$ for $N$ large.  Its proof uses the second-moment
 condition of Abbe, Li and Sly~\cite[Lemma~3.4]{abbelisly2021} (the
 second-moment exponent is largest at overlap zero), which they prove
@@ -210,7 +212,7 @@ two-variable certificate of Section~\ref{sec:regionI}.
 \caption{The general-margin Ding--Sun lower-bound condition,
 evaluated at the five certified margins and $\kappa=0$: the
 univariate function $S_{\kappa,\alpha_\star(\kappa)}$ of their
-equation (48), whose nonpositivity off $\{0,1\}$ is the numerical
+equation (48), whose negativity off $\{0,1\}$ is the numerical
 hypothesis of their second-moment argument.  All six curves are
 negative off the two roots and nearly coincide.}
 \label{fig:dscondition}

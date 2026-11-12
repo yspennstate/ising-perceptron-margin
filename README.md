@@ -37,14 +37,15 @@ exact-rational star-interior certificate.  At kappa = 0 every
 pipeline reproduces the certified zero-margin values.
 
 The paper (`paper/main.tex`, `main.pdf`) develops the theory,
-documents the verification, and reads the curve quantitatively for
-machine learning: the price of demanded robustness (capacity halves
-per 0.50 of margin), the margin distribution among solutions and the
-free slack it implies, per-bit storage economics of binary versus
-ternary weights, and finite-size experiments locating the annealing
-wall against the certified ceiling.  In those experiments the wall
-sits at a kappa-independent fraction of alpha_*(kappa) within each
-size and budget:
+documents the verification, and reads the curve as a robustness
+statement for binary classifiers (on the certified strip the capacity
+halves for every 0.45 to 0.55 of demanded margin).  The repository
+also holds floating-point experiments that are not part of the paper:
+the margin distribution among solutions (`margin_distribution.py`),
+binary versus ternary weights (`ternary_figure.py`), and finite-size
+annealing runs (`finite_size_experiment.py`).  In those runs the
+annealing wall sits at a kappa-independent fraction of alpha_*(kappa)
+within each size and budget:
 
 ![algorithmic fraction](verification/results/algorithmic_fraction.png)
 
