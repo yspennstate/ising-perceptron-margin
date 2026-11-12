@@ -5,9 +5,10 @@ Sections~\ref{sec:twovar}--\ref{sec:regionI} run unchanged at any
 $\kappa$ of the strip, with the boxes of $(q_0,\psi_0)$ located at
 both ends of the $\alpha$ interval of that margin.  Besides
 $\kappa=0.05$, Condition~\ref{cond:2var} holds at $\kappa=-0.45$, $-0.05$,
-$0.0995$ and $0.13$.  At the two negative margins the fixed-point
-uniqueness input comes entirely from the contraction certificates of
-Section~\ref{sec:slabs}.  Table~\ref{tab:margins} lists the certified
+$0.0995$ and $0.13$.  At the four margins with $\kappa\le0.10$ the
+uniqueness of the fixed point comes from the contraction certificates
+of Section~\ref{sec:slabs} alone; at $\kappa=0.13$ Nakajima's
+uniqueness theorem gives it as well.  Table~\ref{tab:margins} lists the certified
 pieces at the five margins.
 
 \begin{table}[tbp]
@@ -32,7 +33,7 @@ $0.01446\ /\ 0.01210$ \\
 \bottomrule
 \end{tabular}
 \caption{Certified leaf and band counts per piece, with zero failures
-in every manifest.  In the Region~I column, $(+12)$ marks the twelve
+in every certificate file.  In the Region~I column, $(+12)$ marks the twelve
 supplementary angular ranges that follow the bands; the stage-2
 lattice of every margin uses them.  The final column gives the
 constructive moment-body inradius against the required star radius,
@@ -40,18 +41,12 @@ both exact-arithmetic bounds.}
 \label{tab:margins}
 \end{table}
 
-For each band, the Region-I manifest of every margin carries an
-interval matrix $\bar B$ with $\nabla^2\Phi(\lambda)\preceq\bar B$ in the
+For each band, the Region~I certificate file of every margin carries
+a Loewner majorant $\bar B$, an interval matrix with $\nabla^2\Phi(\lambda)\preceq\bar B$ in the
 Loewner order (the difference is positive semidefinite) for every
 $\lambda$ in the band's certified dual box, so that the Hessian of
 the entropy term is at most $-\bar B^{-1}$ there.  Every band's $\bar B$ is
 positive definite, a fact checked in exact rational arithmetic
 (Section~\ref{sec:metaverify}).
-
-The stage-2 containment reads each supplement arc on both angular
-branches, so a cell sees every arc whichever branch its interval lies
-on.  At $\kappa=0.0995$ the exclusion box has upper offset
-$+0.1030$; the stage-2 containment derives its tiling from the box,
-and the star and the supplement cover it.
 
 \input{interval_section}
