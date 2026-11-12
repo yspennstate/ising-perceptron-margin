@@ -1,4 +1,4 @@
-# The Ising perceptron at nonzero margin: certified bounds along the capacity curve
+# The Ising perceptron at nonzero margin: certified bounds along the replica-symmetric curve
 
 Verification code, certificates, and paper for the margin extension of
 the Ising perceptron capacity results: the replica-symmetric predicted

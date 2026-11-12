@@ -22,7 +22,7 @@
 \DeclareMathOperator{\sech}{sech}
 
 \title{The Ising perceptron at nonzero margin:\\
-certified bounds along the capacity curve}
+certified bounds along the replica-symmetric curve}
 \author{Yitzchak Shmalo\\
 \small Einstein Institute of Mathematics, The Hebrew University of Jerusalem\\
 \small yitzchak.shmalo@gmail.com}
@@ -34,21 +34,18 @@ certified bounds along the capacity curve}
 \begin{abstract}
 The storage capacity of the Ising perceptron at margin $\kappa$ is
 predicted by a replica-symmetric variational problem.  Huang proved
-that the predicted threshold $\alpha_\star(\kappa)$ is an upper bound
-at every margin where four conditions on
-low-dimensional problems hold.  We verify the four conditions in ball
+that the replica-symmetric threshold $\alpha_\star(\kappa)$ is an upper bound
+at every margin where four low-dimensional conditions hold.  We verify the four conditions in ball
 arithmetic at $\kappa=-0.45$, $-0.05$, $0.05$, $0.0995$ and $0.13$, so
 the bound holds there unconditionally; at $\kappa=0.05$ the
-capacity is at most $\alpha_\star(0.05)\in[0.781073068,0.781074776]$.
-The fixed-point, approximate-message-passing and local-concavity conditions hold on the strip
-$\kappa\in[-0.65,0.19]$.
-At $\kappa\ne0$ the fixed point of the replica-symmetric equations
-is known only to a box about $8\cdot10^3$ times wider in one coordinate
-than at zero margin, and the zero-margin proof of Huang's two-variable
-condition fails at that width.  It is restored by computing the
-moments of the condition's maximizing profile as functions of the parameters over that box,
-and by writing each difference of log-partition values the proof needs
-as a single expectation about that profile's dual point.  Whether
+capacity is at most $0.781075$.  Three of the conditions hold on the
+strip $\kappa\in[-0.65,0.19]$.  Away from zero margin the fixed point
+is enclosed here in a box about $8\cdot10^3$ times wider in one coordinate,
+and the zero-margin proof of the two-variable condition fails at that
+width.  It is restored by treating the maximizer's moments as functions
+of the fixed point over the box and by expanding the log-partition
+function about the maximizer, so that the width enters only at second
+order.  Whether
 $\alpha_\star(\kappa)$ is also a lower bound at $\kappa\ne0$ is open.
 \end{abstract}
 
@@ -60,7 +57,7 @@ replica-symmetric formula, computer-assisted proof, ball arithmetic.
 
 \section{Introduction}\label{sec:intro}
 
-Store $m=\alpha N$ random patterns in a linear classifier with binary
+Store $m=\lceil\alpha N\rceil$ random patterns in a linear classifier with binary
 weights: for i.i.d.\ standard Gaussian vectors $g_1,\dots,g_m$ in
 $\R^N$ and a margin $\kappa\in\R$, ask whether some
 $w\in\{-1,+1\}^N$ satisfies
@@ -68,21 +65,25 @@ $w\in\{-1,+1\}^N$ satisfies
 \frac{\langle g_a, w\rangle}{\sqrt N}\;\ge\;\kappa
 \qquad\text{for all } a\le m .
 \]
+We call this the margin condition.
+Write $m_N(\kappa)$ for the largest $m$ for which such a $w$ exists.
+The capacity at margin $\kappa$ is at most $\alpha$ if for every
+$\alpha'>\alpha$, $m_N(\kappa)<\alpha' N$ with probability $1-o(1)$
+as $N\to\infty$.
 Krauth and M\'ezard \cite{krauth1989storage} computed the
 replica-symmetric prediction for the largest such $\alpha$ and
 conjectured it sharp; at $\kappa=0$ their constant is
-$\alpha_\star=0.8330786\dots$, in the margin framework of Gardner
-and Derrida \cite{gardnerderrida1988}.  Rigorous bounds at zero margin
+$\alpha_\star=0.8330786\dots$.  Rigorous bounds at zero margin
 go back to Kim and Roche \cite{kimroche1998} and Talagrand
 \cite{talagrand1999}, who proved that the capacity is at most
 $1-\varepsilon$ for some $\varepsilon>0$; Altschuler and Tikhomirov
 \cite{altschulertikhomirov2024} give a complete proof of the bound
-$0.847$ outlined by Krauth and M\'ezard.  Three decades later the zero-margin
+$0.847$ outlined by Krauth and M\'ezard.  The zero-margin
 conjecture was resolved: Ding and Sun \cite{ding2019capacity}
 proved the lower bound and Huang \cite{huang2024capacity} the upper
 bound.  Both proofs are conditional on numerical conditions
 about explicit low-dimensional variational problems, and those
-conditions are verified in interval arithmetic in
+conditions are verified in ball arithmetic in
 \cite{shmalo2026capacity}, at $\kappa=0$.
 
 Huang's upper-bound theorem, however, is stated at every margin.  For
@@ -96,9 +97,14 @@ solution.  The third asks that an explicit function of one real
 variable take a negative value at some point.  The fourth
 asks that a function $\sS_\star$ of two real variables be
 nonpositive on the whole plane (Conditions~\ref{cond:fp}--\ref{cond:2var} of
-Section~\ref{sec:system}).  Stojnic's fully-lifted random duality
-theory~\cite{stojnic2023} predicts the same replica-symmetric values
-at every margin by nonrigorous means.  We verify all four conditions
+Section~\ref{sec:system}).  Stojnic~\cite{stojnic2023} writes the capacity at margin $\kappa$
+as the value of a lifted random-duality functional; assuming the
+stationarized fully lifted frame of his theory at the second level
+of lifting \cite[Theorem~3]{stojnic2023}, he obtains the threshold
+$\alpha_\star(\kappa)$ at every $\kappa$, and that the third level
+changes nothing is observed numerically.  The theorem below assumes
+no such frame: it is Huang's theorem with its four conditions
+proved.  We verify all four conditions
 at five nonzero margins.
 
 \begin{mainthm}[Theorem~\ref{thm:main}]
@@ -114,59 +120,68 @@ $\alpha_\star(\kappa)$ lies in the interval
 \kappa=0.13:\ [0.705932217,\,0.705933898]. &
 \end{array}
 \]
-For $\alpha$ above that interval, with probability $1-o(1)$ as
-$N\to\infty$ no $w\in\{-1,+1\}^N$ satisfies all $\lceil\alpha N\rceil$
-constraints.
+For $\alpha$ above that interval, $m_N(\kappa)<\alpha N$ with
+probability $1-o(1)$ as $N\to\infty$; the capacity at margin $\kappa$
+is at most $\alpha_\star(\kappa)$.
 \end{mainthm}
 
-At $\kappa=0$ the four conditions are verified in
-\cite{shmalo2026capacity}.  There the fixed point $(q_0,\psi_0)$ of the replica-symmetric
-equations (Section~\ref{sec:system}) is enclosed to width
-$8\cdot10^{-10}$ in $q_0$ and $1.2\cdot10^{-8}$ in $\psi_0$, so
-the moment point $a^\star=(\psi_0(1-q_0),q_0)$ of the profile
-$\tanh\dot H$, where $\dot H\sim N(0,\psi_0)$, which maximizes the
-function of Condition~\ref{cond:2var}, can be treated as an exact
-point.  With $M=\tanh\dot H$, the proof of Condition~\ref{cond:2var} works in the moment
-body $K$, the set of pairs $(\E[\dot H\Lambda],\E[M\Lambda])$ over
-functions $\Lambda$ of $\dot H$ with $|\Lambda|\le1$.  It bounds the entropy term
-by convex duality through the log-partition function
-$\Phi(b)=\E\log2\cosh(b_1\dot H+b_2M)$, as $\Phi(b)-b\cdot x$ at a dual
-point $b\in\R^2$ for each moment point $x$, the dual points placed by
-certified sign tests; these need the signs of differences
-$\Phi(\lambda)-\Phi(\lambda')-(\lambda-\lambda')\cdot x$, $x\in K$,
-of order $10^{-7}$.
+Let $(q_0,\psi_0)$ be the fixed point of
+the replica-symmetric equations (Section~\ref{sec:system}),
+$\dot H\sim N(0,\psi_0)$ and $M=\tanh\dot H$.  A profile is a
+function $\Lambda$ of $\dot H$ with values in $[-1,1]$; its moment pair is
+$(\E[\dot H\Lambda],\E[M\Lambda])$, and the moment body $K$ is the set
+of moment pairs of all profiles.  The function of
+Condition~\ref{cond:2var} is maximized at the profile $M$, whose moment
+pair is $a^\star=(\psi_0(1-q_0),q_0)$.  In
+\cite{shmalo2026capacity} the fixed point is enclosed to width
+$8\cdot10^{-10}$ in $q_0$ and $1.2\cdot10^{-8}$ in $\psi_0$, so $a^\star$
+can be treated as an exact point.  The proof of
+Condition~\ref{cond:2var} there works in $K$.  It bounds the entropy term
+(the second term of Huang's functional, Section~\ref{sec:twovar}) by convex duality
+through the log-partition function
+$\Phi(b)=\E\log2\cosh(b_1\dot H+b_2M)$, as $\Phi(b)-b\cdot a$ at a dual
+point $b\in\R^2$ for each $a\in K$, the dual points placed by certified
+sign tests; these need the signs of differences
+$\Phi(\lambda)-\Phi(\lambda')-(\lambda-\lambda')\cdot a$, $a\in K$, of
+order $10^{-7}$.
 
-At $\kappa\ne0$ the threshold is enclosed in an interval, of width
+At $\kappa\ne0$ the threshold is enclosed in its $\alpha_\star$ interval, of width
 $1.7\cdot10^{-6}$ at $\kappa=0.05$ (Theorem~\ref{thm:main}), a width
 set by the enclosure of the function $G$ whose zero defines
 $\alpha_\star$ (Section~\ref{sec:system}) at the quadrature depth used
-($1.4\cdot10^{-5}$ at the default depth), and the certificates must
-hold at every $\alpha$ of it.  They are therefore
+($1.4\cdot10^{-5}$ at the default depth), and the four certificates
+of the proof, listed below, must hold at every $\alpha$ of it.  They are therefore
 run on the hull of the boxes that contain the fixed point at the two
 ends of the interval (Section~\ref{sec:slabs}).  At $\kappa=0.05$
 this hull has width $1.5\cdot10^{-6}$ in $q_0$ and $9.2\cdot10^{-5}$
 in $\psi_0$, about $2\cdot10^3$ and $8\cdot10^3$ times the widths at
 $\kappa=0$; of the width in $\psi_0$, $2.4\cdot10^{-5}$ is the motion
 of the fixed point across the interval.  On this hull each enclosure
-of $\Phi$ has width about $2\cdot10^{-5}$.  A box no wider than
-that motion still leaves $5\cdot10^{-6}$, so the sign tests of
+of $\Phi$ has width about $2\cdot10^{-5}$.  Even if $\psi_0$ were enclosed to the width
+$2.4\cdot10^{-5}$ of that motion, each enclosure of $\Phi$ would have
+width about $5\cdot10^{-6}$, fifty times the differences of order
+$10^{-7}$, so the sign tests of
 \cite{shmalo2026capacity} are not decided and its argument does not
 apply as written.  Narrowing the interval does not remove the
-difficulty: at each end $\psi_0$ is enclosed as $R(q_0,\alpha)$ by a
-Riemann sum of $4000$ cells, to width $6.9\cdot10^{-5}$
-(Section~\ref{sec:regionI}), and the sign tests need each enclosure
-of $\Phi$ below $10^{-7}$, so both that width and the motion of the
-fixed point would have to shrink, by factors of about $150$ and $50$.
+difficulty: at each end $\psi_0$ is enclosed as $R(q_0,\alpha)$, the
+second equation of~\eqref{eq:PR}, by a Riemann sum of $4000$ cells, to
+width $6.9\cdot10^{-5}$ (Section~\ref{sec:regionI}), and the sign tests
+need each enclosure of $\Phi$ below $10^{-7}$, so both that width and
+the motion of the fixed point would have to shrink, by factors of about
+$150$ and $50$.  Finer quadrature and a narrower enclosure of
+$\alpha_\star$ could in principle achieve this; the identity below makes
+it unnecessary, and the certificates hold on the hull itself, whose
+width in $\psi_0$ is about $8\cdot10^3$ times that at $\kappa=0$.
 
-Four changes make it apply on the hull.  First, $a^\star$ is never stored as
-a number.  At the fixed point $\nabla\Phi(1,0)=(\psi_0(1-q_0),q_0)$,
-and the certificates use this pair and $s_0=\sqrt{1-q_0}$ as functions
-of $(q_0,\psi_0)$ on the hull.  Here the tilt $s\ge0$ is the second
-argument of Huang's functional $\sS(\Lambda,s)$
+Four changes make it apply on the hull.  Here the tilt $s\ge0$ is the
+second argument of Huang's functional $\sS(\Lambda,s)$
 (Section~\ref{sec:twovar}), $\sS_\star(\lambda)$ is its infimum over $s$
 at the profile $\Lambda=\tanh(\lambda_1\dot H+\lambda_2M)$, and $s_0$ is
-the optimal tilt at $\lambda=(1,0)$.  The identities at
-$a^\star$ are needed only at the true parameters, which lie in the
+the optimal tilt at $\lambda=(1,0)$.  First, $a^\star$ is never stored
+as a number: at the fixed point $\nabla\Phi(1,0)=(\psi_0(1-q_0),q_0)$,
+and the certificates use this pair and $s_0=\sqrt{1-q_0}$ as functions
+of $(q_0,\psi_0)$ on the hull; the identities they need at $a^\star$
+(Lemma~\ref{lem:grad}) hold at the true parameters, which lie in the
 hull.  Second, $\Phi$ is written against the point $b_0=(1,0)$ through
 the identity
 \[
@@ -180,15 +195,15 @@ $|\lambda-b_0|$; within distance $0.01$ of $b_0$ the resulting
 enclosures are $50$ to $160$ times tighter than differences of
 separate enclosures of $\Phi$.  Third, bounds on the inverse Mills
 ratio (Lemma~\ref{lem:mills}) keep the second derivatives of the
-constraint term finite where the argument of the inverse Mills ratio
+constraint term (the third term) finite where the argument of the inverse Mills ratio
 is large.  Fourth, the tilt along each ray from $a^\star$ moves with
 a slope fixed by the direction alone, one slope for each of $768$
 angular sectors, so that second-derivative bounds on successive radial
 bands chain along every ray.
 
 With these changes the four certificates of
-\cite{shmalo2026capacity} hold at $\kappa=-0.45$, $-0.05$, $0.05$,
-$0.0995$ and $0.13$ (Sections~\ref{sec:twovar}
+\cite{shmalo2026capacity} hold at the five margins of the Main
+Theorem (Sections~\ref{sec:twovar}
 and~\ref{sec:regionI}).  They are Region~II, a sweep of $K$ outside
 an exclusion region, a product of two intervals about $a^\star$ in the
 moment plane; Region~I, concavity along each
@@ -209,7 +224,7 @@ $\kappa\in(0.10,0.19]$ on rectangles padded by $5\cdot10^{-4}$ in $q$
 about the fixed points located at the ends of each sub-slab, one of
 eight $\kappa$ intervals of width $6.25\cdot10^{-5}$ covering a slab
 (Section~\ref{sec:nak}).  On $(0.10,0.19]$ Nakajima's uniqueness
-theorem~\cite{nakajima2025}, whose premise is verified in ball
+theorem~\cite[Theorem~1]{nakajima2025}, whose premise is verified in ball
 arithmetic, gives uniqueness a second time.  The Hessian $\mathcal H$ in $\lambda$ at the maximizer $(1,0)$ of
 $\sS(\tanh(\lambda_1\dot H+\lambda_2M),s_0)$, the tilt held at its
 optimal value, negative definite at
@@ -229,26 +244,25 @@ For $\kappa<0$, Section~\ref{sec:lower} gives the lower bound
 $\max\{\alpha_\star(0),\alpha^{\mathrm{sym}}_c(|\kappa|)\}$, where
 $\alpha^{\mathrm{sym}}_c(r)$ is the threshold of the symmetric binary
 perceptron at width $r$, by
-monotonicity and by embedding a symmetric perceptron; it lies far
-below $\alpha_\star(\kappa)$.  The enclosures of the special functions
+monotonicity and by embedding a symmetric perceptron; it is below
+$\alpha_\star(\kappa)$, by $0.056$ at $\kappa=-0.05$ and by $0.72$ at
+$\kappa=-0.45$.  The enclosures of the special functions
 are those of~\cite{shmalo2026capacity}; integrals over wide
 parameter balls are Riemann sums (Section~\ref{sec:architecture}).
 
 Section~\ref{sec:system} states the replica-symmetric system,
 Huang's four conditions and the two identities.
-Section~\ref{sec:curve} describes the capacity curve in floating
-point.  Section~\ref{sec:slabs} proves Conditions~\ref{cond:fp}--%
-\ref{cond:lc} on the strip, and Section~\ref{sec:twovarfn} treats the
-two-variable function and its Hessian.  Section~\ref{sec:regionI}
-proves Condition~\ref{cond:2var} at the five margins and states
-Theorems~\ref{thm:main} and~\ref{thm:strip}; Section~\ref{sec:margins}
-records the further margins and explains why
-Condition~\ref{cond:2var} is proved at points and not on intervals of
-$\kappa$.  Section~\ref{sec:lower} concerns the lower bound,
-Section~\ref{sec:metaverify} what is checked in exact arithmetic,
-Section~\ref{sec:ml} the reading of the curve for learning, and
-Section~\ref{sec:scope} further directions.  The notation is
-collected at the end.
+Section~\ref{sec:slabs} states Theorem~\ref{thm:strip}, describes the
+replica-symmetric curve $\kappa\mapsto\alpha_\star(\kappa)$ in floating
+point and proves Conditions~\ref{cond:fp}--\ref{cond:lc} on the strip.
+Section~\ref{sec:twovarfn} states Theorem~\ref{thm:main}, treats the
+two-variable function and its Hessian, proves
+Condition~\ref{cond:2var} at the five margins, explains why it is
+proved at points and not on intervals of $\kappa$, and lists what is
+checked in exact arithmetic.  Section~\ref{sec:lower} proves that the
+second moment of the number of solutions is exponentially larger than
+the square of the first at every margin and gives a lower bound for
+$\kappa<0$.  The notation is collected at the end.
 
 \section{The system and the four conditions}\label{sec:system}
 
@@ -282,8 +296,8 @@ in \cite[eq.~(4)]{ding2019capacity}.)
 
 Huang's Theorem~3.6~\cite{huang2024capacity} reads: for any
 $\kappa\in\R$, under his Conditions~1.3, 3.1, 3.3 and~3.4, the
-probability that some $w\in\{-1,+1\}^N$ satisfies the first
-$\lceil\alpha N\rceil$ constraints tends to $0$ for every
+probability that some $w\in\{-1,+1\}^N$ satisfies the margin
+condition for the first $\lceil\alpha N\rceil$ patterns tends to $0$ for every
 $\alpha>\alpha_\star(\kappa)$.  Each of the four conditions is
 defined at every $\kappa$ and depends on it.  Conditions~\ref{cond:fp},
 \ref{cond:amp}, \ref{cond:lc} and~\ref{cond:2var} below are his
@@ -331,7 +345,7 @@ $d_0=\alpha_\star\E[F'(\sqrt{q_0}Z)]$ and
 \ell(\hat z)=\hat z-\alpha_\star\,\E\!\left[\frac{\hat f_0(\sqrt{q_0}Z)}
 {1+\mu(\hat z)\hat f_0(\sqrt{q_0}Z)}\right]-d_0,\qquad \hat z>-1.
 \]
-Then $\ell(\hat z)<0$ for some $\hat z>-1$.
+The condition is that $\ell(\hat z)<0$ for some $\hat z>-1$.
 \end{cond}
 
 This is \cite[Condition~3.4]{huang2024capacity}, whose function is
@@ -341,9 +355,10 @@ condition asks that $\inf_{\hat z>-1}\ell(\hat z)<0$.
 \begin{cond}[two-variable function]\label{cond:2var}
 $\sS_\star(\lambda_1,\lambda_2)\le0$ for all
 $(\lambda_1,\lambda_2)\in\R^2$, where $\sS_\star$ is the
-two-variable function of Section~\ref{sec:twovar}; equality holds at
-$(1,0)$.
+two-variable function of Section~\ref{sec:twovar}.
 \end{cond}
+
+Equality holds at $(1,0)$ (Section~\ref{sec:twovar}).
 
 \subsection{Two identities}\label{sec:identities}
 
@@ -375,7 +390,7 @@ u_q=\frac{1}{2\sqrt{1-q}}
 \]
 Stein's lemma applied to the $z$ part,
 $\E[zE(u)]=-\sqrt{q/(1-q)}\;\E[E'(u)]$, together with the Mills
-identity $E'(u)=E(u)^2-uE(u)$, collapses the two pieces:
+identity $E'(u)=E(u)^2-uE(u)$, gives
 \[
 \E[E(u)\,u_q]
 =\frac{\E[E'(u)]+\E[u\,E(u)]}{2(1-q)}
@@ -386,7 +401,7 @@ Hence $\partial_q G=\psi/2-\alpha\cdot R/(2\alpha)=(\psi-R)/2$.
 \end{proof}
 
 Both derivatives vanish exactly on the fixed-point branch.  On a
-rectangle carrying the contraction of Condition~\ref{cond:fp} the
+rectangle carrying the bound of Condition~\ref{cond:fp} the
 branch $\alpha\mapsto(q_\star,\psi_\star)$ is $C^1$ (the implicit
 function theorem applies: $1-(P\circ R_\alpha)'$ is bounded away
 from zero), and the envelope theorem gives
@@ -395,7 +410,7 @@ every $\kappa$: the root $\alpha_\star(\kappa)$ is unique on the
 branch.  This is the
 general-margin form of the monotonicity clause in
 Condition~\ref{cond:fp}, and it is also what turns the boxes in which
-Section~\ref{sec:slabs} locates the fixed point (located boxes) into per-slab
+Section~\ref{sec:slabs} locates the fixed point (located boxes) into the slabs'
 $\alpha_\star$ intervals: a certified sign of $G$ at a located box is
 a certified side of $\alpha_\star$.  The branch is increasing in
 $\alpha$: $P$ is increasing, since $\tanh^2(\sqrt\psi\,|z|)$ increases
@@ -446,33 +461,76 @@ $\sup_\psi P'\cdot\sup_q|\partial R/\partial q|$ on each slab
 $q\mapsto P(R(q))$ increasing, which is what the location step of
 Section~\ref{sec:slabs} bisects on.
 
-\section{The capacity curve and the four conditions along it}\label{sec:curve}
+\section{Certificates on a strip}\label{sec:slabs}
+
+For $\kappa$ in slabs of width $5\cdot10^{-4}$ covering
+$[-0.65,0.19]$, with per-slab parameter rectangles seeded by the
+continuation, we verify
+Conditions~\ref{cond:fp}--\ref{cond:lc} in ball arithmetic (a
+rectangle is a product of intervals in $(\alpha,q)$, a box a product
+of intervals in $(q_0,\psi_0)$)
+(\texttt{python-flint}~0.9.0 on FLINT~3.6.0, the Fast Library for Number Theory, \cite{arb2017}, 80-bit working precision, every input a ball
+covering the whole slab).
+
+\begin{theorem}\label{thm:strip}
+\begin{itemize}
+\item[(a)] For every $\kappa\in[-0.65,0.10]$,
+Conditions~\ref{cond:fp}--\ref{cond:lc} hold, with the bound of
+Condition~\ref{cond:fp} on the slab rectangle.
+\item[(b)] For every $\kappa\in(0.10,0.19]$,
+Conditions~\ref{cond:fp}--\ref{cond:lc} hold, with the bound of
+Condition~\ref{cond:fp} on the located rectangles of
+Section~\ref{sec:nak}; uniqueness of the fixed point also follows from
+Nakajima's uniqueness theorem~\cite[Theorem~1]{nakajima2025}, whose premise is verified on
+every slab.
+\item[(c)] In both cases $\alpha_\star(\kappa)$ exists, is unique on
+the fixed-point branch, and lies in the slab's $\alpha_\star$ interval of a slab
+containing $\kappa$.  If Condition~\ref{cond:2var} also holds at
+$\kappa$, then for every $\alpha$ above the upper end of that interval
+the probability that some $w\in\{-1,+1\}^N$ satisfies the margin
+condition at $\kappa$ for all $\lceil\alpha N\rceil$ patterns tends to $0$ as
+$N\to\infty$.
+\end{itemize}
+\end{theorem}
+
+The $1680$ slabs, each with
+its $\kappa$, $\alpha$ and $q$ intervals, are listed in the
+verification repository, those with $\kappa\le0.10$ in the file
+\nolinkurl{verification/results/certified_intervals.csv} and the others
+in the file \nolinkurl{verification/results/certified_intervals_nak.csv}.  The proof occupies the rest of
+this section.
+
+\subsection{The replica-symmetric curve}\label{sec:curve}
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=0.86\linewidth]{alpha_curve.png}
+\includegraphics[width=0.86\linewidth]{alpha_curve.pdf}
 \caption{The replica-symmetric threshold
 $\alpha_\star(\kappa)$ (warm-started continuation from the certified
 value at $\kappa=0$), the annealed bound $\log 2/(-\log\Psi(\kappa))$,
 the spherical capacity
-$\alpha_{\mathrm{sph}}(\kappa)=1/\E[(\kappa-Z)_+^2]$~\cite{gardner1988}, and the bound
+$\alpha_{\mathrm{sph}}(\kappa)=1/\E[(\kappa-Z)_+^2]$~\cite{gardner1988,gardnerderrida1988}, and the bound
 $\alpha_c(\kappa)=2/(\pi\,\E[(\kappa-Z)_+^2])$ of Nakajima's uniqueness
-theorem for $\kappa\ge0$.  The
-inset shows the per-slab $\alpha_\star$ intervals on the
+theorem for $\kappa\ge0$.  The dot is the certified value at
+$\kappa=0$ \cite{shmalo2026capacity} and the diamonds are
+$\alpha_\star$ at the five margins of the Main Theorem.  The
+inset shows the slabs' $\alpha_\star$ intervals on the
 strip.}
 \label{fig:curve}
 \end{figure}
 
-A warm-started continuation in high-precision floating point (not
-a certificate; Figure~\ref{fig:curve}) follows the fixed point along $\kappa\in[-2.0,1.5]$,
-recording at each of $71$ points the threshold, the fixed point, the
-contraction $(P\circ R_\alpha)'(q_\star)$, the left side of Condition~\ref{cond:amp} and the
+The slab rectangles are seeded by a warm-started continuation in
+high-precision floating point (not a certificate;
+Figure~\ref{fig:curve}), which follows the fixed point along $\kappa\in[-2.0,1.5]$,
+recording at each of $71$ points the threshold, the fixed point
+$(q_0,\psi_0)$, the derivative at the fixed point
+$(P\circ R_\alpha)'(q_0)$, the left side of Condition~\ref{cond:amp} and the
 local-concavity minimum $\ell_0$.  Selected values:
 
 \begin{center}
 \begin{tabular}{r r r r r r}
 \toprule
-$\kappa$ & $\alpha_\star$ & $q_\star$ & $(P\circ R)'$ &
+$\kappa$ & $\alpha_\star$ & $q_0$ & $(P\circ R_\alpha)'(q_0)$ &
 AMP & $\ell_0$\\
 \midrule
 $-2.0$ & $29.9921$ & $0.11863$ & $0.387$ & $0.440$ & $-0.147$\\
@@ -488,24 +546,14 @@ $1.5$  & $0.17245$ & $0.75049$ & $0.903$ & $0.381$ & $-0.442$\\
 
 Conditions~\ref{cond:fp}--\ref{cond:lc} are satisfied in floating
 point at every point computed.  The
-contraction is the only quantity trending toward failure, and only
-slowly; $\ell_0$ approaches zero nearest $\kappa\approx-1.3$
-(about $-0.094$) and then strengthens again.  On the positive branch $\alpha_\star(\kappa)$
+derivative at the fixed point rises from $0.387$ at $\kappa=-2$ to
+$0.903$ at $\kappa=1.5$.  The minimum $\ell_0$ is largest, about
+$-0.094$, near $\kappa=-1.3$.  On the positive branch $\alpha_\star(\kappa)$
 stays below the bound $\alpha_c(\kappa)$ at every grid point (worst ratio $0.874$
 at $\kappa=1.5$).  Toward $\kappa=-2$, the lower edge of the computed range, the
-threshold approaches the annealed bound from below, as it must where the constraints
-trivialize.
+threshold is $29.9921$, below the annealed bound
+$\log2/(-\log\Psi(-2))$.
 
-\section{Certificates on a strip}\label{sec:slabs}
-
-For $\kappa$ in slabs of width $5\cdot10^{-4}$ covering
-$[-0.65,0.19]$, with per-slab parameter rectangles seeded by the
-continuation, we verify
-Conditions~\ref{cond:fp}--\ref{cond:lc} in ball arithmetic (a
-rectangle is a product of intervals in $(\alpha,q)$, a box a product
-of intervals in $(q_0,\psi_0)$)
-(\texttt{python-flint}~0.9.0 on FLINT~3.6.0, 80-bit working precision, every input a ball
-covering the whole slab).
 
 \subsection{Numerical architecture}\label{sec:architecture}
 
@@ -542,7 +590,7 @@ $2A+\beta\tau=A+(A+\beta\tau)>0$; the integrand is therefore monotone
 in $\tau$, and its absolute value is at most its value at $\tau=1$,
 which is $|\beta|/(A\mu)$.
 
-\subsection{Uniqueness by contraction}
+\subsection{Uniqueness by contraction}\label{sec:contraction}
 
 On each of the $1500$ slabs of $[-0.65,0.10]$ the checks are: (i) the contraction product
 $\sup_\psi P'\cdot\sup_q|\partial R/\partial q|$, which bounds
@@ -552,21 +600,21 @@ under $P\circ R_\alpha$ on each of eight $\alpha$ sub-intervals;
 (iii) the crossing: at the two thin $\alpha$ endpoints a certified
 Picard iteration locates the fixed point (the invariant is that the
 image of any set containing the fixed point contains it) and the sign
-of $G$ resolves through a mean-value form that keeps the stationarity
+of $G$ is certified through a mean-value form that keeps the stationarity
 cancellations of Lemma~\ref{lem:stat} explicit,
 $G(\alpha_-)>0>G(\alpha_+)$; (iv)
 Condition~\ref{cond:amp}; (v) Condition~\ref{cond:lc} at Huang's
 witness $\hat z=-0.6693$.  Together with the strict decrease of
-$G_\star$, (i)--(iii) discharge Condition~\ref{cond:fp} in full on
+$G_\star$, (i)--(iii) prove Condition~\ref{cond:fp} on
 the slab: $\alpha_\star(\kappa)$ exists, is unique, and lies in the
-slab's $\alpha$ interval for every $\kappa$ in the slab.
+slab's $\alpha_\star$ interval for every $\kappa$ in the slab.
 
 The contraction product (i) is below $1$ on each of these $1500$
 slabs; on $(0.10,0.19]$ it is not below $1$ on every slab (it
 exceeds $1$ near $\kappa=0.12$), and uniqueness there is treated in
-Section~\ref{sec:nak}.  Over a union of slabs
-the enclosure of $\partial R/\partial q$ is about twice too wide for
-it.  On a single slab the enclosure stays below $1$ with slack
+Section~\ref{sec:nak}.  Over a union of slabs the enclosure of the contraction
+product is about twice too large to stay below $1$.  On a single slab
+the contraction product stays below $1$ with slack
 $0.049$ at $\kappa=0$, growing to $0.198$ at $\kappa=-0.65$ and
 thinning to $0.0083$ at $\kappa=0.10$.
 
@@ -574,131 +622,168 @@ The $1500$ slabs are contiguous, cover $[-0.65,0.10]$, and each
 satisfies (i)--(iii).  The $q$ interval of a slab must cover the
 drift of the fixed point across the slab's $(\alpha,\kappa)$
 rectangle, which is dominated by $\partial q_\star/\partial
-\alpha\approx0.92$ times the width of the $\alpha$ interval; at fixed
+\alpha\approx0.92$ times the width of the slab's $\alpha_\star$ interval; at fixed
 $\alpha$ the partial derivative $\partial q_\star/\partial\kappa$ is
-about $1.0$ (at $\kappa=0.05$), while along the capacity curve $q_0$
+about $1.0$ (at $\kappa=0.05$), while along the replica-symmetric curve $q_0$
 changes at about $0.18$ per unit of $\kappa$.
 
 \subsection{\texorpdfstring{Uniqueness on $(0.10,0.19]$}{Uniqueness on (0.10, 0.19]}}\label{sec:nak}
 
-The contraction product exceeds $1$ near $\kappa=0.12$, while the
-contraction at the fixed point stays below $0.78$.  At $\kappa=0.13$
-the product over the slab rectangle is $1.32$.  The displacement
-$P(R(q))-q$ has certified signs at the ends of the $q$ interval and,
-the fixed point being unique by Nakajima's theorem~\cite{nakajima2025}, a
-single zero between them; a certified sign bisection of it locates
-the fixed point at both $\alpha$ endpoints to width $2\cdot10^{-8}$,
-with no contraction input.  On the located intervals the contraction
-reads $0.79$, and the $G$ crossing resolves with slack
-$2\cdot10^{-3}$.
-
-The rectangle clause itself is then discharged at $\kappa=0.13$
-exactly as Huang's Proposition~3.2 discharges it at $\kappa=0$: on
-the rectangle $\alpha\in[0.705932217,\,0.705933898]$,
-$q\in[0.5836943,\,0.5857104]$ (the hull $[0.5846943,\,0.5847104]$,
-width $1.6\cdot10^{-5}$, of the $q$ intervals located at the two
-$\alpha$ ends by the mean-value Picard shrink with $16000$ cells,
-padded by $10^{-3}$), the certified contraction product is $0.8435$, the
-map is endpoint-inward at both $\alpha$ ends with slack above
-$2.3\cdot10^{-4}$, the $G$ signs at the located fixed points are
-$+1.6\cdot10^{-7}$ and $-1.6\cdot10^{-6}$, and $\E\log\Psi<0$
-over the rectangle (\texttt{rect\_cond31\_0p13.json}; quadrature
-depth $16000$).  The value $1.32$ comes from the width of the slab
-rectangle; the contraction at the fixed point
-$(P\circ R_\alpha)'(q_\star)$ is nearly flat, rising only from
-$0.758$ at $\kappa=0.10$ to $0.770$ at $\kappa=0.19$, everywhere
-below $1$ by more than $0.22$.  The rectangle clause is
-therefore decided by the width of the rectangle: over $(0.10,0.19]$
-(\texttt{rect\_strip\_nak.jsonl}, per sub-slab) the product
-is below $1$ at $\kappa=0.10$ with a padding of $2\cdot10^{-3}$ in
-$q$ but exceeds it ($1.012$) by $\kappa=0.15$ with the same padding.
-The width of the rectangle in $q$ is set by the located $q$ interval,
-whose width comes
-mostly from the slab's $\alpha$ width
-($3\cdot10^{-3}$) through $\partial q_\star/\partial\alpha\approx0.9$;
-narrowing it means enclosing $\alpha_\star$ at a single $\kappa$ in
-an interval of width about $10^{-6}$, as is done below at the five
-margins, after which the flat contraction leaves a thin rectangle
-that clears $1$.  At $\kappa=0.15$ and $0.185$ the contraction
-products on such rectangles are $0.836$ and $0.830$
-(\texttt{rect\_cond31\_0p15.json}, \texttt{rect\_cond31\_0p185.json}).
-On a sub-slab the located rectangle is the slab's $\alpha$ interval times
-the $q$ interval running from $5\cdot10^{-4}$ below the lower to
-$5\cdot10^{-4}$ above the upper of the fixed points located at the two
-ends of that interval.  On each of the $180$ slabs covering $[0.10,0.19]$, over eight
-sub-slabs of width $6.25\cdot10^{-5}$, the located rectangle is
-endpoint-inward at
-both $\alpha$ ends and carries a certified contraction product below
-one, the worst bound being $0.958$
+On each of the $1440$ sub-slabs of $(0.10,0.19]$ (eight of width
+$6.25\cdot10^{-5}$ in each of the $180$ slabs covering $[0.10,0.19]$)
+the located rectangle is mapped strictly inward at both ends of its
+$\alpha_\star$ interval and carries a contraction product at most $0.958$
 (\texttt{rect\_strip\_nak\_thin\_*.jsonl}, collected with the input
-hashes bound in \texttt{rect\_strip\_thin\_summary.json}).  With the
-inward endpoints and Lemma~\ref{lem:dR}'s monotonicity this gives,
-for every $\kappa\in(0.10,0.19]$, a rectangle on which the fixed point
-is unique by the contraction itself, so the rectangle clause of
-Condition~\ref{cond:fp} holds on every slab.
+hashes bound in \texttt{rect\_strip\_thin\_summary.json}).  With
+Lemma~\ref{lem:dR}'s monotonicity, the rectangle clause of
+Condition~\ref{cond:fp} holds for every $\kappa\in(0.10,0.19]$.
 
-The other checks on these $180$ slabs are: existence by the same
-inward test; location by certified
-sign bisection per sub-slab (the $\kappa$ width floors the
-displacement's sign resolution, so each slab runs eight sub-slabs
-whose union covers it); the contraction used only on located
-intervals, which is the local form Huang's perturbation argument
-uses; and uniqueness, a second time, from Nakajima's uniqueness theorem
-\cite{nakajima2025}, whose premise $\alpha_+<
-\alpha_c(\kappa)=2/(\pi\,\E[(\kappa-Z)_+^2])$ is certified per slab
-through the closed form
+The located rectangle of a sub-slab is its $\alpha_\star$ interval times the
+$q$ interval running from $5\cdot10^{-4}$ below the lower to
+$5\cdot10^{-4}$ above the upper of the fixed points located at the two
+ends of that interval.  The fixed points are located by certified sign
+bisection of the displacement $P(R(q))-q$, which has certified signs
+at the ends of the slab's $q$ interval and a single zero between them
+by Nakajima's theorem~\cite[Theorem~1]{nakajima2025}: for $\kappa\ge0$
+and $0<\alpha<\alpha_c(\kappa)=2/(\pi\,\E[(\kappa-Z)_+^2])$ the system
+$q=P(\psi)$, $\psi=R(q,\alpha)$ of~\eqref{eq:PR} has exactly one
+solution $(q,\psi)\in[0,1)\times[0,\infty)$.  Its premise, $\alpha_+<\alpha_c(\kappa)$ at the upper end $\alpha_+$ of the
+slab's $\alpha_\star$ interval, is certified per slab through the closed form
 $\E[(\kappa-Z)_+^2]=(1+\kappa^2)\bigl(1-\Psi(\kappa)\bigr)
-+\kappa\varphi(\kappa)$ (the least certified value of
-$\alpha_c(\kappa)-\alpha_+$ is $0.292$).
++\kappa\varphi(\kappa)$; the least certified value of
+$\alpha_c(\kappa)-\alpha_+$ is $0.292$.  On a whole slab the enclosure of $P(R(q))-q$ is wider than its value
+near the fixed point, so each slab is split into eight sub-slabs whose
+union covers it.
+
+The slab rectangle itself does not suffice: at $\kappa=0.13$ its
+contraction product is $1.32$.  The slabs of $[0.10,0.19]$ carry $q$
+intervals of width $1.01\cdot10^{-2}$, against $7.08\cdot10^{-3}$ on
+the slabs of $[0,0.10]$, and the product grows with the $q$ width of
+the rectangle; the drift of the fixed point across a slab's
+$\alpha_\star$ interval, of width $3.4\cdot10^{-3}$, is only about
+$3.1\cdot10^{-3}$ ($\partial q_\star/\partial\alpha\approx0.9$), while the derivative at
+the fixed point, $(P\circ R_\alpha)'(q_0)$, stays between $0.758$ and
+$0.770$ on $[0.10,0.19]$.
+
+At the margin $\kappa=0.13$ of Theorem~\ref{thm:main} the rectangle
+clause is proved as Huang's Proposition~3.2 proves it at
+$\kappa=0$, on the rectangle
+\[
+\alpha\in[0.705932217,\,0.705933898],\qquad q\in[0.5836943,\,0.5857104];
+\]
+the hull $[0.5846943,\,0.5847104]$ of
+the $q$ intervals located at the two $\alpha$ ends by the mean-value
+Picard shrink with $16000$ cells, padded by $10^{-3}$; the hull has
+width $1.6\cdot10^{-5}$, so the padding sets the $q$ width of the
+rectangle.  There the
+contraction product is $0.8435$, the map is endpoint-inward at both
+$\alpha$ ends with slack above $2.3\cdot10^{-4}$, the signs of $G$ at
+the located fixed points are $+1.6\cdot10^{-7}$ and
+$-1.6\cdot10^{-6}$, and $\E\log\Psi<0$ over the rectangle
+(\texttt{rect\_cond31\_0p13.json}; quadrature depth $16000$).
 
 On the whole strip, $1680$ contiguous slabs pass and none fails.
 At each of five margins a certified bisection on the sign of $G$ at
 located boxes encloses $\alpha_\star$ in an interval of width about
 $2\cdot10^{-6}$; these
-deep $\alpha_\star$ intervals are the intervals of Theorem~\ref{thm:main}.  Each
+$\alpha_\star$ intervals are the intervals of Theorem~\ref{thm:main}.  Each
 contains its continuation value, and the slab containing $\kappa=0$
 contains $\alpha_\star(0)=0.8330786\dots$.  At the default quadrature depth the
 enclosure of $G$ limits the width to $1.4\cdot10^{-5}$; the five
 intervals use a larger depth.
 
-\section{The two-variable function}\label{sec:twovarfn}
+\begin{proof}[Proof of Theorem~\ref{thm:strip}]
+(a) The $1500$ slabs of $[-0.65,0.10]$ are contiguous and cover it.
+On each, checks (i)--(iii) of Section~\ref{sec:contraction} and the
+strict decrease of $G_\star$ give Condition~\ref{cond:fp} with the
+bound on the slab rectangle, and checks (iv) and (v) give
+Conditions~\ref{cond:amp} and~\ref{cond:lc}.
+(b) The $180$ slabs of $[0.10,0.19]$ are contiguous and cover it.  On
+each, the premise of Nakajima's theorem, the existence check (ii), the
+location of the fixed points at the two $\alpha$ ends by sign
+bisection with the signs of $G$, and checks (iv) and (v) are certified;
+the contraction product is below $1$ on the located rectangle of each
+of its eight sub-slabs (Section~\ref{sec:nak}).  This gives
+Conditions~\ref{cond:fp}--\ref{cond:lc}, with the bound of
+Condition~\ref{cond:fp} on the located rectangles, and Nakajima's
+theorem gives uniqueness of the fixed point.
+(c) On a slab, Condition~\ref{cond:fp} gives existence and uniqueness
+of $\alpha_\star(\kappa)$ on the fixed-point branch and places it in
+the slab's $\alpha_\star$ interval.  If Condition~\ref{cond:2var} also
+holds at $\kappa$, all four of Huang's conditions hold there, and
+\cite[Theorem~3.6]{huang2024capacity} gives the limit.
+\end{proof}
+
+\section{The two-variable condition}\label{sec:twovarfn}
+
+\begin{theorem}\label{thm:main}
+Let $\kappa\in\{-0.45,\,-0.05,\,0.05,\,0.0995,\,0.13\}$.  Then
+Conditions~\ref{cond:fp}--\ref{cond:2var} hold at $\kappa$,
+$\alpha_\star(\kappa)$ lies in the corresponding interval
+\[
+\begin{array}{ll}
+\alpha_\star(-0.45)\in[1.557652103,\,1.557654133], &
+\alpha_\star(-0.05)\in[0.889408031,\,0.889409783],\\
+\alpha_\star(0.05)\in[0.781073068,\,0.781074776], &
+\alpha_\star(0.0995)\in[0.733478513,\,0.733480205],\\
+\alpha_\star(0.13)\in[0.705932217,\,0.705933898], &
+\end{array}
+\]
+and, by \cite[Theorem~3.6]{huang2024capacity}, for every $\alpha$ above that interval
+\[
+\lim_{N\to\infty}\Prob\Bigl(\exists\,w\in\{-1,+1\}^N:\
+\frac{\langle g_a,w\rangle}{\sqrt N}\ge\kappa\ \text{for all }
+a\le\lceil\alpha N\rceil\Bigr)=0 .
+\]
+\end{theorem}
+
+The proof is at the end of this section.
 
 \subsection{The maximizer and its Hessian}\label{sec:hessian}
 
-The local ingredient of Condition~\ref{cond:2var} is the negative
-definiteness of the Hessian
+This subsection proves, at six margins, the negative definiteness of
+the Hessian
 \[
 \mathcal H=\nabla^2_\lambda\,\sS\bigl(\tanh(\lambda_1\dot H+\lambda_2M),s_0\bigr)\Bigr|_{\lambda=(1,0)}
 \]
 of Huang's functional $\sS$ of Section~\ref{sec:twovar}, the tilt
 held at its optimal value $s_0=\sqrt{1-q_0}$; at $\kappa=0$ this is
-\cite[Claim~2.6]{huang2024capacity}, verified in his Appendix~B.3.
+\cite[Claim~2.6]{huang2024capacity}, verified in his Appendix~B.3.  It
+is the local form of Condition~\ref{cond:2var} at $(1,0)$; the
+certificates of Section~\ref{sec:regionI} do not use it.
 The second derivative in the tilt is positive: it is
 $\psi_0-\alpha\E[E'\eta^2]$, with $\eta=E(u)/\sqrt{1-q_0}$ and $0<E'<1$ (Lemma~\ref{lem:mills}) and
 $\alpha\E[\eta^2]=\psi_0$.  Minimizing over the tilt therefore
 subtracts a positive semidefinite matrix (a Schur complement), so the Hessian of $\sS_\star$ at
 $(1,0)$ is bounded above by $\mathcal H$ in the Loewner order and is
-negative definite whenever $\mathcal H$ is.  His second-derivative expansion,
-\emph{before} the zero-margin specialization, gives at every $\kappa$
-the same quadratic form
+negative definite whenever $\mathcal H$ is.  With the tilt held at $s_0$,
+$\sS(\tanh(\lambda_1\dot H+\lambda_2M),s_0)=H(a(\lambda))+\mathcal C(a(\lambda))+s_0^2\psi_0/2$,
+where $a(\lambda)=\nabla\Phi(\lambda)$, $\mathcal C(a)=\alpha\,\E\log\Psi(X(a)+s_0\eta)$ and
+$H$, $\Phi$, $X$ are as in Section~\ref{sec:twovar} and Lemma~\ref{lem:grad}.  At
+$\lambda=b_0=(1,0)$ the gradient of $H+\mathcal C$ in $a$ vanishes
+(Lemma~\ref{lem:grad}), the derivative of $a(\lambda)$ is
+$\nabla^2\Phi(b_0)$ and $\nabla^2H(a^\star)=-\nabla^2\Phi(b_0)^{-1}$, so
+the chain rule gives at every $\kappa$ the quadratic form
 \[
 \langle \xi, \mathcal H \xi\rangle=
 -(I_1\xi_1^2+2I_2\xi_1\xi_2+I_3\xi_2^2)+C_1y_1^2+C_2y_1y_2+C_3y_2^2,
 \]
-where $y_1=I_1\xi_1+I_2\xi_2$ and $y_2=I_2\xi_1+I_3\xi_2$,
-with prior-side integrals $I_j$ unchanged in form
+where $y=\nabla^2\Phi(b_0)\xi$, that is $y_1=I_1\xi_1+I_2\xi_2$ and
+$y_2=I_2\xi_1+I_3\xi_2$, with the entries of $\nabla^2\Phi(b_0)$
 ($I_1=\psi_0(1-q_0)-2\psi_0^2(1-4q_0+3p_4)$,
 $I_2=\psi_0(1-4q_0+3p_4)$, $I_3=q_0-p_4$, $p_4=\E\tanh^4(\sqrt
-{\psi_0}Z)$) and constraint-side constants $C_j$ that at
-$\kappa\ne0$ must be taken from the pre-specialization display.  Put
+{\psi_0}Z)$), and $C_1=\partial_{a_1}^2\mathcal C$,
+$C_2=2\,\partial_{a_1}\partial_{a_2}\mathcal C$, $C_3=\partial_{a_2}^2\mathcal C$ at
+$a^\star$.  Put
 $\hat H=\sqrt{q_0}\,Z$, $u=(\kappa-\hat H)/\sqrt{1-q_0}$,
 $\eta=E(u)/\sqrt{1-q_0}$ and $F'=-E'(u)/(1-q_0)$.  His zero-margin
 closed forms rest on two identities of the
 unshifted law, of which $\alpha\,\E[\eta^2]=\psi_0$ survives at every
 margin (it is the same identity behind the unbounded-tilt directions
 of Section~\ref{sec:twovar}) while
-$\alpha\,\E[\eta \hat H]=-q_0(1-q_0)\psi_0$ does not.  We evaluate the
-general-margin $C_j$ directly.  With
+$\alpha\,\E[\eta \hat H]=-q_0(1-q_0)\psi_0$ does not.  From
+$(\log\Psi)'=-E$, $(\log\Psi)''=-E'$ and the first and second
+derivatives of $X$, with
 $Q=-\hat H/q_0+\bigl(\kappa-\hat H-(1-q_0)\eta \bigr)/(1-q_0)$,
 every expectation over the single Gaussian $\hat H$,
 \[
@@ -715,8 +800,7 @@ cell rule with explicit quadratic tail majorants ($\eta$ grows at most
 linearly on the left tail, $F'$ is bounded by $1/(1-q_0)$ in
 magnitude, and every integrand is degree at most two in $|z|$), and
 the near-cancelling prior moments are evaluated as single correlated
-integrands.  The certified enclosures at the six margins are
-one-sided where sign is the claim:
+integrands.  The certified enclosures at the six margins are:
 \[
 \begin{array}{lll}
 \kappa=-0.45: & \mathcal H_{11}\le-0.0647, & \det \mathcal H\ge 2.9\cdot10^{-4},\\
@@ -731,12 +815,12 @@ The bound on $|\mathcal H_{11}|$ decreases as $\kappa$ increases.
 
 Certification requires parameter boxes far tighter than the slabs
 provide (the $C_j$ move with $q$ at rate about $10$, while $\det\mathcal H\sim10^{-4}$), which is
-what the deep $\alpha_\star$ intervals above are for.  Iterating
-$q\mapsto P(R(q,\alpha))$ over the whole deep $\alpha_\star$ interval gives a box,
+what the $\alpha_\star$ intervals above are for.  Iterating
+$q\mapsto P(R(q,\alpha))$ over the whole $\alpha_\star$ interval gives a box,
 the Picard box, that contains the fixed point for every $\alpha$ in it
 ($3.6\cdot10^{-6}$ in $q_0$, $5.2\cdot10^{-5}$ in $\psi_0$ at
-$\kappa=0.05$).  On the Picard box the certificate
-resolves: $\mathcal H_{11}<0$ and $\det \mathcal H>0$ in ball arithmetic, with the
+$\kappa=0.05$).  On the Picard box
+$\mathcal H_{11}<0$ and $\det \mathcal H>0$ in ball arithmetic, with the
 near-cancellations $1-4q_0+3p_4$ and $q_0-p_4$ evaluated as single
 correlated integrands and the five constraint-side integrals by
 mean-value Riemann sums with elementary derivatives of $\varphi/\Psi$.
@@ -773,6 +857,8 @@ argument), $a_1=\E[\dot H\Lambda]$, $a_2=\E[M\Lambda]$,
 $D=D(a)=\sqrt{1-a_2^2/q_0}$, and
 $\sS_\star(\lambda_1,\lambda_2)=\inf_{s\ge0}
 \sS(\tanh(\lambda_1\dot H+\lambda_2 M),s)$.
+We call $\mathrm{ent}(\Lambda)$ the entropy term and the term
+$\alpha\,\E\log\Psi(\cdot)$ the constraint term.
 Condition~\ref{cond:2var} asks $\sS_\star\le0$ everywhere.
 
 The moment reduction~\cite[Lemma~5.1]{shmalo2026capacity} holds at
@@ -799,7 +885,7 @@ the lemma gives
 The certificates bound $\mathcal F$ with $H(a)$ replaced by
 $\Phi(b)-b\cdot a$ at the dual point $b$ of each cell.  Two structural facts organize
 the verification.  The maximizing profile $\tanh\dot H$, that is
-$\lambda=(1,0)$, has moment point $a^\star=(\psi_0(1-q_0),\,q_0)$ for
+$\lambda=(1,0)$, has moment pair $a^\star=(\psi_0(1-q_0),\,q_0)$ for
 every $\kappa$: this is the identity $\nabla\Phi(1,0)=(\E[\dot H M],\E[M^2])
 =(\psi_0(1-q_0),q_0)$ (Gaussian integration by parts and the
 fixed-point equations), and \cite[Lemma~7.15]{huang2024capacity} gives
@@ -808,7 +894,7 @@ closed form.  And on a region close to the half-plane $\lambda_1<0$
 the $s$-infimum is $-\infty$: $\alpha\,\E[\eta^2]=\psi_0$ exactly
 at the fixed point, so the quadratic tilt coefficient cancels, and
 wherever the surviving linear coefficient of the tilt is nonpositive
-the function runs away (in floating point, the boundary of that region at
+$\sS(\Lambda,s)\to-\infty$ as $s\to\infty$ (in floating point, the boundary of that region at
 $\kappa=0.05$ crosses $\lambda_1=0.04$ on the $\lambda_2=0$ axis and
 bends left as $|\lambda_2|$ grows).  Condition~\ref{cond:2var}
 takes the infimum over all $s\ge0$, so a negative value at one finite
@@ -820,12 +906,12 @@ of the curve: a single peak
 at $(1,0)$, off-center values below $-3\cdot10^{-3}$, negative far
 rays, eigenvalues near $-0.22$ and $-0.0045$ of the Hessian of
 $\sS_\star$ in $\lambda$ at $(1,0)$ (finite differences), distance
-near $0.017$ from the boundary of $K$, with the weak eigenvalue degrading toward
-deep negative margin ($-0.0013$ at $\kappa=-1.5$).
+near $0.017$ from the boundary of $K$; the eigenvalue nearer $0$ is
+$-0.0013$ at $\kappa=-1.5$.
 
-\section{Certifying the two-variable condition}\label{sec:regionI}
+\subsection{Certifying the two-variable condition}\label{sec:regionI}
 
-The zero-margin certificate has four parts: Region~II, a sweep of
+The zero-margin argument has four certificates: Region~II, a sweep of
 the moment body outside an exclusion region, the exclusion region
 being a product of two intervals about $a^\star$ in the moment plane
 that contains the star, the set of points $a^\star+tv$ with
@@ -836,16 +922,16 @@ exclusion region minus the star; and the star interior, a certificate
 that the star lies strictly inside the moment body.  At $\kappa\ne0$ all four meet the same difficulty.
 At zero margin the parameters $(q_0,\psi_0)$ are certified to a
 box of width $8\cdot10^{-10}$ in $q_0$ and $1.2\cdot10^{-8}$ in
-$\psi_0$, so the moment point $a^\star$ can be
+$\psi_0$, so the moment pair $a^\star$ can be
 stored as decimals and every enclosure treats them as exact; at
 $\kappa=0.05$ the hull of the boxes located at the two ends of the
-deep $\alpha_\star$ interval has width $1.5\cdot10^{-6}$ in $q_0$ and
+$\alpha_\star$ interval has width $1.5\cdot10^{-6}$ in $q_0$ and
 $9.2\cdot10^{-5}$ in $\psi_0$ (at each end $q_0$ is located to
 $1.5\cdot10^{-9}$ and $\psi_0$ is enclosed as $R(q_0,\alpha)$ by a
 Riemann sum of $4000$ cells, to width $6.9\cdot10^{-5}$).  The
 certificates of this section use this hull; the Picard box of
 Section~\ref{sec:hessian} is narrower in $\psi_0$ and wider in $q_0$,
-and both contain the fixed point for every $\alpha$ of the deep
+and both contain the fixed point for every $\alpha$ of the
 $\alpha_\star$ interval.  The width of the hull enters every plain evaluation of
 $\Phi$ at about $2\cdot10^{-5}$, much wider than the differences of
 order $10^{-7}$ whose signs place the dual points.  Four changes make the four certificates apply at
@@ -854,17 +940,47 @@ written against $b_0=(1,0)$, bounds on the inverse Mills ratio that
 keep the constraint kernels finite where its argument is large, and one
 tilt slope per angular sector on the rays.
 
-\emph{The moment point from the hull.}  Every certificate that references
+\emph{The moment pair from the hull.}  Every certificate that references
 $a^\star$ or the optimal tilt $s_0$ uses them as the functions
 $(\,\psi_0(1-q_0),\,q_0\,)$ and $\sqrt{1-q_0}$ of $(q_0,\psi_0)$ on the
 hull, never as
 stored decimals; the enclosure of $a^\star$ is the image of the hull
 under the first of these maps.  The true $a^\star$, at the true
 parameters, is therefore covered exactly, and the identities at
-$a^\star$ ($\sS=0$, $\nabla\sS=0$ and tilt optimality, at the true
-$a^\star$) hold on the certified rays with no enlargement of the
+$a^\star$ ($\mathcal F(a^\star,s_0)=\sS(\tanh\dot H,s_0)=0$, and
+$\nabla_a\mathcal F=0$, $\partial_s\mathcal F=0$ by Lemma~\ref{lem:grad}) hold on the certified rays with no enlargement of the
 enclosure.  Certificates evaluated over the enclosure of $a^\star$
 cover in particular the rays from the true $a^\star$.
+
+\begin{lemma}[gradient at the moment pair]\label{lem:grad}
+At the true parameters, with $a^\star=(\psi_0(1-q_0),q_0)$ and
+$s_0=\sqrt{1-q_0}$, $\nabla_a\mathcal F(a^\star,s_0)=0$ and
+$\partial_s\mathcal F(a^\star,s_0)=0$, at every $\kappa$.
+\end{lemma}
+
+\begin{proof}
+Since $H(a)=\min_b\{\Phi(b)-b\cdot a\}$ and $a^\star=\nabla\Phi(b_0)$
+with $b_0=(1,0)$, $\nabla H(a^\star)=-b_0$.  Write
+$X(a)=\bigl(\kappa-(a_2/q_0)\hat H-(a_1/\psi_0)\eta\bigr)/D(a)$, so that
+$X(a^\star)+s_0\eta=u$ and $D(a^\star)=\sqrt{1-q_0}$.  At $a^\star$,
+$\partial X/\partial a_1=-\eta/(\psi_0\sqrt{1-q_0})$ and
+$\partial X/\partial a_2=Q/\sqrt{1-q_0}$, with $Q$ as in
+Section~\ref{sec:hessian}.  Since $(\log\Psi)'=-E$ and
+$E(u)=\sqrt{1-q_0}\,\eta$,
+\[
+\partial_{a_1}\mathcal F=-1+\frac{\alpha\,\E[\eta^2]}{\psi_0},\qquad
+\partial_{a_2}\mathcal F=-\alpha\,\E[\eta Q],\qquad
+\partial_s\mathcal F=s_0\bigl(\psi_0-\alpha\,\E[\eta^2]\bigr).
+\]
+The first and the third vanish because $\alpha\,\E[\eta^2]=\psi_0$.  For
+the second, Stein's lemma gives
+$\E[\eta\hat H]=-q_0\E[E'(u)]/(1-q_0)$, and $\kappa-\hat H=\sqrt{1-q_0}\,u$,
+so
+\[
+\E[\eta Q]=\frac{\E[E'(u)]+\E[uE(u)]-\E[E(u)^2]}{1-q_0}=0
+\]
+by the identity $E'=E^2-uE$.
+\end{proof}
 
 \emph{The ray argument.}  The ray part
 of~\cite[Lemma~6.1]{shmalo2026capacity} carries over; what changes at
@@ -872,8 +988,8 @@ $\kappa\ne0$ is the choice of slope.  For a unit direction $v$ and a slope
 $c\in\R$ put $\chi_{v,c}(t)=\mathcal F(a^\star+tv,\,s_0+ct)$, with
 $\mathcal F$ as in Section~\ref{sec:twovarfn}, so that
 $\bar\sS(a^\star+tv)\le\chi_{v,c}(t)$ whenever $s_0+ct\ge0$.  At
-the true parameters $\chi_{v,c}(0)=\chi_{v,c}'(0)=0$ for every $c$,
-by the identities at $a^\star$.  If
+the true parameters $\chi_{v,c}(0)=0$, and $\chi_{v,c}'(0)=0$ for every
+$c$ by Lemma~\ref{lem:grad}.  If
 $\chi_{v,c}''\le0$ on $[0,T(v)]$ then $\chi_{v,c}\le0$ there, hence
 $\bar\sS\le0$ on the segment.  The chain needs one slope per ray: the
 second-derivative bound on a radial band $[t_0,t_1]$ with $t_0>0$
@@ -891,14 +1007,14 @@ the main and supplementary certificates use the same slope table.
 
 \emph{Differences against $b_0$.}  The dual localization
 of~\cite[Lemma~6.1]{shmalo2026capacity}, which keeps the dual maximizer
-$\lambda(x)$ inside a certified region of the dual plane (its dual
+$\lambda(a)$ inside a certified region of the dual plane (its dual
 enclosure) so that the entropy Hessian can be
 bounded there, needs signs of differences
-$\Phi(\lambda)-\Phi(\lambda')-(\lambda-\lambda')\cdot x$ for pairs of
-dual points $\lambda,\lambda'$ and moment points $x$ near $a^\star$.
+$\Phi(\lambda)-\Phi(\lambda')-(\lambda-\lambda')\cdot a$ for pairs of
+dual points $\lambda,\lambda'$ and moment pairs $a$ near $a^\star$.
 Evaluated as differences of plain $\Phi$ enclosures these carry the
 width of the hull twice.  Written
-against $b_0=(1,0)$, the integrand collapses exactly:
+against $b_0=(1,0)$, the integrand equals
 with $\Delta=(\lambda_1-1)\dot H+\lambda_2M$,
 \[
 \log\frac{\cosh(\dot H+\Delta)}{\cosh\dot H}
@@ -914,7 +1030,7 @@ distance $0.01$ of $b_0$, where plain differences of enclosures fail,
 the enclosures are $50$ to $160$ times tighter, and at $b_0$ the enclosure is
 exactly $\{0\}$.  Differences between arbitrary points are then
 differences of two such enclosures, and the gradient term the
-localization needs is the same trick applied to $\nabla\Phi$:
+localization needs is the same identity for $\nabla\Phi$:
 $\nabla\Phi(\lambda)-\nabla\Phi(b_0)$ has the exact per-node form
 $(\dot H,M)\,(1-M^2)\tanh\Delta/(1+M\tanh\Delta)$.
 
@@ -960,7 +1076,8 @@ $\E[Z\mid Z>V]=E$ and $\E[Z^2\mid Z>V]=1+VE$, which are used again
 below.  The upper bound on $E''$ is
 the identity $E''-\sigma=(E'-1)(E+\sigma)$ with $E'<1$ and $E+\sigma>0$.
 
-Positivity of $E''$ is the convexity of the inverse Mills ratio.
+Positivity of $E''$ is the convexity of the inverse Mills ratio; we
+prove it in the present notation.
 Differentiating $E'$ gives
 $E''=E\,[\,\sigma(E+\sigma)-1\,]$, and for $W$ distributed as $Z-V$ conditioned
 on $\{Z>V\}$ the moment formulas above read $\E W=\sigma$ and
@@ -989,15 +1106,15 @@ With these four changes
 the four certificates hold at each of the five
 margins.  We give the counts at $\kappa=0.05$; the other margins are in
 Section~\ref{sec:margins}.  At $\kappa=0.05$, on
-that hull and the deep $\alpha_\star$ interval of
+that hull and the $\alpha_\star$ interval of
 Section~\ref{sec:slabs}:
 
 \begin{itemize}
 \item[(i)] \emph{Region II}: the $1296$ cells of a $48\times27$ grid
 on $[-1.351,1.351]\times[-0.76,0.76]$, which contains $K$; cells
 inside the exclusion region or outside $K$ need no bound, and the
-others are bisected until the duality bound certifies each piece,
-$855$ certified pieces (the leaves) in all, zero failures.
+others are bisected until the duality bound certifies each leaf,
+$855$ certified leaves in all, zero failures.
 \item[(ii)] \emph{Region I}: the ray certificates
 over the star, $1404$ bands from $a^\star$, zero failures; the
 certified band values lie between $-1.6\cdot10^{2}$ and
@@ -1011,11 +1128,9 @@ $0.19$ radians off the weak direction, certify radius $0.0105$ there
 (certified values $-3.5\cdot10^{-3}$ to $-1.9$), as the stage-2
 leaves near those arcs require.
 \item[(iii)] \emph{Stage 2}: the exclusion region minus the star,
-$1363$ leaves, zero failures.  Stage 2 takes the star to be the set
-covered by the certified bands: a certified band covers every direction of its
-angular range out to the star boundary, so the certified radius is
-the pointwise maximum of the main radius and the supplementary arcs,
-a piecewise-constant function of the angle.
+$1363$ leaves, zero failures.  Here $T(v)$ is the larger of the main radius at $v$ and $0.0105$ if
+$v$ lies in a supplementary arc, a piecewise-constant function of the
+angle.
 \item[(iv)] \emph{Star interior}: the star-interior certificate
 of~\cite[Lemma~5.2]{shmalo2026capacity}, run over the enclosure of
 $a^\star$, places the star strictly inside the moment body: constructive inradius
@@ -1026,82 +1141,24 @@ Together: $\sS_\star\le0$ on the whole plane at $\kappa=0.05$.  All
 four of Huang's conditions hold there, and his theorem gives the
 unconditional bound.
 
-\begin{theorem}\label{thm:main}
-Let $\kappa\in\{-0.45,\,-0.05,\,0.05,\,0.0995,\,0.13\}$.  Then
-Conditions~\ref{cond:fp}--\ref{cond:2var} hold at $\kappa$,
-$\alpha_\star(\kappa)$ lies in the corresponding interval
-\[
-\begin{array}{ll}
-\alpha_\star(-0.45)\in[1.557652103,\,1.557654133], &
-\alpha_\star(-0.05)\in[0.889408031,\,0.889409783],\\
-\alpha_\star(0.05)\in[0.781073068,\,0.781074776], &
-\alpha_\star(0.0995)\in[0.733478513,\,0.733480205],\\
-\alpha_\star(0.13)\in[0.705932217,\,0.705933898], &
-\end{array}
-\]
-and, by \cite[Theorem~3.6]{huang2024capacity}, for every $\alpha$ above that interval
-\[
-\lim_{N\to\infty}\Prob\Bigl(\exists\,w\in\{-1,+1\}^N:\
-\frac{\langle g_a,w\rangle}{\sqrt N}\ge\kappa\ \text{for all }
-a\le\lceil\alpha N\rceil\Bigr)=0 .
-\]
-\end{theorem}
-
-The other three
-conditions hold on the whole strip.  The $1680$ slabs, each with
-its $\kappa$, $\alpha$ and $q$ intervals, are listed in the
-verification repository, those with $\kappa\le0.10$ in the file
-\nolinkurl{verification/results/certified_intervals.csv} and the others
-in the file \nolinkurl{verification/results/certified_intervals_nak.csv}.
-
-\begin{theorem}\label{thm:strip}
-\begin{itemize}
-\item[(a)] For every $\kappa\in[-0.65,0.10]$,
-Conditions~\ref{cond:fp}--\ref{cond:lc} hold, with the contraction of
-Condition~\ref{cond:fp} on the slab rectangle.
-\item[(b)] For every $\kappa\in(0.10,0.19]$,
-Conditions~\ref{cond:fp}--\ref{cond:lc} hold, with the contraction of
-Condition~\ref{cond:fp} on the located rectangles of
-Section~\ref{sec:nak}; uniqueness of the fixed point also follows from
-Nakajima's uniqueness theorem~\cite{nakajima2025}, whose premise is verified on
-every slab.
-\item[(c)] In both cases $\alpha_\star(\kappa)$ exists, is unique on
-the fixed-point branch, and lies in the $\alpha$ interval of the slab
-containing $\kappa$.  If Condition~\ref{cond:2var} also holds at
-$\kappa$, then for every $\alpha$ above the upper end of that interval
-the probability that some $w\in\{-1,+1\}^N$ satisfies all
-$\lceil\alpha N\rceil$ constraints at margin $\kappa$ tends to $0$ as
-$N\to\infty$.
-\end{itemize}
-\end{theorem}
-
-Condition~\ref{cond:2var} holds at the five margins of
-Theorem~\ref{thm:main} and, by \cite{shmalo2026capacity}, at
-$\kappa=0$.  At every other $\kappa$ of the strip,
-Theorem~\ref{thm:strip}(c) reduces the upper bound to
-Condition~\ref{cond:2var} at that $\kappa$.
-
 \input{margins_appendix}
 
-\input{lower_bound_section}
-
-\section{What is checked in exact arithmetic}\label{sec:metaverify}
+\subsection{The certificates and their exact part}\label{sec:metaverify}
 
 Every inequality of Theorems~\ref{thm:main} and~\ref{thm:strip} is
 decided by a comparison of arb balls (python-flint 0.9.0 on FLINT
 3.6.0), built from the primitives of \cite{shmalo2026capacity}:
 monotone endpoint evaluations, mean-value cells, correlated
 integrands and tail bounds.  The identities the certificates use are
-Lemmas~\ref{lem:stat}, \ref{lem:dR} and~\ref{lem:mills}, the formula
-for $\ell$ (Section~\ref{sec:architecture}), the constraint constants
-$C_j$ (Section~\ref{sec:hessian}) and the identity written against
+Lemmas~\ref{lem:stat}, \ref{lem:dR} and~\ref{lem:mills}, Lemma~\ref{lem:grad}, the formula
+for $\ell$ (Section~\ref{sec:architecture}) and the identity written against
 $b_0$ (Section~\ref{sec:regionI}).
 
 The certificates of Condition~\ref{cond:2var} record every
 sign-critical quantity as an outward-rounded decimal in canonical
 JSON, bound by SHA-256 hashes; the stage-2 file binds the hash of the
 Region~I file it reads.  Their exact layer is restated over the
-integers and checked by the Lean~4 kernel (core library, v4.35.0):
+integers and checked by the kernel of Lean~4 \cite{lean4} (core library, v4.35.0):
 the inequality chain of the star interior and the positivity of its
 perturbation determinant, the positive definiteness of the Loewner
 majorants $\bar B$ at all five margins, and the gap-free tilings of the
@@ -1109,59 +1166,63 @@ Region~II and stage-2 grids and of the $1404$-band Region~I
 schedule.  Two global clauses on the band geometry, that the
 innermost ring closes the full circle and that each level's angular
 support lies inside the previous level's, together make every radial
-chain contiguous out to the star radius.  These two clauses and the
-analytic lemmas are not part of the statement checked in Lean.
+chain contiguous out to the star radius.  They are checked in exact
+rational arithmetic on the band endpoints recorded in the Region~I
+file by \texttt{portable\_check.py}, which uses only the Python
+standard library; they and the analytic lemmas are not part of the
+statement checked in Lean.
 
 The enclosures behind Theorem~\ref{thm:strip} are not restated in
 exact arithmetic; that theorem rests on the ball-arithmetic
 computation alone.
 
-\section{What the curve says about learning}\label{sec:ml}
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+Fix one of the five margins.  Conditions~\ref{cond:fp}--\ref{cond:lc}
+hold at $\kappa$ by Theorem~\ref{thm:strip}, and the certified
+bisection of Section~\ref{sec:nak} encloses $\alpha_\star(\kappa)$ in
+the stated interval.  For Condition~\ref{cond:2var}, the moment
+reduction of Section~\ref{sec:twovar} gives
+$\sS_\star(\lambda)\le\bar\sS(a)$ for the moment pair $a\in K$ of the
+profile, so it suffices that $\bar\sS\le0$ on $K$.  This holds outside
+the exclusion region by Region~II, on the exclusion region minus the
+star by stage~2, and on the star by Region~I and the ray argument,
+which needs the star inside $K$; the star-interior certificate gives
+that.  The four certificates hold at $\kappa=0.05$ with the counts of
+Section~\ref{sec:regionI} and at the other four margins with those of
+Table~\ref{tab:margins}.  With the four conditions,
+\cite[Theorem~3.6]{huang2024capacity} gives the limit.
+\end{proof}
 
-For binary weights the Euclidean norm is fixed at $\sqrt N$, so a
-margin constraint is a robustness certificate: if
+Condition~\ref{cond:2var} holds at the five margins of
+Theorem~\ref{thm:main} and, by \cite{shmalo2026capacity}, at
+$\kappa=0$.  At every other $\kappa$ of the strip,
+Theorem~\ref{thm:strip}(c) reduces the upper bound to
+Condition~\ref{cond:2var} at that $\kappa$.
+
+\begin{rmk}
+For binary weights the Euclidean norm is fixed at $\sqrt N$, so the
+margin condition is a robustness certificate: if
 $y_a\langle w,x_a\rangle/\sqrt N\ge\kappa$, the label $y_a$ is
 unchanged under every perturbation of $x_a$ of Euclidean norm below
-$\kappa$.  With standard Gaussian designs and independent
-labels, folding the labels into the design makes the event that a
-binary $w$ stores every label with robustness radius $\kappa$ the
-satisfiability event studied here.  Theorem~\ref{thm:main} at
-$\kappa=0.05$ therefore says that for at least $0.781075N$ random
-labels, with probability tending to one as $N\to\infty$, no binary
-weight vector stores all of them with robustness radius $0.05$.
+$\kappa$.  With standard Gaussian designs and independent labels,
+folding the labels into the design makes the event that a binary $w$
+stores every label with robustness radius $\kappa$ the satisfiability
+event studied here.  Theorem~\ref{thm:main} at $\kappa=0.05$ therefore
+says that for at least $0.781075N$ random labels, with probability
+tending to one as $N\to\infty$, no binary weight vector stores all of
+them with robustness radius $0.05$.  In floating point the ratio
+$\alpha_\star/\alpha_{\mathrm{sph}}$ grows from $0.417$ at $\kappa=0$
+to $0.556$ at $\kappa=1.5$: against real-valued weights, binary
+weights give up proportionally less storage as the demanded radius
+grows.  The radius is measured in feature space; a statement in input
+space needs a Lipschitz bound on the feature map.
+\end{rmk}
 
-On the certified strip the logarithm of $\alpha_\star$ decreases at a
-rate that falls from about $1.55$ per unit margin at $\kappa=-0.65$
-to about $1.26$ near $\kappa=0.1$ ($1.40$ on average), so the
-capacity halves for every $0.45$ to $0.55$ of demanded radius.  In
-floating point, the ratio $\alpha_\star/\alpha_{\mathrm{sph}}$ grows
-from $0.417$ at $\kappa=0$ to $0.556$ at $\kappa=1.5$: against
-real-valued weights, binary weights give up proportionally less
-storage as the demanded radius grows.  The radius is measured in
-feature space; a statement in input space needs a Lipschitz bound on
-the feature map.
-
-\section{Scope and further directions}\label{sec:scope}
-
-\emph{Other margins of the same family.}  The certificates of
-Section~\ref{sec:regionI} are run here at five margins in
-$[-0.45,0.13]$.  Along the continuation $\mathcal H$ is negative
-definite up to $\kappa=1.15$ and loses definiteness near
-$\kappa\approx1.18$, beyond which a local argument must re-optimize
-the tilt (Section~\ref{sec:hessian}); on the negative side the
-continuation is computed down to $\kappa=-2$.  Toward deep negative margin the weak
-eigenvalue of $\mathcal H$ and the slack in $\ell_0$ shrink; whether
-Condition~\ref{cond:2var} holds at every negative margin is open.
-
-\emph{The lower bound.}  Ding and Sun's conditioned second-moment
-argument is carried out at $\kappa=0$; its hypothesis at general
-margin is the one-variable inequality $S_{\kappa,\alpha_\star}<0$ of
-Section~\ref{sec:lower}, which holds in floating point at the five
-margins.
+\input{lower_bound_section}
 
 \input{notation_appendix}
 
-\section*{Acknowledgements and funding}
+\section*{Funding}
 The author acknowledges support from the European Research Council under the
 European Union's Horizon Europe program (grant 101041711), the Simons
 Foundation, Heights Labs, Convex Nexus Capital, and Israel Science
@@ -1256,7 +1317,7 @@ arXiv:2401.15092.
 
 \bibitem{nakajima2025}
 S.~Nakajima,
-Uniqueness of replica-symmetric saddle point for Ising perceptron,
+Uniqueness of RS saddle point for Ising perceptron,
 arXiv:2512.23195.
 
 \bibitem{shmalo2026capacity}
@@ -1309,6 +1370,28 @@ arXiv:2312.00073.
 S.~Li, T.~Schramm and K.~Zhou,
 Discrepancy algorithms for the binary perceptron,
 \emph{STOC 2025}, 1668--1679; arXiv:2408.00796.
+
+\bibitem{arb2017}
+F.~Johansson,
+Arb: efficient arbitrary-precision midpoint-radius interval arithmetic,
+\emph{IEEE Trans.~Comput.} \textbf{66} (2017), 1281--1292.
+
+\bibitem{lean4}
+L.~de~Moura and S.~Ullrich,
+The Lean~4 theorem prover and programming language,
+in \emph{Automated Deduction -- CADE~28}, Lecture Notes in Comput.~Sci.\
+\textbf{12699}, Springer, 2021, 625--635.
+
+\bibitem{plackett1954}
+R.~L.~Plackett,
+A reduction formula for normal multivariate integrals,
+\emph{Biometrika} \textbf{41} (1954), 351--360.
+
+\bibitem{mehler1866}
+F.~G.~Mehler,
+Ueber die Entwicklung einer Function von beliebig vielen Variablen nach
+Laplaceschen Functionen h\"oherer Ordnung,
+\emph{J.~Reine Angew.~Math.} \textbf{66} (1866), 161--176.
 
 \bibitem{MathBrainRepo} Y.~Shmalo, \emph{Math Brain: public snapshot, code and tests}, 2026, \url{https://github.com/yspennstate/math-brain-public/tree/f96f1dd117d2869e61d01d7090c137548875ce3d}.
 

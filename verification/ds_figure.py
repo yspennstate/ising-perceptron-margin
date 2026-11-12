@@ -1,9 +1,9 @@
 """Figure: the general-margin Ding--Sun lower-bound condition.
 
-Plots S_{kappa, alpha_*(kappa)}(lambda) at the six margins from
+Plots S_{kappa, alpha_*(kappa)}(omega) at the six margins from
 results/ds_condition_scan.json.  The condition asks S < 0 off
-{0, 1}; the curves collapse nearly on top of one another, so a
-single panel with an inset near lambda = 0 suffices.
+{0, 1}; the curves nearly coincide.  Near omega = 1 the scan is
+refined to 1 - 1e-6, where S behaves like -0.5 sqrt(1 - omega).
 """
 import json
 
@@ -24,13 +24,14 @@ def main():
         ax.plot(ls, ss, '-', lw=1.6, color=COLORS[key],
                 label=r'$\kappa=%g$' % float(key))
     ax.axhline(0.0, color='0.4', lw=0.7)
-    ax.set_xlabel(r'$\lambda$')
-    ax.set_ylabel(r'$S_{\kappa,\alpha_\star(\kappa)}(\lambda)$')
+    ax.set_xlabel(r'$\omega$')
+    ax.set_ylabel(r'$S_{\kappa,\alpha_\star(\kappa)}(\omega)$')
     ax.legend(frameon=False, fontsize=9, ncol=2)
     ax.spines[['top', 'right']].set_visible(False)
     fig.tight_layout()
+    fig.savefig('results/ds_condition.pdf')
     fig.savefig('results/ds_condition.png', dpi=160)
-    print('wrote results/ds_condition.png')
+    print('wrote results/ds_condition.pdf and .png')
 
 
 if __name__ == '__main__':

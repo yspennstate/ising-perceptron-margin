@@ -212,7 +212,10 @@ def scan(kappa, alpha, n=61):
     lams = sorted(set(
         list(np.linspace(lmin + 1e-3, 0.999, n))
         + list(np.linspace(-0.05, 0.05, 21))
-        + list(np.linspace(0.9, 0.999, 15))))
+        + list(np.linspace(0.9, 0.999, 15))
+        # down to 1 - omega = 1e-6; below about 5e-7 the double-precision
+        # evaluation loses S ~ -0.5 sqrt(1 - omega) to cancellation
+        + [1 - 10.0 ** (-k) for k in np.arange(3.25, 6.01, 0.25)] + [1.0]))
     rows = [(l, ds.S(l)) for l in lams]
     return ds, rows
 

@@ -1,11 +1,9 @@
-\section{Toward the matching lower bound}\label{sec:lower}
+\section{The lower bound}\label{sec:lower}
 
-Write $m_N(\kappa)$ for the largest $m$ such that some
-$w\in\{-1,+1\}^N$ satisfies $\langle g_a,w\rangle/\sqrt N\ge\kappa$
-for all $a\le m$.  Krauth and M\'ezard conjectured the value of the
+Let $m_N(\kappa)$ be as in Section~\ref{sec:intro}.  Krauth and M\'ezard conjectured the value of the
 limiting ratio $m_N(\kappa)/N$ for every margin, not only at
 $\kappa=0$~\cite{krauth1989storage}; the constant $0.833$ is the
-zero-margin point of the conjectured curve $\alpha_\star(\kappa)$.
+zero-margin point of the replica-symmetric curve $\alpha_\star(\kappa)$.
 At $\kappa=0$ the conjecture is resolved: Ding and
 Sun~\cite{ding2019capacity} proved $\alpha_\star$ is a lower bound
 with positive probability, the sharp-threshold sequence of Xu~\cite{xu2021} and Nakajima
@@ -15,7 +13,7 @@ matching upper bound, and the numerical hypotheses of both proofs are
 certified~\cite{shmalo2026capacity}.  At the five margins of
 Theorem~\ref{thm:main} the upper half holds; elsewhere on the strip it
 reduces to Condition~\ref{cond:2var} (Theorem~\ref{thm:strip}(c)).  For the lower half, the
-replica-symmetric free energy is proved at small constraint density
+replica-symmetric free energy is proved at small pattern density
 by Talagrand~\cite{talagrand2000} and, for a wider class of
 activations, by Bolthausen, Nakajima, Sun, and Xu~\cite{bnsx2022};
 no lower bound matching $\alpha_\star(\kappa)$ is known at
@@ -24,15 +22,16 @@ $\kappa\ne0$.
 \subsection{Plain second moments fail at every margin}
 
 Write $\mathcal Z=\mathcal Z_{N,\kappa}$ for the number of $w\in\{-1,+1\}^N$ satisfying
-all $m=\lceil\alpha N\rceil$ constraints, and
+the margin condition for all $m=\lceil\alpha N\rceil$ patterns, and
 $\varpi_\rho(\kappa)=\Prob(X\ge\kappa,\,Y\ge\kappa)$ for $(X,Y)$ bivariate
 standard Gaussian with correlation $\rho$.
 
 \begin{lemma}\label{lem:secondmoment}
-For every $\kappa\in\R$ and $\alpha>0$,
+For every $\kappa\in\R$ and $\alpha>0$ there is
+$\delta=\delta(\alpha,\kappa)>0$ such that
 \[
 \liminf_{N\to\infty}\frac1N\log\frac{\E[\mathcal Z^2]}{(\E \mathcal Z)^2}
-\;\ge\; \delta(\alpha,\kappa)\;>\;0 .
+\;\ge\; \delta .
 \]
 Consequently the guarantee of the Paley--Zygmund bound,
 $\Prob(\mathcal Z>0)\ge(\E \mathcal Z)^2/\E[\mathcal Z^2]$, is at most $e^{-\delta N+o(N)}$, and no
@@ -46,8 +45,8 @@ $0<\int f\varphi\,dx<\infty$.
 \end{lemma}
 
 \begin{proof}
-$\E \mathcal Z=2^N\Psi(\kappa)^m$ by independence over constraints.  For a
-pair $w,w'$ at overlap $\rho$ the constraint fields are bivariate
+$\E \mathcal Z=2^N\Psi(\kappa)^m$ by independence over patterns.  For a
+pair $w,w'$ at overlap $\rho$ the fields of each pattern are bivariate
 Gaussian with correlation $\rho$, so counting ordered pairs by
 Hamming distance $k$,
 \[
@@ -71,7 +70,7 @@ and $|m-\alpha N|\le1$.  Now $\varpi_0=\Psi(\kappa)^2$ and $h(1/2)=\log2$
 give $\zeta_{\alpha,\kappa}(0)=0$.  Reflecting the orthant to a joint
 CDF, $\varpi_\rho(\kappa)=N_2(-\kappa,-\kappa;\rho)$ with $N_2$ the
 bivariate normal distribution function, and Plackett's
-identity $\partial N_2/\partial\rho=\varphi_2$ with the symmetry
+identity \cite{plackett1954} $\partial N_2/\partial\rho=\varphi_2$ with the symmetry
 $\varphi_2(-\kappa,-\kappa;\rho)=\varphi_2(\kappa,\kappa;\rho)$ give
 $\partial \varpi_\rho/\partial\rho=\varphi_2(\kappa,\kappa;\rho)$ on
 $(-1,1)$; at $\rho=0$ this is $\varphi(\kappa)^2$.  Since
@@ -86,7 +85,7 @@ small $\rho_0>0$; fix such a $\rho_0$ and set
 $\delta=\zeta_{\alpha,\kappa}(\rho_0)$.  For the weighted counts, the diagonal
 term of $\E[\mathcal Z_f^2]$ is $2^N\E[f(X)^2]^m$, so either
 $\E[\mathcal Z_f^2]=\infty$ and the claim is trivial, or $f\in L^2(\varphi\,dx)$ and
-Mehler's expansion gives
+Mehler's expansion \cite{mehler1866} gives
 $\E[f(X)f(Y)]=\sum_{j\ge0}\rho^j\langle f,\mathrm{He}_j\rangle^2/j!$,
 whose $\rho$-derivative at $0$ is $(\int xf\varphi\,dx)^2$; for
 $f\ge0$ supported on $[\kappa,\infty)$ with $\kappa\ge0$ the
@@ -127,7 +126,7 @@ solution set.  The value $\alpha^{\mathrm{sym}}_c(r)$ is the
 first-moment threshold of Aubin, Perkins and
 Zdeborov\'a~\cite{aubin2019storage}.  Altschuler's
 Theorem~1.4~\cite{altschuler2022} states that for every width $r>0$
-and every $\varepsilon>0$ there is $c>0$ such that, when the rows
+and every $\varepsilon>0$ there is $c>0$ such that, when the scaled patterns
 $g_a/\sqrt N$ are independent $N(0,N^{-1}I_N)$ vectors and their
 number is below $\alpha^{\mathrm{sym}}_c(r)N-c\log N$, a binary $w$
 with $|\langle g_a,w\rangle|/\sqrt N\le r$ for every $a$ exists with
@@ -135,7 +134,7 @@ probability at least $1-\varepsilon$ for $N$ large.  Its proof uses the second-m
 condition of Abbe, Li and Sly~\cite[Lemma~3.4]{abbelisly2021} (the
 second-moment exponent is largest at overlap zero), which they prove
 for every width in their Section~4.7.1.  At fixed
-$\alpha<\alpha^{\mathrm{sym}}_c(|\kappa|)$ the row count $\alpha N$ is
+$\alpha<\alpha^{\mathrm{sym}}_c(|\kappa|)$ the number of patterns $\lceil\alpha N\rceil$ is
 eventually below $\alpha^{\mathrm{sym}}_c(|\kappa|)N-c\log N$, so a
 symmetric solution of width $|\kappa|$ exists with probability
 $1-o(1)$.  (The lognormal limit of Abbe, Li,
@@ -160,7 +159,7 @@ for $\kappa<0$
 \]
 At the two certified negative margins monotonicity is the stronger
 input: the embedding gives $0.215$ at $\kappa=-0.05$ and $0.655$ at
-$\kappa=-0.45$, against the predicted $0.889$ and $1.558$.  The
+$\kappa=-0.45$, against the replica-symmetric thresholds $0.889$ and $1.558$.  The
 embedding takes over only for $\kappa<-0.5757$, where
 $\alpha^{\mathrm{sym}}_c(|\kappa|)$ passes $\alpha_\star(0)$.  Li,
 Schramm, and Zhou~\cite{lsz2024} prove lower bounds on the
@@ -174,7 +173,7 @@ The construction underlying the $\kappa=0$ lower bound
 of~\cite{ding2019capacity} is written at general margin throughout
 their Section~2: their equations (34)--(48) define, for parameters
 $(\kappa_{\mathrm{all}},\alpha_{\mathrm{all}})$ (their names for the
-margin and the constraint density), an explicit
+margin and the pattern density), an explicit
 univariate function $S_{\kappa,\alpha}(\omega)$ on
 $[\omega_{\min},1]$ built from the fixed point $(q_\star,\psi_\star)$
 (an entropy term through the two-spin measure $P_{H,D}$, a
@@ -190,23 +189,25 @@ Theorem~\ref{thm:main}.
 
 In floating point, with Gauss--Hermite and conditional
 Gauss--Legendre quadrature, the function
-$S_{\kappa,\alpha_\star(\kappa)}$ behaves uniformly at the five
+$S_{\kappa,\alpha_\star(\kappa)}$ has the same shape at the five
 certified margins and at $\kappa=0$
 (Figure~\ref{fig:dscondition}): at every margin the curve is
 strictly negative off $\{0,1\}$, at most
-$-5\cdot10^{-5}$ outside windows of half-width $0.02$ around the two
-roots (inside them it climbs to its maxima at the roots, reaching
-$-1.6\cdot10^{-6}$ at the closest grid points), the maximum at
+$-5\cdot10^{-5}$ outside intervals of half-width $0.02$ around the two
+roots (inside them it climbs to its maxima at the roots: at the grid
+points nearest $\omega=0$ its maximum lies between $-3.6\cdot10^{-6}$ and
+$-7\cdot10^{-7}$, and for $10^{-6}\le1-\omega\le10^{-3}$ it lies between
+$-0.62\sqrt{1-\omega}$ and $-0.45\sqrt{1-\omega}$; below $1-\omega=10^{-6}$ double
+precision no longer resolves it), the maximum at
 $\omega=0$ is degenerate exactly as
-at $\kappa=0$, and the whole family collapses nearly onto a single
-shape, with $\omega_{\min}$ drifting from $-0.441$ at
+at $\kappa=0$, and the six curves have nearly one shape, with $\omega_{\min}$ moving from $-0.441$ at
 $\kappa=-0.45$ to $-0.421$ at $\kappa=0.13$.  The inequality
 $S_{\kappa,\alpha_\star(\kappa)}(\omega)<0$ for $\omega\notin\{0,1\}$
 is not proved at any $\kappa\ne0$.
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=0.85\linewidth]{ds_condition.png}
+\includegraphics[width=0.85\linewidth]{ds_condition.pdf}
 \caption{The general-margin Ding--Sun lower-bound condition,
 evaluated at the five certified margins and $\kappa=0$: the
 univariate function $S_{\kappa,\alpha_\star(\kappa)}$ of their
@@ -216,7 +217,7 @@ negative off the two roots and nearly coincide.}
 \label{fig:dscondition}
 \end{figure}
 
-What separates these verified inputs from a general-margin lower
+What separates these floating-point inputs from a general-margin lower
 bound is the probabilistic body of~\cite{ding2019capacity}: the
 AMP-conditioned moment computation of their Sections~2--7, whose
 displays carry $\kappa_{\mathrm{all}}$ explicitly; by their

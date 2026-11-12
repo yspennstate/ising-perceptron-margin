@@ -63,21 +63,24 @@ def main():
     nak = np.array([alpha_c_nakajima(x) if x >= 0 else np.nan for x in k])
 
     fig, ax = plt.subplots(figsize=(7.2, 4.6), dpi=150)
-    ax.plot(k, a, color=C_BLUE, lw=2, label='RS capacity candidate')
-    ax.plot(k, ann, color=C_AQUA, lw=2, label='annealed (first moment)')
-    ax.plot(k, sph, color=C_YELLOW, lw=2, label='spherical (Gardner)')
+    ax.plot(k, a, color=C_BLUE, lw=2,
+            label=r'replica-symmetric threshold $\alpha_\star(\kappa)$')
+    ax.plot(k, ann, color=C_AQUA, lw=2, label='annealed bound')
+    ax.plot(k, sph, color=C_YELLOW, lw=2,
+            label=r'spherical capacity $\alpha_{\mathrm{sph}}(\kappa)$')
     ax.plot(k, nak, color=C_GREEN, lw=2,
-            label='saddle bound (Nakajima)')
-    ax.plot([0], [0.8330786], marker='o', ms=5, color=C_BLUE)
-    # margins with Condition 2varfn certified end to end (all four
-    # conditions closed): alpha*(kappa) is an unconditional upper bound
-    ax.plot([0.05, -0.05], [0.781074, 0.889409], marker='D', ms=5,
-            color=INK, ls='none', label='certified upper bound')
+            label=r"Nakajima's bound $\alpha_c(\kappa)$")
+    # the certified value at kappa = 0, and the five margins at which
+    # all four of Huang's conditions are certified
+    ax.plot([0], [0.8330786], marker='o', ms=5, color=C_BLUE, ls='none',
+            label=r'certified, $\kappa=0$')
+    ax.plot([-0.45, -0.05, 0.05, 0.0995, 0.13],
+            [1.557653, 0.889409, 0.781074, 0.733479, 0.705933],
+            marker='D', ms=4, color=INK, ls='none',
+            label='certified, five margins')
     ax.set_yscale('log')
     ax.set_xlabel(r'margin $\kappa$', color=INK)
-    ax.set_ylabel(r'constraint density $\alpha$', color=INK)
-    ax.set_title('Ising perceptron: RS capacity candidate at margin '
-                 r'$\kappa$', color=INK, fontsize=11)
+    ax.set_ylabel(r'$\alpha$', color=INK)
     ax.legend(frameon=False, fontsize=8, loc='upper right')
     style_axis(ax)
 
@@ -95,13 +98,15 @@ def main():
               for r in crows]
         clb = [float(r['alpha_lb']) for r in crows]
         cub = [float(r['alpha_ub']) for r in crows]
-        axi = ax.inset_axes([0.08, 0.08, 0.38, 0.38])
+        # lower left, below the curves (they pass above alpha = 2.5
+        # for kappa < -0.8)
+        axi = ax.inset_axes([0.07, 0.06, 0.30, 0.27])
         axi.fill_between(ck, clb, cub, color=C_BLUE, alpha=0.22, lw=0)
         m = (k >= min(ck) - 0.01) & (k <= max(ck) + 0.01)
         axi.plot(k[m], a[m], color=C_BLUE, lw=1.6)
         axi.set_xlim(min(ck) - 0.005, max(ck) + 0.005)
-        axi.set_title('certified interval per slab', fontsize=7,
-                      color=INK2)
+        axi.set_title(r'slab enclosures of $\alpha_\star$ on the strip',
+                      fontsize=7, color=INK2)
         axi.tick_params(labelsize=6, colors=INK2)
         axi.grid(True, alpha=0.2, linewidth=0.5)
         for s in axi.spines.values():
@@ -109,6 +114,7 @@ def main():
             s.set_linewidth(0.6)
 
     fig.tight_layout()
+    fig.savefig(os.path.join('results', 'alpha_curve.pdf'))
     fig.savefig(os.path.join('results', 'alpha_curve.png'))
 
     hess = os.path.join('results', 'hessian_kappa.csv')

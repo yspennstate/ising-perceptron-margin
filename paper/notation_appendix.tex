@@ -22,11 +22,12 @@ $\varphi,\ \Psi$ & standard Gaussian density and upper tail & \ref{sec:system}\\
 $E$ & inverse Mills ratio $\varphi/\Psi$ & \ref{sec:system}\\
 $Z$ & standard Gaussian variable & \ref{sec:system}\\
 $u(z;q,\kappa)$ & $(\kappa-\sqrt q\,z)/\sqrt{1-q}$ & \ref{sec:system}\\
+$\gamma$ & $\sqrt{q/(1-q)}$; at $\kappa=0$, $u=-\gamma z$ in law & \ref{sec:system}\\
 $q,\ \psi$ & the two order parameters & \ref{sec:system}\\
 $P,\ R$ & the two halves of the fixed-point map, \eqref{eq:PR} & \ref{sec:system}\\
 $G$ & replica-symmetric free energy, \eqref{eq:G} & \ref{sec:system}\\
 $G_\star(\alpha)$ & $G$ along the fixed-point branch & \ref{sec:system}\\
-$\alpha_\star(\kappa)$ & the zero of $G_\star$; the predicted capacity & \ref{sec:system}\\
+$\alpha_\star(\kappa)$ & the zero of $G_\star$; the replica-symmetric threshold & \ref{sec:system}\\
 $(q_\star,\psi_\star)$ & the fixed-point branch as a function of $\alpha$ & \ref{sec:system}\\
 $(q_0,\psi_0)$ & the fixed point at $\alpha_\star(\kappa)$ & \ref{sec:system}\\
 rectangle clause & the uniqueness and contraction part of Condition~\ref{cond:fp} & \ref{sec:system}\\
@@ -35,13 +36,19 @@ located box & a box certified to contain the fixed point at one $\alpha$ & \ref{
 $\ell(\hat z)$ & the local-concavity function of Condition~\ref{cond:lc} & \ref{sec:system}\\
 $\mu(\hat z)$ & $\E[(\hat z+\cosh^2(\sqrt{\psi_0}Z))^{-1}]$ & \ref{sec:system}\\
 $A$ & $1-q_0$ & \ref{sec:system}\\
+$F(x)$ & $E\bigl((\kappa-x)/\sqrt A\bigr)/\sqrt A$ & \ref{sec:system}\\
+$\hat f_0,\ d_0$ & $-F'/(1+AF')$ and $\alpha_\star\E[F'(\sqrt{q_0}Z)]$, in the formula for $\ell$ & \ref{sec:system}\\
 $\ell_0$ & the minimum of $\ell$ & \ref{sec:curve}\\
 $\alpha_c(\kappa)$ & the bound $2/(\pi\E[(\kappa-Z)_+^2])$ of Nakajima's uniqueness theorem & \ref{sec:curve}\\
 $\tau,\ \beta$ & $E'(u)$ and $\mu(\hat z)-A$ in the formula for $\ell$ & \ref{sec:architecture}\\
-located rectangle & on a sub-slab, its $\alpha$ interval times the padded $q$ interval of the located fixed points & \ref{sec:nak}\\
+located rectangle & on a sub-slab, its $\alpha_\star$ interval times the padded $q$ interval of the located fixed points & \ref{sec:nak}\\
 $\mathcal H$ & $\nabla^2_\lambda\,\sS(\tanh(\lambda_1\dot H+\lambda_2M),s_0)$ at $\lambda=(1,0)$ & \ref{sec:hessian}\\
 $\eta$ & $E\bigl((\kappa-\hat H)/\sqrt{1-q_0}\bigr)/\sqrt{1-q_0}$ & \ref{sec:hessian}\\
 $\hat H$ & a Gaussian of variance $q_0$, independent of $\dot H$ & \ref{sec:hessian}\\
+$Q$ & $-\hat H/q_0+\bigl(\kappa-\hat H-(1-q_0)\eta\bigr)/(1-q_0)$ & \ref{sec:hessian}\\
+$p_4$ & $\E\tanh^4(\sqrt{\psi_0}Z)$ & \ref{sec:hessian}\\
+$I_1,\ I_2,\ I_3$ & the entries of $\nabla^2\Phi(b_0)$ & \ref{sec:hessian}\\
+$C_1,\ C_2,\ C_3$ & second derivatives at $a^\star$ of the constraint term $\mathcal C$ & \ref{sec:hessian}\\
 $\dot H$ & a Gaussian of variance $\psi_0$ & \ref{sec:intro}\\
 $M$ & $\tanh\dot H$ & \ref{sec:intro}\\
 $\Lambda$ & a profile, a function of $\dot H$ with values in $[-1,1]$ & \ref{sec:intro}\\
@@ -52,14 +59,18 @@ $\sS_\star(\lambda_1,\lambda_2)$ & $\inf_{s\ge0}\sS(\tanh(\lambda_1\dot H+\lambd
 $\lambda,\ b$ & dual points in $\R^2$ & \ref{sec:intro}\\
 $\Phi(b)$ & $\E\log2\cosh(b_1\dot H+b_2M)$ & \ref{sec:intro}\\
 $H(a)$ & entropy term as a function of the moments & \ref{sec:twovar}\\
-$a^\star$ & $(\psi_0(1-q_0),q_0)$, the moment point of the maximizing profile $\tanh\dot H$ & \ref{sec:intro}\\
+$\mathrm{ent}(\Lambda)$ & the entropy term $\E\,h\bigl(\frac{1+\Lambda}2\bigr)$ & \ref{sec:twovar}\\
+$h(p)$ & binary entropy $-p\log p-(1-p)\log(1-p)$ & \ref{sec:twovar}\\
+$D(a)$ & $\sqrt{1-a_2^2/q_0}$ & \ref{sec:twovar}\\
+$a^\star$ & $(\psi_0(1-q_0),q_0)$, the moment pair of the maximizing profile $\tanh\dot H$ & \ref{sec:intro}\\
 $b_0$ & the dual point $(1,0)$, at which $\nabla\Phi(b_0)=a^\star$ & \ref{sec:intro}\\
 $s_0$ & the optimal tilt $\sqrt{1-q_0}$ at $a^\star$ & \ref{sec:intro}\\
 hull & the hull of the boxes located at the two ends of an $\alpha_\star$ interval & \ref{sec:intro}\\
-Picard box & a box containing the fixed point for every $\alpha$ of a deep $\alpha_\star$ interval & \ref{sec:hessian}\\
+Picard box & a box containing the fixed point for every $\alpha$ of an $\alpha_\star$ interval & \ref{sec:hessian}\\
 $\mathcal F(a,s)$ & upper bound for $\sS(\Lambda,s)$ at moment $a(\Lambda)=a$, with the maximal entropy $H(a)$ & \ref{sec:twovar}\\
 $\bar\sS(a)$ & $\inf_{s\ge0}\mathcal F(a,s)$ & \ref{sec:twovar}\\
 $v,\ c,\ t$ & ray direction, tilt slope and distance along the ray & \ref{sec:regionI}\\
+$T(v)$ & the certified radius in direction $v$; the star is $\{a^\star+tv:0\le t\le T(v)\}$ & \ref{sec:regionI}\\
 $\chi_{v,c}(t)$ & $\mathcal F(a^\star+tv,\,s_0+ct)$ & \ref{sec:regionI}\\
 $\Delta$ & $(\lambda_1-1)\dot H+\lambda_2M$ in the integrand written against $b_0$ & \ref{sec:intro}\\
 band, sector & a radial interval $[t_0,t_1]$ of the rays; one of $768$ equal angular ranges of directions & \ref{sec:regionI}\\
@@ -68,16 +79,20 @@ $\bar B$ & Loewner majorant of $\nabla^2\Phi$ on a Region~I band & \ref{sec:marg
 $\alpha_{\mathrm{sph}}(\kappa)$ & spherical capacity $1/\E[(\kappa-Z)_+^2]$ & \ref{sec:curve}\\
 $\mathcal Z$ & number of solutions at margin $\kappa$ & \ref{sec:lower}\\
 $\varpi_\rho(\kappa)$ & $\Prob(X\ge\kappa,Y\ge\kappa)$, correlation $\rho$ & \ref{sec:lower}\\
+$\zeta_{\alpha,\kappa}(\rho)$ & the exponent of the second-moment ratio at overlap $\rho$ & \ref{sec:lower}\\
+$\delta(\alpha,\kappa)$ & a positive lower bound for $\frac1N\log(\E[\mathcal Z^2]/(\E\mathcal Z)^2)$, Lemma~\ref{lem:secondmoment} & \ref{sec:lower}\\
 $\alpha^{\mathrm{sym}}_c(r)$ & symmetric binary perceptron threshold at width $r$ & \ref{sec:lower}\\
 slab & a $\kappa$ interval of width $5\cdot10^{-4}$ with its rectangle & \ref{sec:slabs}\\
 rectangle, box & products of intervals in $(\alpha,q)$, and in $(q_0,\psi_0)$ & \ref{sec:slabs}\\
 sub-slab & one of eight $\kappa$ intervals of width $6.25\cdot10^{-5}$ covering a slab & \ref{sec:slabs}\\
-per-slab $\alpha_\star$ interval & the $\alpha_\star$ enclosure of one slab & \ref{sec:system}\\
-deep $\alpha_\star$ interval & an $\alpha_\star$ enclosure of width about $2\cdot10^{-6}$ at one margin & \ref{sec:slabs}\\
+slab rectangle & the rectangle of a slab, its $\alpha_\star$ interval times its $q$ interval & \ref{sec:slabs}\\
+contraction product & $\sup_\psi P'\cdot\sup_q|\partial R/\partial q|$ over a rectangle, a bound for $\sup_q(P\circ R_\alpha)'$ & \ref{sec:contraction}\\
+slab's $\alpha_\star$ interval & the enclosure of $\alpha_\star$ on one slab or sub-slab & \ref{sec:system}\\
+$\alpha_\star$ interval & the enclosure of $\alpha_\star(\kappa)$ of width about $2\cdot10^{-6}$ at one margin (Theorem~\ref{thm:main}) & \ref{sec:slabs}\\
 exclusion region & a product of two intervals about $a^\star$ that contains the star & \ref{sec:regionI}\\
 enclosure of $a^\star$ & the image of the hull under $(q_0,\psi_0)\mapsto(\psi_0(1-q_0),q_0)$ & \ref{sec:regionI}\\
 dual enclosure & a certified region of the dual plane containing the dual maximizers & \ref{sec:regionI}\\
-leaves & the certified pieces of a bisected sweep cell & \ref{sec:regionI}\\
+leaf & a certified sub-cell of a bisected sweep cell & \ref{sec:regionI}\\
 weak direction & the line through $a^\star$ along an eigenvector of the Hessian of $\bar\sS$ at $a^\star$, eigenvalue nearest $0$ & \ref{sec:regionI}\\
 supplementary arcs & angular ranges with a ray certificate beyond the main radius & \ref{sec:regionI}\\
 star & the star-shaped neighborhood of $a^\star$ of the ray certificates & \ref{sec:intro}\\
@@ -85,4 +100,5 @@ Region I, II, stage 2 & the ray certificates on the star; the sweep of $K$ outsi
 star interior & the certificate that the star lies inside $K$ & \ref{sec:intro}\\
 $m_N(\kappa)$ & largest $m$ for which a solution exists & \ref{sec:lower}\\
 $S_{\kappa,\alpha}(\omega)$ & Ding and Sun's univariate function on $[\omega_{\min},1]$ & \ref{sec:lower}\\
+$\omega,\ \omega_{\min}$ & the variable of $S_{\kappa,\alpha}$ and the lower end of its domain & \ref{sec:lower}\\
 \end{longtable}
