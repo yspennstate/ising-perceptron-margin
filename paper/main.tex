@@ -42,10 +42,10 @@ the bound holds there unconditionally; at $\kappa=0.05$ the
 capacity is at most $\alpha_\star(0.05)\in[0.781073068,0.781074776]$.
 Three conditions hold on the strip $\kappa\in[-0.65,0.19]$.
 At $\kappa\ne0$ the fixed point of the replica-symmetric equations
-is known only to a box about $10^5$ times wider than at zero margin,
-and the zero-margin proof of Huang's two-variable condition fails at
-that width.  It is restored by computing the moment point of the
-maximizer as a function of the box, and by writing each difference of
+is known only to a box about $10^5$ times wider in one coordinate
+than at zero margin, and the zero-margin proof of Huang's two-variable
+condition fails at that width.  It is restored by computing the
+moments of the maximizer as functions of the box, and by writing each difference of
 log-partition values that the proof needs as a single expectation
 expanded about the maximizer.  Whether
 $\alpha_\star(\kappa)$ is also a lower bound at $\kappa\ne0$ is open.
@@ -182,10 +182,10 @@ certified bound below $1$ on the derivative of $q\mapsto P(R(q,\alpha))$
 over each slab (the contraction product of Section~\ref{sec:slabs}),
 and on $(0.10,0.19]$ also from Nakajima's uniqueness
 theorem~\cite{nakajima2025}, whose premise is verified in ball
-arithmetic.  The Hessian of the two-variable function at its maximizer
-$(1,0)$, which Huang verifies negative definite at $\kappa=0$
-\cite[Claim~2.6 and Appendix~B.3]{huang2024capacity}, is negative
-definite at six margins (Section~\ref{sec:hessian}).
+arithmetic.  The Hessian at the maximizer $(1,0)$ of the two-variable function
+with the tilt held at its optimal value, negative definite at
+$\kappa=0$ by \cite[Claim~2.6 and Appendix~B.3]{huang2024capacity},
+is negative definite at six margins (Section~\ref{sec:hessian}).
 
 The strip uses the one-term formula for $\partial R/\partial q$
 (Lemma~\ref{lem:dR}), where $\psi=R(q,\alpha)$ is the second
@@ -499,7 +499,7 @@ which is $|\beta|/(A\mu)$.
 
 \subsection{Uniqueness by contraction}
 
-On each slab the checks are: (i) the contraction product
+On each of the $1500$ slabs of $[-0.65,0.10]$ the checks are: (i) the contraction product
 $\sup_\psi P'\cdot\sup_q|\partial R/\partial q|$, which bounds
 $\sup_q(P\circ R_\alpha)'$, is below $1$ on the slab rectangle, via Lemma~\ref{lem:dR}; (ii)
 existence: the endpoints of the $q$ interval map strictly inward
@@ -516,7 +516,9 @@ $G_\star$, (i)--(iii) discharge Condition~\ref{cond:fp} verbatim on
 the slab: $\alpha_\star(\kappa)$ exists, is unique, and lies in the
 slab's $\alpha$ interval for every $\kappa$ in the slab.
 
-The contraction product (i) is below $1$ on each slab; over a union of slabs
+The contraction product (i) is below $1$ on each of these $1500$
+slabs; on $(0.10,0.19]$ it is not, and uniqueness there is treated in
+Section~\ref{sec:nak}.  Over a union of slabs
 the enclosure of $\partial R/\partial q$ is about twice too wide for
 it.  On a single slab the enclosure stays below $1$ with slack
 $0.049$ at $\kappa=0$, growing to $0.198$ at $\kappa=-0.65$ and
@@ -564,9 +566,10 @@ exceeds it ($1.012$) by $\kappa=0.15$ with the same half-width.  The
 half-width is set by the located $q$ interval, whose width comes
 mostly from the slab's $\alpha$ width
 ($3\cdot10^{-3}$) through $\partial q_\star/\partial\alpha\approx0.9$;
-narrowing it means enclosing $\alpha_\star$ per slab in an interval
-of width about $10^{-6}$, as is done below at the five margins, after which the flat contraction leaves a thin rectangle that
-clears $1$.  At $\kappa=0.15$ and $0.185$ the contraction
+narrowing it means enclosing $\alpha_\star$ at a single $\kappa$ in
+an interval of width about $10^{-6}$, as is done below at the five
+margins, after which the flat contraction leaves a thin rectangle
+that clears $1$.  At $\kappa=0.15$ and $0.185$ the contraction
 products on such rectangles are $0.836$ and $0.830$
 (\texttt{rect\_cond31\_0p15.json}, \texttt{rect\_cond31\_0p185.json}).
 On each of the $180$ slabs covering $[0.10,0.19]$, over eight
@@ -597,8 +600,9 @@ $\E[(\kappa-Z)_+^2]=(1+\kappa^2)\bigl(1-\Psi(\kappa)\bigr)
 $\alpha_c(\kappa)-\alpha_+$ is $0.292$).
 
 On the whole strip, $1680$ contiguous slabs pass and none fails.
-At five margins a certified bisection on the sign of $G$ at located
-boxes tightens the slab intervals to width about $2\cdot10^{-6}$; these
+At each of five margins a certified bisection on the sign of $G$ at
+located boxes encloses $\alpha_\star$ in an interval of width about
+$2\cdot10^{-6}$; these
 deep $\alpha_\star$ intervals are the intervals of Theorem~\ref{thm:main}.  Each
 contains its continuation value, and the slab containing $\kappa=0$
 contains $\alpha_\star(0)=0.8330786\dots$.  At the default quadrature depth the
@@ -615,9 +619,13 @@ the certificates of Section~\ref{sec:regionI} evaluate.
 
 The local ingredient of Condition~\ref{cond:2var} is the negative
 definiteness of the Hessian $\mathcal H$ at $(1,0)$ of the two-variable
-function of Section~\ref{sec:twovar}, which Huang calls the first-moment
-functional; at $\kappa=0$ this is \cite[Claim~2.6]{huang2024capacity},
-verified in his Appendix~B.3.  His second-derivative expansion,
+function of Section~\ref{sec:twovar} with the tilt held at its optimal
+value $s_0=\sqrt{1-q_0}$; at $\kappa=0$ this is
+\cite[Claim~2.6]{huang2024capacity}, verified in his Appendix~B.3.
+Minimizing over the tilt subtracts a positive semidefinite matrix (a
+Schur complement), so the Hessian of the tilt-optimized function at
+$(1,0)$ is bounded above by $\mathcal H$ in the Loewner order and is
+negative definite whenever $\mathcal H$ is.  His second-derivative expansion,
 \emph{before} the zero-margin specialization, gives at every $\kappa$
 the same quadratic form
 \[
@@ -685,11 +693,10 @@ where the $C_j$ enclosures lie inside Huang's certified
 intervals, and at $-0.05$, $0.0995$, $-0.45$ (where $C_1=-0.855$,
 against $-0.718$ at zero margin) and $0.13$.
 
-Along the continuation the fixed-tilt $\mathcal H$ stays negative definite at least
+Along the continuation $\mathcal H$ stays negative definite at least
 up to $\kappa=1.15$ and loses definiteness inside $(1.1812,1.1844)$,
 while the Hessian of the tilt-optimized functional remains negative
-out to at least $\kappa=1.5$; the two are consistent by the Schur
-relation (the fixed-tilt form dominates), so past
+out to at least $\kappa=1.5$, as the Schur relation allows, so past
 $\kappa\approx1.18$ a local argument must re-optimize the tilt, as
 the ray certificates below already do.
 
@@ -765,12 +772,11 @@ deep negative margin ($-0.0013$ at $\kappa=-1.5$).
 \section{Certifying the two-variable condition}\label{sec:regionI}
 
 The zero-margin certificate has four parts: a sweep of the moment
-body outside an exclusion box, a rectangle about $a^\star$ that
-contains the star (Region II), banded
-ray-concavity certificates on a star around $a^\star$ (Region I), a
-second sweep of the exclusion box minus the star (stage 2), and an
-interior-ball certificate placing the star strictly inside the
-moment body.  At $\kappa\ne0$ all four meet the same difficulty.
+body outside an exclusion box, which is a rectangle about $a^\star$
+containing the star (Region~II); banded ray-concavity certificates on
+the star (Region~I); a second sweep of the exclusion box minus the
+star (stage~2); and an interior-ball certificate placing the star
+strictly inside the moment body.  At $\kappa\ne0$ all four meet the same difficulty.
 At zero margin the parameters $(q_0,\psi_0)$ are certified to a
 rectangle of width $10^{-9}$, so the moment point $a^\star$ can be
 stored as decimals and every enclosure treats them as exact; at
@@ -1111,7 +1117,8 @@ mathematics and accepts responsibility for the paper.
 \section*{Data availability}
 No external data were used. The verification programs, certificates and raw
 records are available at
-\url{https://github.com/yspennstate/ising-perceptron-margin/tree/v2.0}.
+\url{https://github.com/yspennstate/ising-perceptron-margin/tree/v2.0},
+with the certificates in the folder \texttt{verification/results}.
 
 \begin{thebibliography}{99}
 
