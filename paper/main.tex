@@ -7,12 +7,12 @@
 \usepackage[hidelinks]{hyperref}
 
 \newtheorem{theorem}{Theorem}
-\newtheorem{lemma}{Lemma}
-\newtheorem{prop}{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{prop}[theorem]{Proposition}
 \newtheorem{cond}{Condition}
 \newtheorem*{mainthm}{Main Theorem}
 \theoremstyle{remark}
-\newtheorem{rmk}{Remark}
+\newtheorem{rmk}[theorem]{Remark}
 
 \newcommand{\E}{\mathbb{E}}
 \newcommand{\Prob}{\mathbb{P}}
@@ -48,6 +48,12 @@ positive integrand.  For every $\kappa<0$ we also prove a capacity
 lower bound by embedding a symmetric perceptron.  The matching lower
 bound at $\alpha_\star(\kappa)$ remains open.
 \end{abstract}
+
+\noindent\emph{Keywords:} binary perceptron, storage capacity,
+replica-symmetric formula, computer-assisted proof, ball arithmetic.
+
+\noindent\emph{2020 Mathematics Subject Classification:} 82B44,
+60G15, 65G30.
 
 \section{Introduction}\label{sec:intro}
 
@@ -265,7 +271,7 @@ In particular the critical points of $G$ are exactly the solutions of
 Ding and Sun's fixed-point system $q=P(\psi)$, $\psi=R(q,\alpha)$
 \cite{ding2019capacity}, at every margin.
 
-\begin{proof}
+\begin{proof}[Proof of Lemma~\ref{lem:stat}]
 The first identity is Gaussian integration by parts on the
 $\log\cosh$ term.  For the second, differentiating $u$ in $q$ gives
 \[
@@ -419,8 +425,9 @@ $\varphi/\Psi$ fails on wide arguments in the steep region (the
 enclosure of $\Psi$ crosses zero), while the ratio is monotone; all
 Mills-family factors are therefore enclosed by two thin endpoint
 evaluations, and the sign-critical sums use the mean-value cell rule
-(midpoint value plus a derivative correction, $O(h^2)$ against the
-plain hull's $O(h)$).  Third, expectations that nearly cancel must be
+(midpoint value plus a derivative correction; on a cell of width $h$
+its error is $O(h^2)$ against the plain hull's $O(h)$, with constants
+set by the derivative enclosures on that cell).  Third, expectations that nearly cancel must be
 evaluated as one correlated integrand, never as separate sums whose
 parameter widths add.  For Condition~\ref{cond:lc} this is the
 identity (with $\tau=E'$, $A=1-q_0$, and $b=\mu(\hat z)-A$ for
@@ -723,16 +730,16 @@ over the origin ball cover in particular the rays from the true
 origin.
 
 \emph{The ray argument.}  For a unit direction $v$ and a slope
-$c\in\R$ put $\phi_{v,c}(t)=\mathcal F(a^\star+tv,\,s_0+ct)$, where
+$c\in\R$ put $\chi_{v,c}(t)=\mathcal F(a^\star+tv,\,s_0+ct)$, where
 $\mathcal F(a,s)$ is the moment-coordinate form of $\sS(\cdot,s)$
 that the certificates evaluate, so that
-$\sS_\star(a^\star+tv)\le\phi_{v,c}(t)$ whenever $s_0+ct\ge0$.  At
-the true parameters $\phi_{v,c}(0)=\phi_{v,c}'(0)=0$ for every $c$,
+$\sS_\star(a^\star+tv)\le\chi_{v,c}(t)$ whenever $s_0+ct\ge0$.  At
+the true parameters $\chi_{v,c}(0)=\chi_{v,c}'(0)=0$ for every $c$,
 by the value, gradient and tilt identities at $a^\star$.  If
-$\phi_{v,c}''\le0$ on $[0,T(v)]$ then $\phi_{v,c}\le0$ there, hence
+$\chi_{v,c}''\le0$ on $[0,T(v)]$ then $\chi_{v,c}\le0$ there, hence
 $\sS_\star\le0$ on the segment.  The chain needs one slope per ray: the
 second-derivative bound on a radial band $[t_0,t_1]$ with $t_0>0$
-says nothing about $\phi$ itself unless $\phi$ and $\phi'$ are
+says nothing about $\chi$ itself unless $\chi$ and $\chi'$ are
 controlled at $t_0$, and those are controlled only through the same
 function on $[0,t_0]$.  The certificates therefore fix the slope by
 direction alone: the circle is cut into $768$ equal sectors, each
@@ -740,7 +747,7 @@ sector carries one slope (the optimal tilt slope at its midpoint,
 rounded to six decimals, recorded in the manifest), every angular
 cell of every radial band lies inside one sector and uses that
 sector's slope, and a direction on a sector edge is covered by the
-cells of either neighbour, each with its own fixed slope.  The checker
+cells of either neighbor, each with its own fixed slope.  The checker
 recomputes each cell's sector from its angles, confirms that the
 cells of each band tile its angle range, and confirms the slope table
 is the same in the main and supplementary manifests.
@@ -785,7 +792,7 @@ forms are identities, so the branch affects tightness only.
 derivatives of the constraint term, whose kernels involve
 $E'(V)=E(V)(E(V)-V)$ and $E''(V)$, with $E$ the inverse Mills ratio
 of Section~\ref{sec:system}, evaluated at cavity arguments $V$ that reach
-$O(20)$ on far quadrature cells; there $E(V)-V$ is a difference of
+about $20$ on far quadrature cells; there $E(V)-V$ is a difference of
 two large balls and the kernels explode (we measured certified
 upper bounds of $+2\cdot10^{3}$ on cells whose true ray second
 derivative is $-6.6$).  Three elementary bounds, applied as
@@ -1149,7 +1156,7 @@ not certificates.
 
 \section*{Acknowledgements and funding}
 The author acknowledges support from the European Research Council under the
-European Union's Horizon Europe programme (grant 101041711), the Simons
+European Union's Horizon Europe program (grant 101041711), the Simons
 Foundation, Heights Labs, Convex Nexus Capital, and Israel Science
 Foundation grants 2258/19 and 4101/25.  Computational resources were
 provided in part by Google Cloud through its education credits
@@ -1170,9 +1177,9 @@ mathematics and accepts responsibility for the paper.
 \section*{Data availability}
 No data were used. The verification programs, certificates and raw
 records are available at
-\url{https://github.com/yspennstate/ising-perceptron-margin}.
+\url{https://github.com/yspennstate/ising-perceptron-margin/tree/v2.0}.
 
-The paper is part of the Math Brain project, whose public repository is \url{https://github.com/yspennstate/math-brain-public}~\cite{MathBrainRepo}.
+The paper is part of the Math Brain project~\cite{MathBrainRepo}.
 
 \begin{thebibliography}{99}
 
@@ -1222,7 +1229,7 @@ Y.~Shmalo,
 The storage capacity of the Ising perceptron: verification of the
 outstanding numerical conditions,
 arXiv:2607.11010 (2026); verification repository at
-\url{https://github.com/yspennstate/ising-perceptron-capacity}.
+\url{https://github.com/yspennstate/ising-perceptron-capacity/tree/v1.0}.
 
 \bibitem{bnsx2022}
 E.~Bolthausen, S.~Nakajima, N.~Sun and C.~Xu,
@@ -1272,11 +1279,11 @@ S.~Li, T.~Schramm and K.~Zhou,
 Discrepancy algorithms for the binary perceptron,
 arXiv:2408.00796.
 
-\bibitem{MathBrainRepo} Y.~Shmalo, \emph{Math Brain: public snapshot, code and tests}, 2026, \url{https://github.com/yspennstate/math-brain-public}.
+\bibitem{MathBrainRepo} Y.~Shmalo, \emph{Math Brain: public snapshot, code and tests}, 2026, \url{https://github.com/yspennstate/math-brain-public/tree/f96f1dd117d2869e61d01d7090c137548875ce3d}.
 
-\bibitem{MathBrainPaper} Y.~Shmalo, \emph{Math Brain: shared, auditable memory for multi-agent mathematical research}, October 2026, \url{https://github.com/yspennstate/math-brain-public/tree/main/papers/math-brain-2026-10-24}.
+\bibitem{MathBrainPaper} Y.~Shmalo, \emph{Math Brain: shared, auditable memory for multi-agent mathematical research}, October 2026, \url{https://github.com/yspennstate/math-brain-public/tree/f96f1dd117d2869e61d01d7090c137548875ce3d/papers/math-brain-2026-10-24}.
 
-\bibitem{BrainFramework} Y.~Shmalo, \emph{Brain Framework}, public software repository, 2026, \url{https://github.com/yspennstate/brain-framework-public}.
+\bibitem{BrainFramework} Y.~Shmalo, \emph{Brain Framework}, public software repository, 2026, \url{https://github.com/yspennstate/brain-framework-public/tree/c788e6690a6c40f5637bb1c9f9caef3cf1353a73}.
 
 \end{thebibliography}
 
