@@ -1,15 +1,10 @@
-% Further certified margins.  Stage-2 counts refer to the enlarged
-% exclusion box; every count is read from the shipped manifests.
-
-\section{Further margins}
-\label{sec:margins}
+\section{Further margins}\label{sec:margins}
 
 The four conditions of Theorem~\ref{thm:main} are margin-wise
-statements, and the certificate pipeline of
-Sections~\ref{sec:twovar}--\ref{sec:regionI} runs unchanged at any
-$\kappa$ inside the strip where the fixed point is certified unique:
-the pilot locates the $(q_0,\psi_0)$ boxes at both endpoints of the
-$\alpha$ window, configures the exact-arithmetic modules from those
+statements, and the certificates of
+Sections~\ref{sec:twovar}--\ref{sec:regionI} run unchanged at any
+$\kappa$ of the strip: the program locates the $(q_0,\psi_0)$ boxes at both endpoints of the
+$\alpha$ interval, configures the exact-arithmetic modules from those
 balls, and runs the same four pieces.  Besides $\kappa=0.05$ it
 certifies Condition~\ref{cond:2var} at $\kappa=-0.45$, $-0.05$,
 $0.0995$ and $0.13$.  At the two negative margins the fixed-point
@@ -23,7 +18,7 @@ pieces at the five margins.
 \setlength{\tabcolsep}{4pt}
 \begin{tabular}{lccccc}
 \toprule
-$\kappa$ & $\alpha^*(\kappa)$ window & sweep & Region I & stage 2 &
+$\kappa$ & $\alpha_\star(\kappa)$ interval & Region II & Region I & stage 2 &
 inradius / required \\
 \midrule
 $0.05$  & $[0.781073068,\ 0.781074776]$ & 855 & 1404 (+12) & 1363 &
@@ -40,20 +35,21 @@ $0.01446\ /\ 0.01210$ \\
 \end{tabular}
 \caption{Certified leaf and band counts per piece, with zero failures
 in every manifest.  Region~I counts marked $(+12)$ include the twelve
-shoulder-supplement chunks; under the enlarged exclusion box every
-margin's stage-2 lattice consumes one.  The final column gives the
+supplementary angular ranges; under the enlarged exclusion box every
+margin's stage-2 lattice uses one.  The final column gives the
 constructive moment-body inradius against the required star radius,
 both exact-arithmetic bounds.}
 \label{tab:margins}
 \end{table}
 
-Every margin's Region-I manifest carries per-band interval packets
-for the frozen-tilt matrix $B$, and the kernel-checked skeleton
-includes for each a fifth family: Loewner definiteness of every
-band's $B$-matrix, decided over the integers in thirteen chunks of
-$108$ bands together with a decided total count ($55$ kernel theorems
-per margin; the mutation battery rejects a sign corruption in each
-family).
+For each band, the Region-I manifest of every margin carries an
+interval matrix $B$ with $\nabla^2\Phi(\lambda)\preceq B$ in the
+Loewner order (the difference is positive semidefinite) for every
+$\lambda$ in the band's certified dual box, so that the Hessian of
+the entropy term is at most $-B^{-1}$ there.  The Lean files check
+that every band's $B$ is positive definite, in thirteen groups of
+$108$ bands with a checked total count ($55$ theorems per margin; the
+mutation battery rejects a sign change in each group of theorems).
 
 The stage-2 containment reads each supplement arc on both angular
 branches, so a cell sees every arc whichever branch its interval lies
