@@ -52,17 +52,18 @@ regimes are in hand, but a remainder bound on the annulus is a new
 estimate, not a matter of computing budget.
 
 The certified artifacts also price that ingredient.  Across the three
-positive margins the Region~I band populations have nearly identical
-margin profiles: at most one or two bands per margin certify below
-$3\cdot10^{-4}$, at most seven below $3\cdot10^{-3}$, and more than
-$95$ percent above $3\cdot10^{-2}$.  If each band carried a certified
-bound $L_i$ on the $\kappa$-derivative of its certificate value, a
-band would hold over a $\kappa$-radius $m_i/L_i$ of its margin
-$m_i$, and re-certifying each band at its own pitch would cover
-$10^{-2}$ of margin axis for $1.1$ times the cost of one point run
-at unit derivative bound, $1.3$ times at a conservative bound of
-three, against roughly $3\cdot10^{5}$ band evaluations for
-uniform slabs at the thinnest band's pitch.  The
+positive margins the Region~I band populations have similar margin
+profiles: $11$, $3$ and $11$ bands certify below $3\cdot10^{-4}$ at
+$\kappa=0.05$, $0.0995$ and $0.13$, between $55$ and $66$ below
+$3\cdot10^{-3}$, and $87$ to $88$ percent of the $1404$ bands above
+$3\cdot10^{-2}$.  If each band carried a certified bound $L_i$ on
+the $\kappa$-derivative of its certificate value, a band would hold
+over a $\kappa$-radius $m_i/L_i$ of its margin $m_i$, and
+re-certifying each band at its own pitch would cover $10^{-2}$ of
+margin axis for $1.5$ to $1.9$ times the cost of one point run at
+unit derivative bound and $2.5$ to $3.8$ times at a bound of three,
+against about $2\cdot10^{6}$ band evaluations for uniform slabs at
+the pitch of the thinnest band ($\kappa=0.13$, bound three).  The
 compute is therefore not the obstruction; what is missing is the
 derivative enclosure itself, one certified $\kappa$-derivative per
 certificate family, with the located branch differentiated
@@ -71,13 +72,14 @@ artifacts: the band lattice is shared across margins up to the wedge
 rotation, and $1292$ rectangles coincide exactly between the
 $\kappa=0.05$ and $\kappa=0.0995$ manifests, giving certified
 finite differences of each certificate value along the located
-branch.  The measured sensitivities are strongly in the plan's
-favor: the median band moves at $|\Delta S/\Delta\kappa|\approx 6$,
-but the thin-trough bands move at $0.1$--$0.3$, so the thinnest band
-(margin $5.6\cdot10^{-4}$) already holds over a $\kappa$-radius
-near $2\cdot10^{-3}$, and with per-band measured pitches the count
-is $1.04$ runs per $10^{-2}$ of margin axis, about eight
-Region~I run-equivalents for all of $[0.05,0.13]$.  A difference
+branch.  The median band moves at $|\Delta S/\Delta\kappa|\approx 7$,
+and of the ten thinnest shared bands at $\kappa=0.05$ (margins
+$2.2\cdot10^{-4}$ to $1.6\cdot10^{-3}$) nine move at less than
+$0.5$ and four at less than $0.06$; the thinnest of them holds over a
+$\kappa$-radius near $2\cdot10^{-4}$.  Taking the measured difference
+as $L_i$ on the shared bands and the median on the others gives $3.9$
+runs per $10^{-2}$ of margin axis, about $31$ Region~I
+run-equivalents for all of $[0.05,0.13]$.  A difference
 over a $0.05$ gap bounds the mean drift rather than the local
 derivative, so these numbers size the project rather than prove it;
 the machinery an interval theorem still requires is the certified
