@@ -1,80 +1,20 @@
 \subsection{From points to intervals}
 \label{sec:interval}
 
-The natural strengthening of Theorem~\ref{thm:main} replaces each
-margin by a $\kappa$-interval, so that $\alpha_\star(\kappa)$ becomes
-an unconditional bound on a continuum.  For
-Conditions~\ref{cond:fp}--\ref{cond:lc} this is what the strip
-certificates already provide: those inequalities hold with margins of
-at least $8\cdot10^{-3}$, and enclosing every input over a
-$\kappa$-slab costs less than that.  Condition~\ref{cond:2var} is
-different.
-
-Certifying $\sS_\star\le 0$ over a slab means every certificate must
-hold with the located parameters $(\alpha, q_0, \psi_0)$ replaced by
-their hulls across the slab.  Three measurements fix the scales.
-First, with the present locating algorithm and quadrature budget the
-hull widths do not shrink below a floor (the inward fixed-point test resolves no
-finer than the quadrature fuzz, about $3.5\cdot10^{-4}$ in $q_0$, and
-$\alpha_\star$ itself moves with $\kappa$: its secant slopes between
-the five margins are $1.67$, $1.08$, $0.96$ and $0.90$), which translate into a moment-plane
-origin ball of radius at least a few times $10^{-3}$ however narrow
-the slab.  Second, the evaluation fuzz of every certificate grows
-linearly with that ball: rerunning the $\kappa=-0.65$ Region~II certificate with
-slab-hulled parameters (ball $2.3\cdot10^{-2}$) inflates cell
-enclosures to $\pm 1.3$, and the scaling back to the floor ball
-leaves $\pm 0.2$.  Third, the certificates that matter are thin:
-Region~II's weakest certified cells at point margins sit at
-$-5\cdot10^{-4}$, and Region~I's thinnest bands between
-$-1.1\cdot10^{-5}$ and $-7.5\cdot10^{-5}$,
-because the two-variable function is flat at its maximizer.  With
-this evaluator, a certificate with margin $10^{-4}$ does not survive
-enclosure widths of order $10^{-1}$, at any slab width.
-
-The same comparison explains why the strip conditions posed no such
-problem.  Near the maximizer
-the certified Hessian gives quadratic control whose constants vary
-slowly in $\kappa$ (the fixed-tilt determinant moves by about
-$3.5\cdot10^{-4}$ per unit margin), so a $\kappa$-uniform neighborhood
-estimate is available from point certificates plus a crude
-$\kappa$-derivative bound; crude is enough, because a Lipschitz
-constant needs no thin margin.  Far from the maximizer the
-certificates are fat and absorb hull fuzz directly.  What remains is
-the intermediate annulus, where quadratic control must be extended
-beyond the star radius with explicit remainder bounds before the two
-regimes meet.  That remainder bound is the missing estimate.
-
-The certified artifacts also price that ingredient.  Across the three
-positive margins the Region~I band populations have similar margin
-profiles: $11$, $3$ and $11$ bands certify below $3\cdot10^{-4}$ at
-$\kappa=0.05$, $0.0995$ and $0.13$, between $55$ and $66$ below
-$3\cdot10^{-3}$, and $87$ to $88$ percent of the $1404$ bands above
-$3\cdot10^{-2}$.  If each band carried a certified bound $L_i$ on
-the $\kappa$-derivative of its certificate value, a band would hold
-over a $\kappa$-radius $m_i/L_i$ of its margin $m_i$, and
-re-certifying each band at its own pitch would cover $10^{-2}$ of
-margin axis for $1.5$ to $1.9$ times the cost of one point run at
-unit derivative bound and $2.5$ to $3.8$ times at a bound of three,
-against about $2\cdot10^{6}$ band evaluations for uniform slabs at
-the pitch of the thinnest band ($\kappa=0.13$, bound three).  The
-compute is therefore not the obstruction; what is missing is the
-derivative enclosure itself, one certified $\kappa$-derivative per
-certificate family, with the located branch differentiated
-implicitly.  The constant itself is measurable from the existing
-artifacts: the band lattice is shared across margins up to the wedge
-rotation, and $1292$ rectangles coincide exactly between the
-$\kappa=0.05$ and $\kappa=0.0995$ manifests, giving certified
-finite differences of each certificate value along the located
-branch.  The median band moves at $|\Delta\sS/\Delta\kappa|\approx 7$,
-and of the ten thinnest shared bands at $\kappa=0.05$ (margins
-$2.2\cdot10^{-4}$ to $1.6\cdot10^{-3}$) nine move at less than
-$0.5$ and four at less than $0.06$; the thinnest of them holds over a
-$\kappa$-radius near $2\cdot10^{-4}$.  Taking the measured difference
-as $L_i$ on the shared bands and the median on the others gives $3.9$
-runs per $10^{-2}$ of margin axis, about $31$ Region~I
-run-equivalents for all of $[0.05,0.13]$.  A difference
-over a $0.05$ gap bounds the mean drift rather than the local
-derivative, so these numbers size the project rather than prove it;
-the machinery an interval theorem still requires is the certified
-per-certificate $\kappa$-derivative, with the same measurement then
-repeated for the Region~II, stage-2 and interior-ball certificates.
+For Conditions~\ref{cond:fp}--\ref{cond:lc} the strip certificates
+already give statements on intervals of $\kappa$: each slab is
+certified with every input enclosed over the whole slab.
+Condition~\ref{cond:2var} is different.  Over a slab every certificate must hold with
+$(\alpha,q_0,\psi_0)$ replaced by their hulls, and with the present
+locating algorithm these hulls do not shrink below about
+$3.5\cdot10^{-4}$ in $q_0$; the induced enclosure of $a^\star$ has
+radius at least a few times $10^{-3}$ however narrow the slab, and at
+that radius the Region~II cell enclosures are about $\pm0.2$, while
+the thinnest Region~II cells have slack $5\cdot10^{-4}$ and the
+thinnest Region~I bands between $1.1\cdot10^{-5}$ and
+$7.5\cdot10^{-5}$.  An interval theorem for Condition~\ref{cond:2var}
+therefore needs a certified $\kappa$-derivative of each certificate,
+with the fixed-point branch differentiated implicitly, and quadratic
+control with explicit remainder bounds on the annulus between the
+star and the far cells, where the certified Hessian alone does not
+reach.

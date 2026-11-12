@@ -1,5 +1,5 @@
-The algorithmic gap the curve frames is directly measurable at
-moderate size.  A population annealer (hinge energy on violated
+The gap between the curve and what an algorithm finds can be
+measured at moderate size.  A population annealer (hinge energy on violated
 margins, geometric schedule matched to the $2/\sqrt N$ energy scale;
 \texttt{finite\_size\_experi\-ment.py}) trained $N=101$ instances across
 $\alpha$ at $\kappa\in\{0,0.05,0.1\}$.  The densities at which half
@@ -21,9 +21,7 @@ in~\cite{gamarnik2022algorithms,lsz2024} on the closely
 related symmetric and asymmetric binary perceptrons; the
 found-solution histograms meanwhile track
 the derived $p(h)$ closely at moderate load and deform toward
-mid-gaps near the half-success density.  Both effects are schedule-dependent
-observations, not thresholds; the certified curve is what they are
-measured against.  Within each size and budget the half-success
+mid-gaps near the half-success density.  Within each size and budget the half-success
 density sits at a $\kappa$-independent fraction of
 $\alpha_\star(\kappa)$ ($0.90$ at $N=101$ down to $0.50$ at $N=801$,
 flat across margins to better than one percent at the largest
@@ -36,8 +34,7 @@ loss of $0.13$ per doubling over the measured range; holding a constant
 fraction of capacity requires superlinearly growing total work.  On
 the budget axis at $N=201$ the fraction climbs $0.75$, $0.79$,
 $0.86$ as the budget quadruples twice, but a further quadrupling to
-$25{,}600$ sweeps per spin gains only $0.02$ ($0.876$): the fixed
-gain per quadrupling stops at $6{,}400$, and the half-success density saturates near
+$25{,}600$ sweeps per spin gains only $0.02$ ($0.876$), and the half-success density saturates near
 $0.88$ of capacity at this size over the measured range.
 
 \begin{figure}[t]
@@ -50,17 +47,15 @@ level depends on both size and budget.}
 \label{fig:fraction}
 \end{figure}
 
-The margin price also depends on the weight alphabet.  Solving the
+The cost of a margin also depends on the weight alphabet.  Solving the
 replica-symmetric system for ternary weights $\{-1,0,+1\}$ with a
-self-overlap order parameter (\texttt{exploration/\allowbreak ternary\_km.py},
-anchored by reproducing the binary $\alpha_\star(0)=0.8330786$ to the
-certified digits) gives $\alpha_\star^{\mathrm{tern}}(0)=1.17448$
+self-overlap order parameter (\texttt{exploration/\allowbreak ternary\_km.py})
+gives $\alpha_\star^{\mathrm{tern}}(0)=1.17448$
 against an annealed bound of $\log_2 3$, with $1.07951$ at
 $\kappa=0.05$ and $0.99483$ at $\kappa=0.1$.  Per weight \emph{state} the richer alphabet stores
 more; per weight \emph{bit} it stores less: $0.741$ against the
 binary $0.833$ constraints per bit at $\kappa=0$, and the gap widens
-monotonically with margin ($0.100$ at $\kappa=0.05$, $0.105$ at $0.1$).  At this level of the theory,
-binary remains the bit-efficient quantization for robust storage.  The full eight-point curve (Figure~\ref{fig:ternary},
+monotonically with margin ($0.100$ at $\kappa=0.05$, $0.105$ at $0.1$).  The full eight-point curve (Figure~\ref{fig:ternary},
 $\kappa$ up to $0.35$) makes this a statement about the whole margin
 range rather than three samples: per stored bit the binary curve sits
 above the ternary one everywhere, the absolute gap saturating near

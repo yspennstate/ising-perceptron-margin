@@ -5,7 +5,7 @@ statements, and the certificates of
 Sections~\ref{sec:twovar}--\ref{sec:regionI} run unchanged at any
 $\kappa$ of the strip: the program locates the $(q_0,\psi_0)$ boxes at both endpoints of the
 $\alpha$ interval, configures the exact-arithmetic modules from those
-balls, and runs the same four pieces.  Besides $\kappa=0.05$ it
+balls, and runs the same four certificates.  Besides $\kappa=0.05$ it
 certifies Condition~\ref{cond:2var} at $\kappa=-0.45$, $-0.05$,
 $0.0995$ and $0.13$.  At the two negative margins the fixed-point
 uniqueness input comes entirely from the contraction certificates of
@@ -35,8 +35,8 @@ $0.01446\ /\ 0.01210$ \\
 \end{tabular}
 \caption{Certified leaf and band counts per piece, with zero failures
 in every manifest.  Region~I counts marked $(+12)$ include the twelve
-supplementary angular ranges; under the enlarged exclusion box every
-margin's stage-2 lattice uses one.  The final column gives the
+supplementary angular ranges, which the stage-2 lattice of every
+margin uses.  The final column gives the
 constructive moment-body inradius against the required star radius,
 both exact-arithmetic bounds.}
 \label{tab:margins}
@@ -48,18 +48,12 @@ Loewner order (the difference is positive semidefinite) for every
 $\lambda$ in the band's certified dual box, so that the Hessian of
 the entropy term is at most $-B^{-1}$ there.  The Lean files check
 that every band's $B$ is positive definite, in thirteen groups of
-$108$ bands with a checked total count ($55$ theorems per margin; the
-mutation battery rejects a sign change in each group of theorems).
+$108$ bands with a checked total count ($55$ theorems per margin).
 
 The stage-2 containment reads each supplement arc on both angular
 branches, so a cell sees every arc whichever branch its interval lies
-on.  At $\kappa=0.0995$ the exclusion box has upper offset $+0.1030$.
-Just above the smaller offset $+0.0961$ the dual certificate of
-Region~II degenerates along a thin ridge: on a cell of width $0.0018$
-the certified value interval is $[\pm 0.181]$, and the bound is
-negative again two cell-widths higher.  Enlarging the box needs no
-change to Region~I, because the stage-2 containment derives its
-tiling from the box and fails if the enlarged region leaves what the
-star and the supplement cover.
+on.  At $\kappa=0.0995$ the exclusion box has upper offset
+$+0.1030$; the stage-2 containment derives its tiling from the box,
+and the star and the supplement cover it.
 
 \input{interval_section}

@@ -72,8 +72,9 @@ prefactor, the $|\rho^*-\rho_0|\le
 2/N$ continuity of $\rho\mapsto\log \varpi_\rho$ (differentiable, below),
 and $|m-\alpha N|\le1$.  Now $\varpi_0=\Psi(\kappa)^2$ and $h(1/2)=\log2$
 give $\zeta_{\alpha,\kappa}(0)=0$.  Reflecting the orthant to a joint
-CDF, $\varpi_\rho(\kappa)=\Phi_2(-\kappa,-\kappa;\rho)$, and Plackett's
-identity $\partial\Phi_2/\partial\rho=\varphi_2$ with the symmetry
+CDF, $\varpi_\rho(\kappa)=N_2(-\kappa,-\kappa;\rho)$ with $N_2$ the
+bivariate normal distribution function, and Plackett's
+identity $\partial N_2/\partial\rho=\varphi_2$ with the symmetry
 $\varphi_2(-\kappa,-\kappa;\rho)=\varphi_2(\kappa,\kappa;\rho)$ give
 $\partial \varpi_\rho/\partial\rho=\varphi_2(\kappa,\kappa;\rho)$ on
 $(-1,1)$; at $\rho=0$ this is $\varphi(\kappa)^2$.  Since
@@ -94,7 +95,7 @@ whose $\rho$-derivative at $0$ is $(\int xf\varphi\,dx)^2$; for
 $f\ge0$ supported on $[\kappa,\infty)$ with $\kappa\ge0$ the
 integrand $xf(x)\varphi(x)$ is nonnegative, and it vanishes almost
 everywhere only if $f$ vanishes almost everywhere off the origin,
-which $0<\int f\,d\Phi$ excludes; the argument
+which $0<\int f\varphi\,dx$ excludes; the argument
 then runs unchanged.
 \end{proof}
 
@@ -103,11 +104,9 @@ overlap are exponentially favored over independent pairs at every
 margin, which is what the AMP-conditioned second moment
 of~\cite{ding2019capacity} is built to circumvent at $\kappa=0$, and
 what any lower-bound proof must circumvent at every other margin.
-The zero-margin instance of this failure is classical
-(see the introduction of~\cite{ding2019capacity}); the content here
-is the uniform mechanism and the closure over nonnegative-margin
-weights.  For $\kappa<0$ the weighted closure genuinely fails, and
-profitably so: a window weight symmetric about the origin has zero
+At $\kappa=0$ the failure is classical (see the introduction
+of~\cite{ding2019capacity}); Lemma~\ref{lem:secondmoment} extends it
+to every $\kappa$ and, for $\kappa\ge0$, to every weighted count.  For $\kappa<0$ the weighted closure fails: a window weight symmetric about the origin has zero
 linear Mehler coefficient, which is the next observation.
 
 \subsection{A capacity lower bound at negative margins}
@@ -172,19 +171,16 @@ constraint term through the conditional Mills law
 $\varphi_\xi$, and a convex $\inf_s$ correction), and their
 Condition~1.2 is the statement $S_{0,\alpha_\star}(\omega)<0$ for
 $\omega\notin\{0,1\}$.  The $\kappa$-analog of that hypothesis is
-therefore already defined in their own notation, and every
-$\kappa$-dependent ingredient it uses is an object this paper
-certifies: the fixed point, its uniqueness rectangle, and the
-crossing (Theorem~\ref{thm:strip} and the deep enclosures of
-Theorem~\ref{thm:main}).
+therefore already defined in their own notation, and its
+$\kappa$-dependent inputs are the fixed point, its uniqueness
+rectangle and the crossing, which are given by
+Theorem~\ref{thm:strip} and the enclosures of
+Theorem~\ref{thm:main}.
 
-We evaluated $S_{\kappa,\alpha_\star(\kappa)}$ in floating point
-(the driver \texttt{ds\_condition.py} uses Gauss--Hermite and
-conditional Gauss--Legendre quadrature) at the five certified margins
-and at $\kappa=0$, checking the six endpoint identities
-$H(0)=P(0)=A(0)=0$, $H(1)=-H_\star$, $P(1)=-P_\star$,
-and $G_\star=H_\star+P_\star\approx0$ (with $H_\star$, $P_\star$ the
-entropy and constraint halves of the free energy).  The result is uniform
+In floating point, with Gauss--Hermite and conditional
+Gauss--Legendre quadrature, the function
+$S_{\kappa,\alpha_\star(\kappa)}$ behaves uniformly at the five
+certified margins and at $\kappa=0$
 (Figure~\ref{fig:dscondition}): at every margin the curve is
 strictly negative off $\{0,1\}$, at most
 $-5\cdot10^{-5}$ outside windows of half-width $0.02$ around the two
@@ -193,8 +189,7 @@ $-1.6\cdot10^{-6}$ at the closest grid points), the maximum at
 $\omega=0$ is degenerate exactly as
 at $\kappa=0$, and the whole family collapses nearly onto a single
 shape, with $\omega_{\min}$ drifting from $-0.441$ at
-$\kappa=-0.45$ to $-0.421$ at $\kappa=0.13$.  These values are
-computed in floating point.  Certifying $S_{\kappa,\alpha_\star}<0$
+$\kappa=-0.45$ to $-0.421$ at $\kappa=0.13$.  Certifying $S_{\kappa,\alpha_\star}<0$
 off the roots is a one-variable problem of the type treated in
 Section~\ref{sec:regionI}.
 
