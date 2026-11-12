@@ -124,11 +124,22 @@ $m_N(\kappa)/N\ge\alpha$.
 If $|\langle g_a,w\rangle|/\sqrt N\le-\kappa$ for all $a$ then in
 particular $\langle g_a,w\rangle/\sqrt N\ge\kappa$, so the symmetric
 solution set at width $|\kappa|$ embeds in the margin-$\kappa$
-solution set.  The symmetric threshold is
-$\alpha^{\mathrm{sym}}_c$~\cite{aubin2019storage}; for Gaussian
-disorder the satisfiability side below it holds with high
-probability by Altschuler's critical-window
-theorem~\cite{altschuler2022}.  (The lognormal limit of Abbe, Li,
+solution set.  The value $\alpha^{\mathrm{sym}}_c(r)$ is the
+first-moment threshold of Aubin, Perkins and
+Zdeborov\'a~\cite{aubin2019storage}.  Altschuler's
+Theorem~1.4~\cite{altschuler2022} states that for every width $K>0$
+and every $\varepsilon>0$ there is $c>0$ such that, when the rows
+$g_a/\sqrt N$ are independent $N(0,N^{-1}I_N)$ vectors and their
+number is below $\alpha^{\mathrm{sym}}_c(K)N-c\log N$, a binary $w$
+with $|\langle g_a,w\rangle|/\sqrt N\le K$ for every $a$ exists with
+probability at least $1-\varepsilon$ for $N$ large.  Its proof uses the second-moment
+condition of Abbe, Li and Sly~\cite[Lemma~3.4]{abbelisly2021} (the
+second-moment exponent is largest at overlap zero), which they prove
+for every width in their Section~4.7.1.  At fixed
+$\alpha<\alpha^{\mathrm{sym}}_c(|\kappa|)$ the row count $\alpha N$ is
+eventually below $\alpha^{\mathrm{sym}}_c(|\kappa|)N-c\log N$, so a
+symmetric solution of width $|\kappa|$ exists with probability
+$1-o(1)$.  (The lognormal limit of Abbe, Li,
 and Sly~\cite{abbelisly2021} is proved for Rademacher disorder, and
 Perkins and Xu~\cite{perkinsxu2021} treat the Gaussian case under a
 single-critical-point hypothesis, so neither alone covers the model
@@ -190,8 +201,8 @@ $\omega=0$ is degenerate exactly as
 at $\kappa=0$, and the whole family collapses nearly onto a single
 shape, with $\omega_{\min}$ drifting from $-0.441$ at
 $\kappa=-0.45$ to $-0.421$ at $\kappa=0.13$.  Certifying $S_{\kappa,\alpha_\star}<0$
-off the roots is a one-variable problem of the type treated in
-Section~\ref{sec:regionI}.
+off the roots is a problem in one variable, simpler than the
+two-variable certificate of Section~\ref{sec:regionI}.
 
 \begin{figure}[t]
 \centering

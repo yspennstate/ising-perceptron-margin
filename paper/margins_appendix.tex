@@ -1,12 +1,10 @@
 \section{Further margins}\label{sec:margins}
 
-The four conditions of Theorem~\ref{thm:main} are margin-wise
-statements, and the certificates of
+Huang's four conditions are statements at one margin, and the certificates of
 Sections~\ref{sec:twovar}--\ref{sec:regionI} run unchanged at any
-$\kappa$ of the strip: the program locates the $(q_0,\psi_0)$ boxes at both endpoints of the
-$\alpha$ interval, configures the exact-arithmetic modules from those
-balls, and runs the same four certificates.  Besides $\kappa=0.05$ it
-certifies Condition~\ref{cond:2var} at $\kappa=-0.45$, $-0.05$,
+$\kappa$ of the strip, with the boxes of $(q_0,\psi_0)$ located at
+both ends of the $\alpha$ interval of that margin.  Besides
+$\kappa=0.05$, Condition~\ref{cond:2var} holds at $\kappa=-0.45$, $-0.05$,
 $0.0995$ and $0.13$.  At the two negative margins the fixed-point
 uniqueness input comes entirely from the contraction certificates of
 Section~\ref{sec:slabs}.  Table~\ref{tab:margins} lists the certified
@@ -46,9 +44,9 @@ For each band, the Region-I manifest of every margin carries an
 interval matrix $B$ with $\nabla^2\Phi(\lambda)\preceq B$ in the
 Loewner order (the difference is positive semidefinite) for every
 $\lambda$ in the band's certified dual box, so that the Hessian of
-the entropy term is at most $-B^{-1}$ there.  The Lean files check
-that every band's $B$ is positive definite, in thirteen groups of
-$108$ bands with a checked total count ($55$ theorems per margin).
+the entropy term is at most $-B^{-1}$ there.  Every band's $B$ is
+positive definite, a fact checked in exact rational arithmetic
+(Section~\ref{sec:metaverify}).
 
 The stage-2 containment reads each supplement arc on both angular
 branches, so a cell sees every arc whichever branch its interval lies
