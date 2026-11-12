@@ -43,7 +43,7 @@ capacity is at most $\alpha_\star(0.05)\in[0.781073068,0.781074776]$.
 The fixed-point, message-passing and local-concavity conditions hold on the strip
 $\kappa\in[-0.65,0.19]$.
 At $\kappa\ne0$ the fixed point of the replica-symmetric equations
-is known only to a box about $7\cdot10^3$ times wider in one coordinate
+is known only to a box about $8\cdot10^3$ times wider in one coordinate
 than at zero margin, and the zero-margin proof of Huang's two-variable
 condition fails at that width.  It is restored by computing the
 moments of the maximizer as functions of the box, and by writing each difference of
@@ -136,22 +136,23 @@ $\Phi(\lambda)-\Phi(\lambda')-(\lambda-\lambda')\cdot x$, $x\in K$,
 of order $10^{-7}$.
 
 At $\kappa\ne0$ the threshold is enclosed in an interval, of width
-$1.7\cdot10^{-6}$ at $\kappa=0.05$ (Theorem~\ref{thm:main}), and the
-certificates must hold at every $\alpha$ of it.  They are therefore
+$1.7\cdot10^{-6}$ at $\kappa=0.05$ (Theorem~\ref{thm:main}), a width
+set by the enclosure of the function $G$ whose zero defines
+$\alpha_\star$ (Section~\ref{sec:system}) at the quadrature depth used
+($1.4\cdot10^{-5}$ at the default depth), and the certificates must
+hold at every $\alpha$ of it.  They are therefore
 run on the hull of the boxes that contain the fixed point at the two
 ends of the interval (Section~\ref{sec:slabs}).  At $\kappa=0.05$
 this hull has width $1.5\cdot10^{-6}$ in $q_0$ and $9.2\cdot10^{-5}$
-in $\psi_0$, about $2\cdot10^3$ and $7\cdot10^3$ times the widths at
+in $\psi_0$, about $2\cdot10^3$ and $8\cdot10^3$ times the widths at
 $\kappa=0$; of the width in $\psi_0$, $2.4\cdot10^{-5}$ is the motion
 of the fixed point across the interval.  On such a box each enclosure
 of $\Phi$ has width about $2\cdot10^{-5}$, and a box no wider than
 that motion still leaves $5\cdot10^{-6}$, so the sign tests of
 \cite{shmalo2026capacity} are not decided and its argument does not
-apply as written.  The advance here is an argument that holds on
-boxes of this width, so that it runs on located boxes over a whole
-$\alpha_\star$ interval rather than at a single parameter point.
+apply as written.
 
-Four changes make it hold.  First, $a^\star$ is never stored as
+Four changes make it apply on such boxes.  First, $a^\star$ is never stored as
 a number.  At the fixed point $\nabla\Phi(1,0)=(\psi_0(1-q_0),q_0)$,
 and the certificates use this pair and $s_0=\sqrt{1-q_0}$, the
 optimal value of the tilt $s$ over which Huang's two-variable function
@@ -191,9 +192,8 @@ Theorem~\ref{thm:strip}).  The fixed point is
 unique because the derivative of $q\mapsto P(R(q,\alpha))$, the
 composition of the two fixed-point equations of
 Section~\ref{sec:system}, has a certified bound below $1$: on each slab rectangle for
-$\kappa\in[-0.65,0.10]$, and for $\kappa\in(0.10,0.19]$ on located
-rectangles of $q$ half-width $5\cdot10^{-4}$
-(Section~\ref{sec:nak}), where Nakajima's uniqueness
+$\kappa\in[-0.65,0.10]$, and for $\kappa\in(0.10,0.19]$ on narrower
+located rectangles (Section~\ref{sec:nak}), where Nakajima's uniqueness
 theorem~\cite{nakajima2025}, whose premise is verified in ball
 arithmetic, gives uniqueness a second time.  The Hessian at the maximizer $(1,0)$ of the two-variable function
 with the tilt held at its optimal value, negative definite at
@@ -554,7 +554,8 @@ The contraction product exceeds $1$ near $\kappa=0.12$, while the
 contraction at the fixed point stays below $0.78$.  At $\kappa=0.13$
 the product over the slab rectangle is $1.32$; a certified sign
 bisection of the displacement $P(R(q))-q$ (which has certified signs at the interval endpoints and, by
-the uniqueness of the fixed point, a single zero between them, so it
+the uniqueness of the fixed point given by Nakajima's theorem (see
+below), a single zero between them, so it
 is positive below the fixed point and negative above) locates the fixed point at both $\alpha$
 endpoints to width $2\cdot10^{-8}$ with no contraction input, the
 contraction evaluated on the located intervals reads $0.79$, and the
@@ -576,9 +577,10 @@ $0.758$ at $\kappa=0.10$ to $0.770$ at $\kappa=0.19$, everywhere
 below $1$ by more than $0.22$.  The rectangle clause is
 therefore decided by the width of the rectangle: over $(0.10,0.19]$
 (\texttt{rect\_strip\_nak.jsonl}, per sub-slab) the product
-is below $1$ at $\kappa=0.10$ with $q$ half-width $2\cdot10^{-3}$ but
-exceeds it ($1.012$) by $\kappa=0.15$ with the same half-width.  The
-half-width is set by the located $q$ interval, whose width comes
+is below $1$ at $\kappa=0.10$ with a padding of $2\cdot10^{-3}$ in
+$q$ but exceeds it ($1.012$) by $\kappa=0.15$ with the same padding.
+The width of the rectangle in $q$ is set by the located $q$ interval,
+whose width comes
 mostly from the slab's $\alpha$ width
 ($3\cdot10^{-3}$) through $\partial q_\star/\partial\alpha\approx0.9$;
 narrowing it means enclosing $\alpha_\star$ at a single $\kappa$ in
@@ -588,12 +590,16 @@ that clears $1$.  At $\kappa=0.15$ and $0.185$ the contraction
 products on such rectangles are $0.836$ and $0.830$
 (\texttt{rect\_cond31\_0p15.json}, \texttt{rect\_cond31\_0p185.json}).
 On each of the $180$ slabs covering $[0.10,0.19]$, over eight
-sub-slabs of width $6.25\cdot10^{-5}$, the located rectangle with $q$
-half-width $5\cdot10^{-4}$ is endpoint-inward at
+sub-slabs of width $6.25\cdot10^{-5}$, the located rectangle is
+endpoint-inward at
 both $\alpha$ ends and carries a certified contraction product below
 one, the worst bound being $0.958$
 (\texttt{rect\_strip\_nak\_thin\_*.jsonl}, collected with the input
-hashes bound in \texttt{rect\_strip\_thin\_summary.json}).  With the
+hashes bound in \texttt{rect\_strip\_thin\_summary.json}).  On a
+sub-slab the located rectangle is the slab's $\alpha$ interval times
+the $q$ interval running from $5\cdot10^{-4}$ below the lower to
+$5\cdot10^{-4}$ above the upper of the fixed points located at the two
+ends of that interval.  With the
 inward endpoints and Lemma~\ref{lem:dR}'s monotonicity this gives,
 for every $\kappa\in(0.10,0.19]$, a rectangle on which the fixed point
 is unique by the contraction itself, so the rectangle clause of
@@ -785,8 +791,9 @@ deep negative margin ($-0.0013$ at $\kappa=-1.5$).
 \section{Certifying the two-variable condition}\label{sec:regionI}
 
 The zero-margin certificate has four parts: a sweep of the moment
-body outside an exclusion region, a product of two intervals about
-$a^\star$ in the moment plane that contains the star (Region~II); ray
+body outside an exclusion region (Region~II), the exclusion region
+being a product of two intervals about $a^\star$ in the moment plane
+that contains the star; ray
 certificates on the star, one for each radial band and angular cell
 (Region~I); a second sweep of the exclusion region minus the
 star (stage~2); and an interior-ball certificate placing the star
@@ -871,7 +878,7 @@ the enclosures are $50$ to $160$ times tighter, and at $b_0$ the enclosure is
 exactly $\{0\}$.  Differences between arbitrary points are then
 differences of two such enclosures, and the gradient term the
 localization needs is the same trick applied to $\nabla\Phi$:
-$\nabla\Phi(\lambda)-a^\star$ has the exact per-node form
+$\nabla\Phi(\lambda)-\nabla\Phi(b_0)$ has the exact per-node form
 $(\dot H,M)\,(1-M^2)\tanh\Delta/(1+M\tanh\Delta)$.
 
 The factor $\cosh\Delta+M\sinh\Delta$ itself has two exact
@@ -1016,8 +1023,8 @@ Conditions~\ref{cond:fp}--\ref{cond:lc} hold, with the contraction of
 Condition~\ref{cond:fp} on the slab rectangle.
 \item[(b)] For every $\kappa\in(0.10,0.19]$,
 Conditions~\ref{cond:fp}--\ref{cond:lc} hold, with the contraction of
-Condition~\ref{cond:fp} on a located rectangle of $q$ half-width
-$5\cdot10^{-4}$; uniqueness of the fixed point also follows from
+Condition~\ref{cond:fp} on the located rectangles of
+Section~\ref{sec:nak}; uniqueness of the fixed point also follows from
 Nakajima's uniqueness theorem~\cite{nakajima2025}, whose premise is verified on
 every slab.
 \item[(c)] In both cases $\alpha_\star(\kappa)$ exists, is unique on
