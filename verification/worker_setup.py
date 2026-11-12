@@ -48,8 +48,8 @@ def replay(spec):
         return
     import huang_cert_region1 as r1
     kappa, alpha, q, psi = [_dec(t) for t in spec['balls']]
-    r1.configure_region1(kappa, alpha, q, psi, w_ang=spec['w_ang'])
-    r1.SLOPE_TABLE = list(spec['slope_table'])
+    r1.configure_region1(kappa, alpha, q, psi, w_ang=spec['w_ang'],
+                         slope_table=spec['slope_table'])
     if spec.get('sweep_ktag') is not None:
         import huang_cert_sweep as sw
         sw.configure_sweep(spec['sweep_ktag'], kappa, alpha, q, psi)

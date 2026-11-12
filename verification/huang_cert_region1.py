@@ -113,7 +113,7 @@ def ktag_of(kappa):
     return ('%.4f' % v).rstrip('0').rstrip('.').replace('-', 'n').replace('.', 'p')
 
 
-def configure_region1(kappa, alpha, q, psi, w_ang=None):
+def configure_region1(kappa, alpha, q, psi, w_ang=None, slope_table=None):
     """Configure the grid module and this driver's per-kappa state
     variables: the maximizer a* = (psi(1-q), q), the stored tilt
     s0 = sqrt(1-q), and the weak-eigenvector angle W_ANG of the moment
@@ -121,7 +121,7 @@ def configure_region1(kappa, alpha, q, psi, w_ang=None):
     radii T_LONG/T_MID/T_CORE stay policy constants - the certificates
     are rigorous for any choice, and a failing choice just fails."""
     global PSI, Q, ALPHA, KAPPA, A1S, A2S, S0F, W_ANG, SQ_PSI_B, KTAG
-    global A1B, A2B, S_BASE
+    global A1B, A2B, S_BASE, SLOPE_TABLE
     import huang_cert_np as nr
     hg.configure(kappa, alpha, q, psi)
     KTAG = ktag_of(kappa)
@@ -156,7 +156,10 @@ def configure_region1(kappa, alpha, q, psi, w_ang=None):
         w = evecs[:, int(_np.argmax(evals))]   # weak = largest (least negative)
         w_ang = float(_np.arctan2(w[1], w[0])) % math.pi
     W_ANG = w_ang
-    build_slope_table()
+    if slope_table is None:
+        build_slope_table()
+    else:
+        SLOPE_TABLE = list(slope_table)
 
 
 def sector_width():
