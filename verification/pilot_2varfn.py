@@ -69,6 +69,8 @@ def main():
 
     import huang_cert_region1 as R1
     R1.configure_region1(kball, alpha, q, psi)
+    import worker_setup as WS
+    WS.record_region1(kball, alpha, q, psi)
     ktag = R1.KTAG
     if ktag != args.ktag:
         print('note: derived ktag %s (from kappa) supersedes --ktag %s'
@@ -80,6 +82,7 @@ def main():
     if 'sweep' in stages:
         import huang_cert_sweep as SW
         SW.configure_sweep(ktag, kball, alpha, q, psi)
+        WS.record_sweep(ktag)
         sys.argv = ['sweep', str(args.workers)]
         SW.main()
     if 'region1' in stages:
@@ -106,12 +109,13 @@ def main():
         import huang_cert_sweep as SW
         if SW.KTAG is None:
             SW.configure_sweep(ktag, kball, alpha, q, psi)
+        WS.record_sweep(ktag)
         import huang_cert_sweep2 as S2
-        S2.configure_sweep2(
-            os.path.join(R1.RESULTS_DIR,
-                         'huang_region1_%s.json' % ktag),
-            supplement_path=os.path.join(
-                R1.RESULTS_DIR, 'huang_region1_supp_%s.json' % ktag))
+        m_path = os.path.join(R1.RESULTS_DIR, 'huang_region1_%s.json' % ktag)
+        s_path = os.path.join(R1.RESULTS_DIR,
+                              'huang_region1_supp_%s.json' % ktag)
+        S2.configure_sweep2(m_path, supplement_path=s_path)
+        WS.record_sweep2(m_path, s_path)
         S2.main(args.workers)
     if 'assemble' in stages:
         import assemble_2varfn as A

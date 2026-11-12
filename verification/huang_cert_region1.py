@@ -16,6 +16,23 @@ d/ds[s^2 psi/2 + alpha T(a*, s)]|_{s0} = 0).  Hence
 
     phi_v''(t) <= 0 on [0, T(v)]  ==>  S_* <= 0 on the segment.
 
+The implication needs ONE function phi_v on the whole of [0, T(v)]: the
+radial bands below certify phi_v'' <= 0 piece by piece, and the pieces
+chain only because they all certify the same phi_v (same v, same slope).
+The identities phi_v(0) = phi_v'(0) = 0 hold for every fixed slope, so
+any slope is admissible, but it must not change along a ray.  The slope
+is therefore a fixed function of the direction alone: the circle is cut
+once into SLOPE_SECTORS global sectors [k D, (k+1) D], D = 2 pi /
+SLOPE_SECTORS, each with one slope SLOPE_TABLE[k] (the numerical optimal
+tilt derivative at the sector's midpoint, rounded to six decimals), and
+every angular cell of every band is cut at the sector edges and uses its
+own sector's slope.  A ray in the closed sector k is then covered, in
+every band that reaches it, by a cell of sector k (the cells of a band
+partition each sector, and each cell's angle ball is padded by _ANG_PAD,
+far wider than the rounding of the edges k D), so the bands from 0 out
+to T(v) all certify the same phi_v.  The manifest records the table and,
+for every cell, its sector, which portable_check.py verifies.
+
 Splitting phi'' = (H-part) + (T-part),
 
     H-part = v^T grad^2 H(x) v = -v^T [grad^2 Phi(lambda(x))]^{-1} v,
@@ -139,6 +156,39 @@ def configure_region1(kappa, alpha, q, psi, w_ang=None):
         w = evecs[:, int(_np.argmax(evals))]   # weak = largest (least negative)
         w_ang = float(_np.arctan2(w[1], w[0])) % math.pi
     W_ANG = w_ang
+    build_slope_table()
+
+
+def sector_width():
+    return 2 * math.pi / SLOPE_SECTORS
+
+
+def sector_of(theta):
+    """Index of the global slope sector containing theta (any branch)."""
+    return int(math.floor(theta / sector_width())) % SLOPE_SECTORS
+
+
+def build_slope_table():
+    """One slope per global sector, from the sector midpoint; fixed for
+    the whole run (and shared by the supplement), so a ray never changes
+    slope between bands."""
+    global SLOPE_TABLE
+    D = sector_width()
+    SLOPE_TABLE = [round(_sdot_of((k + 0.5) * D), 6)
+                   for k in range(SLOPE_SECTORS)]
+
+
+def split_at_sectors(ta, tb):
+    """Cut an angle interval at the global sector edges k D."""
+    D = sector_width()
+    cuts = [ta]
+    k = int(math.floor(ta / D)) + 1
+    while k * D < tb - 1e-13:
+        if k * D > ta + 1e-13:
+            cuts.append(k * D)
+        k += 1
+    cuts.append(tb)
+    return list(zip(cuts[:-1], cuts[1:]))
 W_ANG = None              # weak-eigenvector angle; set by configure_region1
 N_ANG = 48                # angular cells over the full circle
 WEDGE_HALF = 0.16         # |omega| below which rays are long
@@ -149,6 +199,8 @@ T_CORE = 0.0050
 T_IN = 1.0e-6             # innermost band edge; [0, T_IN] is one last band
 BAND_R = 0.72             # radius-band ratio
 GRID_N_RAY = 2700         # zt-grid for the T-side
+SLOPE_SECTORS = 768       # global angular sectors, one tilt slope each
+SLOPE_TABLE = None        # per-sector slopes; built by configure_region1
 ZL = 10                   # acb range; explicit tails added
 
 SQ_PSI_B = None
@@ -921,19 +973,27 @@ def band_job(job):
     ncell = 0
     worst = -1e9
     nc0 = max(2, int(math.ceil((th1 - th0) / (2 * math.pi / N_ANG))))
-    stack = [(th0 + (th1 - th0) * k / nc0,
-              th0 + (th1 - th0) * (k + 1) / nc0) for k in range(nc0)]
+    stack = []
+    for k in range(nc0):
+        stack.extend(split_at_sectors(th0 + (th1 - th0) * k / nc0,
+                                      th0 + (th1 - th0) * (k + 1) / nc0))
+    cell_log = []
     while stack:
         ta, tb_ = stack.pop()
         thc = 0.5 * (ta + tb_)
+        sector = sector_of(thc)
         if t0 >= T_max_over(ta, tb_):
-            continue                      # outside the star in this direction
+            # outside the star in this direction (logged, so the checker
+            # can see that the cells tile the band)
+            cell_log.append([ta, tb_, sector, None])
+            continue
         thb = (_dec(ta, 8).union(_dec(tb_, 8))
                + _ANG_PAD.union(-_ANG_PAD))
         v1, v2 = thb.cos(), thb.sin()
         qB = Binv_form(b11, b12, b22, v1, v2)
-        sdf = _sdot_of(thc)
-        sdot = _dec(round(sdf, 6), 8)
+        # the slope of this direction's sector: the same in every band
+        sdot = _dec(SLOPE_TABLE[sector], 8)
+        cell_worst = -1e9
         # adaptive radial walk: pieces shrink where the enclosure is wide
         # (wide s/x-balls inflate the far-tail cells of the T-integrals)
         tE = min(t1, T_max_over(ta, tb_))
@@ -974,6 +1034,8 @@ def band_job(job):
                     continue
                 ok_piece = False
                 break
+            cell_worst = max(cell_worst, float(
+                hi.mid() if hasattr(hi, 'mid') else hi))
             u = u1
             du = min(du * 1.6, 5e-4)
         if not ok_piece:
@@ -987,7 +1049,9 @@ def band_job(job):
                                   hi.mid() if hasattr(hi, 'mid') else hi)))
             continue
         ncell += 1
-        worst = max(worst, float(hi.mid() if hasattr(hi, 'mid') else hi))
+        # worst over EVERY radial piece of the cell, not the last one
+        worst = max(worst, cell_worst)
+        cell_log.append([ta, tb_, sector, cell_worst])
     bmat_packets = None
     try:
         import block3bc_exact as exact
@@ -996,13 +1060,16 @@ def band_job(job):
         pass
     return dict(band=[t0, t1, th0, th1], ok=not fails, cells=ncell,
                 worst=worst, fails=fails[:6], nfail=len(fails),
+                cell_sectors=sorted(cell_log),
                 lbox=list(lbox), pad_mult=used_pad_mult,
                 bmat_packets=bmat_packets,
                 root_certificate=split_cert)
 
 
-def _init():
+def _init(spec=None):
     set_prec(50)
+    import worker_setup
+    worker_setup.replay(spec)
 
 
 def main():
@@ -1013,7 +1080,9 @@ def main():
     t0 = time.time()
     out = []
     fails = 0
-    with Pool(nw, initializer=_init) as pool:
+    import worker_setup
+    with Pool(nw, initializer=_init,
+              initargs=(worker_setup.SPEC,)) as pool:
         for res in pool.imap_unordered(band_job, jobs):
             out.append(res)
             tag = 'OK  ' if res.get('ok') else 'FAIL'
@@ -1027,7 +1096,10 @@ def main():
                 A1S=A1S, A2S=A2S, S0F=S0F,
                 origin='symbolic a*=(psi(1-q),q), s0=sqrt(1-q); '
                        'anchored-Bregman dual localization',
-                a1_ball_rad=_ball_rad(A1B), s0_ball_rad=_ball_rad(S_BASE))
+                a1_ball_rad=_ball_rad(A1B), s0_ball_rad=_ball_rad(S_BASE),
+                slope_rule='one slope per global sector [k D, (k+1) D], '
+                           'D = 2 pi / SLOPE_SECTORS, the same in every band',
+                SLOPE_SECTORS=SLOPE_SECTORS, SLOPE_TABLE=SLOPE_TABLE)
     source_hash = hashlib.sha256(open(__file__, 'rb').read()).hexdigest()
     import huang_cert_np as nr
     proof_sources = {

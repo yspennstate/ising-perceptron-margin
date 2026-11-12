@@ -389,7 +389,9 @@ def main():
     records = []
     schedule = [[repr(x) for x in job] for job in jobs]
     job_index = {job: i for i, job in enumerate(jobs)}
-    with Pool(nw, initializer=_init) as pool, \
+    import worker_setup
+    with Pool(nw, initializer=_init,
+              initargs=(worker_setup.SPEC,)) as pool, \
             open(os.path.join(RESULTS_DIR, f'huang_sweep_{KTAG}.log'), 'w',
                  encoding='utf-8', newline='\n') as log:
         for k, res in enumerate(pool.imap_unordered(worker, jobs)):
@@ -438,9 +440,11 @@ def main():
         raise SystemExit(1)
 
 
-def _init():
+def _init(spec=None):
     from core import set_prec
     set_prec(50)
+    import worker_setup
+    worker_setup.replay(spec)
 
 
 if __name__ == '__main__':

@@ -233,6 +233,24 @@ base-point lemma at general kappa.  Key pieces:
   from every origin in the symbolic ball, hence from the true a*,
   where phi(0) = phi'(0) = 0 hold exactly - so phi'' <= 0 on the band
   chain gives S_* <= 0 on the star.
+- One slope per ray.  The chain argument needs phi_{v,c}(t) =
+  F(a* + t v, s0 + c t) with the SAME c on every band a ray crosses;
+  phi(0) = phi'(0) = 0 hold for every c, but a slope that changes
+  between bands breaks the chain.  The slope is therefore a function
+  of the direction alone: the circle is cut into SLOPE_SECTORS = 768
+  global sectors [k D, (k+1) D], D = 2 pi / 768, each with the slope
+  SLOPE_TABLE[k] (the numerical optimal slope at the sector midpoint,
+  rounded to six decimals), built once per kappa by
+  `build_slope_table` and shared by the supplement.  Cells are cut at
+  sector edges (`split_at_sectors`); a ray on an edge is covered by
+  the cells of either neighbour, each with one fixed slope.  Every
+  band logs [ta, tb, sector, worst] per cell (worst = None for a cell
+  outside the star), and portable_check.py `check_slope_sectors`
+  verifies the table, the tiling, the sector of every cell, the sign
+  of every certified cell, that None cells lie outside the star, and
+  that each band's worst is the max over its cells.  The manifests
+  produced before this rule chose the slope per band and fail exactly
+  that clause.
 - The band schedule (`bands`) tiles radii from T_LONG down to zero
   (the [0, T_IN] band runs through the same machinery; with the
   symbolic origin no special casing is needed).
@@ -297,6 +315,15 @@ is load-bearing.  `selfcheck.py` gates documentation drift (every
 file the replay instructions name must exist, parse, and compile);
 the fresh-clone consumer test (NOTES.md section 6) replays
 past_wall_0p13.py and a full slab from a cold clone.
+
+Pool workers (`worker_setup.py`): under the spawn start method (Windows,
+macOS) a worker imports the modules fresh, without the per-kappa state
+the parent configured.  The driver records its configuration after
+`configure_region1` (the four parameter balls as exact mantissa and
+exponent pairs, W_ANG and the slope table) and after the sweep
+configuration calls; every pool initializer replays it.  A replayed
+ball contains the parent's (the radius can only round up), and the
+slope table is copied verbatim.
 
 ## Audit findings
 

@@ -76,6 +76,66 @@ def check(name, ok):
         raise SystemExit(1)
 
 
+def _t_max_over(th0, th1, star, wedge_half):
+    """Mirror of huang_cert_region1.T_max_over from the manifest's star."""
+    if th1 - th0 >= 2 * math.pi - 1e-12:
+        return star['T_LONG']
+    has_mid = False
+    for k in range(-4, 5):
+        c = star['W_ANG'] + k * math.pi
+        if th0 <= c + wedge_half and th1 >= c - wedge_half:
+            return star['T_LONG']
+        if th0 <= c + star['CONE_MID'] and th1 >= c - star['CONE_MID']:
+            has_mid = True
+    return star['T_MID'] if has_mid else star['T_CORE']
+
+
+def check_slope_sectors(label, man, star_main):
+    """Every band's cells tile its angle range; every cell lies in one
+    global slope sector and records that sector; cells inside the star
+    were certified (recorded worst < 0) and the band's worst is the max
+    over its cells; cells marked outside really are outside the star."""
+    table = star_main.get('SLOPE_TABLE')
+    n = star_main.get('SLOPE_SECTORS')
+    check(f'{label} carries one global slope table',
+          isinstance(table, list) and isinstance(n, int) and n > 0
+          and len(table) == n)
+    D = 2 * math.pi / n
+    eps = 1e-12
+    wedge = man['star'].get('WEDGE_HALF_OVERRIDE',
+                            star_main.get('WEDGE_HALF'))
+    geo = dict(star_main)
+    ok_tile = ok_sector = ok_cert = ok_out = ok_worst = True
+    for rec in man['results']:
+        t0, t1, th0, th1 = rec['band']
+        cells = sorted(rec.get('cell_sectors') or [])
+        if not cells:
+            ok_tile = False
+            continue
+        ok_tile &= abs(cells[0][0] - th0) <= eps
+        ok_tile &= abs(cells[-1][1] - th1) <= eps
+        ok_tile &= all(abs(a[1] - b[0]) <= eps
+                       for a, b in zip(cells[:-1], cells[1:]))
+        ws = []
+        for ta, tb, k, w in cells:
+            km = int(math.floor(0.5 * (ta + tb) / D))
+            ok_sector &= (km % n == k)
+            ok_sector &= (ta >= km * D - 1e-10 and tb <= (km + 1) * D + 1e-10)
+            if w is None:
+                ok_out &= t0 >= _t_max_over(ta, tb, geo, wedge)
+            else:
+                ok_cert &= float(w) < 0
+                ws.append(float(w))
+        if ws:
+            ok_worst &= abs(max(ws) - float(rec['worst'])) <= 1e-15
+    check(f'{label} cells tile every band (seam-exact)', ok_tile)
+    check(f'{label} every cell lies in one slope sector and records it',
+          ok_sector)
+    check(f'{label} every certified cell has worst < 0', ok_cert)
+    check(f'{label} cells marked outside lie outside the star', ok_out)
+    check(f'{label} band worst is the max over all its cells', ok_worst)
+
+
 def grid_tiling(schedule, rect):
     cells = [tuple(frac(x) for x in c) for c in schedule]
     xs = sorted({c[0] for c in cells} | {c[1] for c in cells})
@@ -114,8 +174,8 @@ def main():
           sweep['artifact_sha256'] == payload_sha(sweep,
                                                   ('artifact_sha256',)))
     check('sweep zero failures', sweep['failures'] == 0)
-    check('sweep ok cells have worst <= 0',
-          all(rec.get('worst') is None or float(rec['worst']) <= 1e-9
+    check('sweep ok cells have worst < 0',
+          all(rec.get("worst") is None or float(rec["worst"]) < 0
               for rec in sweep['records'] if rec['ok']))
     a1m, a2m = frac(sweep['policy']['A1MAX']), frac(sweep['policy']['A2MAX'])
     check('sweep schedule tiles its rectangle',
@@ -125,8 +185,8 @@ def main():
     check('stage-2 artifact hash',
           st2['artifact_sha256'] == payload_sha(st2, ('artifact_sha256',)))
     check('stage-2 zero failures', st2['failures'] == 0)
-    check('stage-2 ok cells have worst <= 0',
-          all(rec.get('worst') is None or float(rec['worst']) <= 1e-9
+    check('stage-2 ok cells have worst < 0',
+          all(rec.get("worst") is None or float(rec["worst"]) < 0
               for rec in st2['records'] if rec['ok']))
     # a coarse evaluator grid weakens every cell certificate, and a
     # manifest that does not RECORD its grid cannot prove the fine
@@ -170,11 +230,17 @@ def main():
     # count-based check above (does not re-evaluate the integral --
     # that is the ball-arithmetic layer -- but binds the recorded
     # value to the S_star <= 0 claim it stands for)
-    check('Region-I ok bands have worst <= 0 and no subcell failure',
+    check('Region-I ok bands have worst < 0 and no subcell failure',
           all(rec.get('worst') is not None
-              and float(rec['worst']) <= 1e-9
+              and float(rec['worst']) < 0
               and rec.get('nfail', 0) == 0
               for rec in reg1['results'] if rec['ok']))
+    # one slope per ray: the chain phi_v(0) = phi_v'(0) = 0, phi_v'' <= 0
+    # on every band implies phi_v <= 0 only if every band certified the
+    # same phi_v, i.e. the same slope along the ray.  The manifest must
+    # carry one global sector table, and every cell of every band must
+    # lie in one sector and have been run with that sector's slope.
+    check_slope_sectors('Region-I', reg1, reg1['star'])
     bands = [tuple(frac(x) for x in rec['band']) for rec in reg1['results']]
     levels = {}
     for (t0, t1, th0, th1) in bands:
@@ -231,6 +297,13 @@ def main():
             check('supplement zero failures',
                   supp.get('fails', 1) == 0
                   and all(rec.get('ok') for rec in supp['results']))
+            check('supplement uses the Region-I slope table',
+                  supp['star'].get('SLOPE_TABLE') is not None
+                  and supp['star'].get('SLOPE_TABLE')
+                  == reg1['star'].get('SLOPE_TABLE')
+                  and supp['star'].get('SLOPE_SECTORS')
+                  == reg1['star'].get('SLOPE_SECTORS'))
+            check_slope_sectors('supplement', supp, reg1['star'])
     inner = runs(levels[radii[0]])
     two_pi_lo = frac('6.283185307179585')
     two_pi_hi = frac('6.283185307179587')

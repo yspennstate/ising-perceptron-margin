@@ -255,6 +255,10 @@ $(1,0)$.
 
 \section{Two identities}\label{sec:identities}
 
+The function $G$ is that of Ding and Sun~\cite[eq.~(4)]{ding2019capacity},
+who define it at general margin; the two lemmas below record its
+partial derivatives and the derivative of $R$ at every $\kappa$.
+
 \begin{lemma}[stationarity]\label{lem:stat}
 For all $\alpha>0$, $\kappa\in\R$, $\psi>0$ and $0<q<1$,
 \[
@@ -328,7 +332,9 @@ $z$.
 \end{proof}
 
 Lemma~\ref{lem:dR} replaces Ding--Sun's Lemma~7.2 (monotonicity of
-$R$, stated at $\kappa=0$) at every margin.  Its one-term form
+$R$, stated at $\kappa=0$) at every margin.  The same expectation
+$\E[M'^2+2M^2M']$ appears in Nakajima's analysis of the
+replica-symmetric saddle~\cite[eq.~(18)]{nakajima2025}.  Its one-term form
 matters twice over: the integrand is a product of quantities with
 classical bounds, so its interval enclosure is tight enough for the
 per-slab contraction certificates; and positivity makes
@@ -723,6 +729,29 @@ origin-inflation ball.  Ray coverage is exact: certificates evaluated
 over the origin ball cover in particular the rays from the true
 origin.
 
+\emph{The ray argument.}  For a unit direction $v$ and a slope
+$c\in\R$ put $\phi_{v,c}(t)=\mathcal F(a^\star+tv,\,s_0+ct)$, where
+$\mathcal F(a,s)$ is the moment-coordinate form of $\sS(\cdot,s)$
+that the certificates evaluate, so that
+$\sS_\star(a^\star+tv)\le\phi_{v,c}(t)$ whenever $s_0+ct\ge0$.  At
+the true parameters $\phi_{v,c}(0)=\phi_{v,c}'(0)=0$ for every $c$,
+by the value, gradient and tilt identities at $a^\star$.  If
+$\phi_{v,c}''\le0$ on $[0,T(v)]$ then $\phi_{v,c}\le0$ there, hence
+$\sS_\star\le0$ on the segment.  The chain needs one slope per ray: the
+second-derivative bound on a radial band $[t_0,t_1]$ with $t_0>0$
+says nothing about $\phi$ itself unless $\phi$ and $\phi'$ are
+controlled at $t_0$, and those are controlled only through the same
+function on $[0,t_0]$.  The certificates therefore fix the slope by
+direction alone: the circle is cut into $768$ equal sectors, each
+sector carries one slope (the optimal tilt slope at its midpoint,
+rounded to six decimals, recorded in the manifest), every angular
+cell of every radial band lies inside one sector and uses that
+sector's slope, and a direction on a sector edge is covered by the
+cells of either neighbour, each with its own fixed slope.  The checker
+recomputes each cell's sector from its angles, confirms that the
+cells of each band tile its angle range, and confirms the slope table
+is the same in the main and supplementary manifests.
+
 \emph{The correlated Bregman evaluator.}  The dual localization
 (the argument that the dual maximizer $\lambda(x)$ stays inside a
 certified box, so that the entropy Hessian can be bounded there)
@@ -1013,7 +1042,7 @@ invariant under every perturbation of $x_a$ of Euclidean norm below
 $\kappa$.  With centrally symmetric i.i.d.\ designs and independent
 labels, label folding makes the robust-interpolation event identical
 to the satisfiability event studied here, so $\alpha_\star(\kappa)$
-is the phase boundary for how many random labels per parameter a
+is the predicted threshold for how many random labels per parameter a
 one-bit-per-parameter linear classifier can memorize with prescribed
 robustness radius.  The certified $\kappa=0.05$ bound, for instance,
 says such a classifier cannot robustly store more than $0.78108$
@@ -1068,12 +1097,15 @@ constraint law, and the natural next studies are ordered by how much
 of it they reuse.
 
 \emph{The strip, quantified.}  The four-piece certificate of
-Section~\ref{sec:regionI} runs at a $\kappa$ ball exactly as at a
-point; the located boxes widen with the slab and the wedge-edge
-margins (about $10^{-3}$) set the affordable slab width.  An
-adaptive $\kappa$-subdivision driven by the certified margins would
-turn Theorem~\ref{thm:main} into a statement on the whole strip.
-This is engineering plus compute, not new mathematics.
+Section~\ref{sec:regionI} accepts a $\kappa$ ball in place of a
+point, but run on slab hulls with the present evaluator it fails for
+the reasons measured in Section~\ref{sec:interval}.  An interval
+theorem needs two ingredients that are not in this paper: a certified
+$\kappa$-derivative for each certificate family, and quadratic
+control with explicit remainder bounds on the annulus between the
+star and the fat far-field cells.  Given those, an adaptive
+$\kappa$-subdivision driven by the certified margins would turn
+Theorem~\ref{thm:main} into a statement on the whole strip.
 
 \emph{Other margins of the same family.}  The certified pipeline
 applies wherever the continuation reaches: positive margins to
@@ -1100,7 +1132,7 @@ the certified-slab design (per-slab rectangles, located boxes, deep
 bisection) transfers whenever the fixed-point system does.
 
 \emph{Toward learning theory.}  Two quantitative bridges seem
-within reach of exactly this machinery: certified capacity curves
+within reach of exactly this machinery: certified upper bounds along capacity curves
 for one-bit compressed classifiers (the $\kappa$-robust memorization
 ceiling above, made uniform over the strip), and certified bounds on
 the margin distribution achievable at a given $\alpha<
@@ -1214,6 +1246,12 @@ The storage capacity of the Ising perceptron: verification of the
 outstanding numerical conditions,
 arXiv:2607.11010 (2026); verification repository at
 \url{https://github.com/yspennstate/ising-perceptron-capacity}.
+
+\bibitem{bnsx2022}
+E.~Bolthausen, S.~Nakajima, N.~Sun and C.~Xu,
+Gardner formula for Ising perceptron models at small densities,
+\emph{Proceedings of COLT 2022}, PMLR \textbf{178} (2022),
+1787--1911; arXiv:2111.02855.
 
 \bibitem{aubin2019storage}
 B.~Aubin, W.~Perkins and L.~Zdeborov\'a,

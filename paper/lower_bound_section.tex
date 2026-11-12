@@ -13,8 +13,12 @@ and Sun~\cite{nakajimasun2022} upgrades positive probability to
 convergence in probability, Huang~\cite{huang2024capacity} proved the
 matching upper bound, and the numerical hypotheses of both proofs are
 certified~\cite{shmalo2026capacity}.  Away from $\kappa=0$ the upper
-half is Theorem~\ref{thm:main}; the lower half has, at present, no
-analytic theorem to certify.  This section delimits the gap: a lemma
+half is Theorem~\ref{thm:main}.  For the lower half, the
+replica-symmetric free energy is proved at small constraint density
+by Talagrand~\cite{talagrand1999} and, for a wider class of
+activations, by Bolthausen, Nakajima, Sun, and Xu~\cite{bnsx2022};
+what has no analytic theorem to certify at present is a lower bound
+matching $\alpha_\star(\kappa)$.  This section delimits that gap: a lemma
 on why unconditioned moment methods cannot close it at nonnegative
 margins, an embedded bound that does give nonzero-margin capacity
 lower bounds on the negative side, and a numerical verification that
@@ -133,15 +137,28 @@ single-critical-point hypothesis, so neither alone covers the model
 here.)
 \end{proof}
 
-The bound is far from sharp --- at $\kappa=-0.05$ it gives
-$0.215$ against the predicted $0.889$, at $\kappa=-0.45$ it gives
-$0.655$ against $1.558$ --- and it is not alone: Li, Schramm, and
-Zhou~\cite{lsz2024} prove lower bounds on the satisfiability
-threshold of the same one-sided perceptron at negative margin by a
-different route, with the sharpest statements in the
-$\kappa\to-\infty$ regime.  What the embedding adds is its
-elementary proof and margin-explicit values at the certified
-points, strictly positive on the whole negative axis.
+The bound should be read next to monotonicity.  A solution at
+margin $0$ is a solution at every $\kappa<0$, so
+$M_N(\kappa)\ge M_N(0)$, and at $\kappa=0$ the ratio $M_N(0)/N$
+converges in probability to $\alpha_\star(0)\approx0.8330786$ (the
+lower half by~\cite{ding2019capacity} with the sharp-threshold
+transfer of~\cite{nakajimasun2022}, its numerical hypotheses
+certified in~\cite{shmalo2026capacity}).  Hence
+for $\kappa<0$
+\[
+\frac{M_N(\kappa)}{N}\;\ge\;
+\max\bigl\{\alpha_\star(0),\,\alpha^{\mathrm{sym}}_c(|\kappa|)\bigr\}
+-o(1)\quad\text{whp}.
+\]
+At the two certified negative margins monotonicity is the stronger
+input: the embedding gives $0.215$ at $\kappa=-0.05$ and $0.655$ at
+$\kappa=-0.45$, against the predicted $0.889$ and $1.558$.  The
+embedding takes over only for $\kappa<-0.5757$, where
+$\alpha^{\mathrm{sym}}_c(|\kappa|)$ passes $\alpha_\star(0)$.  Li,
+Schramm, and Zhou~\cite{lsz2024} prove lower bounds on the
+satisfiability threshold of the same one-sided perceptron at
+negative margin by a different route, with the sharpest statements
+in the $\kappa\to-\infty$ regime.
 
 \subsection{The Ding--Sun condition at general margin}
 
@@ -201,14 +218,14 @@ negative off the two roots and nearly coincide.}
 What separates these verified inputs from a general-margin lower
 bound is the probabilistic body of~\cite{ding2019capacity}: the
 AMP-conditioned moment computation of their Sections~2--7, whose
-displays carry $\kappa_{\mathrm{all}}$ explicitly but whose proofs
-are executed at $\kappa=0$.  An audit of that body would need, beyond
+displays carry $\kappa_{\mathrm{all}}$ explicitly; by their
+Remark~1.5 the assumption $\kappa=0$ enters only in a few steps,
+which they indicate.  An audit of that body would need, beyond
 the certified inputs above: a priori bounds at margin (the upper one
 is free at every $\kappa$ from the first moment, since
 $\E Z\to0$ exponentially above the annealed threshold
-$-\log2/\log\Psi(\kappa)$; the lower one is
-Proposition~\ref{prop:embedded} for $\kappa<0$ and open for
-$\kappa>0$), the state-evolution inputs (generic in the
+$-\log2/\log\Psi(\kappa)$; for $\kappa<0$ the lower one is the
+monotonicity bound above), the state-evolution inputs (generic in the
 nonlinearity, hence in $\kappa$), and the sharp-threshold transfer
 of~\cite{nakajimasun2022} if convergence in probability rather than
 positive probability is wanted.  We record this as the concrete
