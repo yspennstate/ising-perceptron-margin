@@ -30,6 +30,7 @@ $\alpha_\star(\kappa)$ & the zero of $G_\star$; the predicted capacity & \ref{se
 $(q_\star,\psi_\star)$ & the fixed-point branch as a function of $\alpha$ & \ref{sec:system}\\
 $(q_0,\psi_0)$ & the fixed point at $\alpha_\star(\kappa)$ & \ref{sec:system}\\
 rectangle clause & the uniqueness and contraction part of Condition~\ref{cond:fp} & \ref{sec:system}\\
+$R_\alpha$ & the map $q\mapsto R(q,\alpha)$ & \ref{sec:system}\\
 located box & a box certified to contain the fixed point at one $\alpha$ & \ref{sec:system}\\
 $\ell(\hat z)$ & the local-concavity function of Condition~\ref{cond:lc} & \ref{sec:system}\\
 $\mu(\hat z)$ & $\E[(\hat z+\cosh^2(\sqrt{\psi_0}Z))^{-1}]$ & \ref{sec:system}\\
@@ -38,7 +39,7 @@ $\ell_0$ & the minimum of $\ell$ & \ref{sec:curve}\\
 $\alpha_c(\kappa)$ & the bound $2/(\pi\E[(\kappa-Z)_+^2])$ of Nakajima's uniqueness theorem & \ref{sec:curve}\\
 $\tau,\ \beta$ & $E'(u)$ and $\mu(\hat z)-A$ in the formula for $\ell$ & \ref{sec:architecture}\\
 located rectangle & on a sub-slab, its $\alpha$ interval times the padded $q$ interval of the located fixed points & \ref{sec:nak}\\
-$\mathcal H$ & Hessian of the two-variable function at $(1,0)$, tilt held at $s_0$ & \ref{sec:hessian}\\
+$\mathcal H$ & $\nabla^2_\lambda\,\sS(\tanh(\lambda_1\dot H+\lambda_2M),s_0)$ at $\lambda=(1,0)$ & \ref{sec:hessian}\\
 $\eta$ & $E\bigl((\kappa-\hat H)/\sqrt{1-q_0}\bigr)/\sqrt{1-q_0}$ & \ref{sec:hessian}\\
 $\hat H$ & a Gaussian of variance $q_0$, independent of $\dot H$ & \ref{sec:hessian}\\
 $\dot H$ & a Gaussian of variance $\psi_0$ & \ref{sec:intro}\\
@@ -46,7 +47,7 @@ $M$ & $\tanh\dot H$ & \ref{sec:intro}\\
 $\Lambda$ & a profile, a function of $\dot H$ with values in $[-1,1]$ & \ref{sec:intro}\\
 $a=(a_1,a_2)$ & the moments $(\E[\dot H\Lambda],\E[M\Lambda])$ & \ref{sec:twovar}\\
 $K$ & the moment body, the set of attainable $a$ & \ref{sec:intro}\\
-$\sS(\Lambda,s)$ & Huang's two-variable function at tilt $s$ & \ref{sec:twovar}\\
+$\sS(\Lambda,s)$ & Huang's functional of a profile $\Lambda$ and a tilt $s\ge0$ & \ref{sec:twovar}\\
 $\sS_\star(\lambda_1,\lambda_2)$ & $\inf_{s\ge0}\sS(\tanh(\lambda_1\dot H+\lambda_2M),s)$ & \ref{sec:twovar}\\
 $\lambda,\ b$ & dual points in $\R^2$ & \ref{sec:intro}\\
 $\Phi(b)$ & $\E\log2\cosh(b_1\dot H+b_2M)$ & \ref{sec:intro}\\
@@ -55,6 +56,7 @@ $a^\star$ & $(\psi_0(1-q_0),q_0)$, the moment point of the maximizing profile $\
 $b_0$ & the dual point $(1,0)$, at which $\nabla\Phi(b_0)=a^\star$ & \ref{sec:intro}\\
 $s_0$ & the optimal tilt $\sqrt{1-q_0}$ at $a^\star$ & \ref{sec:intro}\\
 hull & the hull of the boxes located at the two ends of an $\alpha_\star$ interval & \ref{sec:intro}\\
+Picard box & a box containing the fixed point for every $\alpha$ of a deep $\alpha_\star$ interval & \ref{sec:hessian}\\
 $\mathcal F(a,s)$ & upper bound for $\sS(\Lambda,s)$ at moment $a(\Lambda)=a$, with the maximal entropy $H(a)$ & \ref{sec:twovar}\\
 $\bar\sS(a)$ & $\inf_{s\ge0}\mathcal F(a,s)$ & \ref{sec:twovar}\\
 $v,\ c,\ t$ & ray direction, tilt slope and distance along the ray & \ref{sec:regionI}\\
@@ -73,7 +75,7 @@ sub-slab & one of eight $\kappa$ intervals of width $6.25\cdot10^{-5}$ covering 
 per-slab $\alpha_\star$ interval & the $\alpha_\star$ enclosure of one slab & \ref{sec:system}\\
 deep $\alpha_\star$ interval & an $\alpha_\star$ enclosure of width about $2\cdot10^{-6}$ at one margin & \ref{sec:slabs}\\
 exclusion region & a product of two intervals about $a^\star$ that contains the star & \ref{sec:regionI}\\
-enclosure of $a^\star$ & the image of the box under $(q_0,\psi_0)\mapsto(\psi_0(1-q_0),q_0)$ & \ref{sec:regionI}\\
+enclosure of $a^\star$ & the image of the hull under $(q_0,\psi_0)\mapsto(\psi_0(1-q_0),q_0)$ & \ref{sec:regionI}\\
 dual enclosure & a certified region of the dual plane containing the dual maximizers & \ref{sec:regionI}\\
 leaves & the certified pieces of a bisected sweep cell & \ref{sec:regionI}\\
 weak direction & the line through $a^\star$ along an eigenvector of the Hessian of $\bar\sS$ at $a^\star$, eigenvalue nearest $0$ & \ref{sec:regionI}\\
