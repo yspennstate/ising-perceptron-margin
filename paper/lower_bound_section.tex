@@ -3,7 +3,7 @@
 \section{Toward the matching lower bound}\label{sec:lower}
 
 Krauth and M\'ezard conjectured the value of the limiting ratio
-$M_N(\kappa)/N$ for every margin, not only at
+$m_N(\kappa)/N$ for every margin, not only at
 $\kappa=0$~\cite{krauth1989storage}; the constant $0.833$ is the
 zero-margin point of the conjectured curve $\alpha_\star(\kappa)$.
 At $\kappa=0$ the conjecture is resolved: Ding and
@@ -28,7 +28,7 @@ five certified margins.
 \subsection{Plain second moments fail at every margin}
 
 Write $Z=Z_{N,\kappa}$ for the number of $w\in\{-1,+1\}^N$ satisfying
-all $M=\lceil\alpha N\rceil$ constraints, and
+all $m=\lceil\alpha N\rceil$ constraints, and
 $q_\rho(\kappa)=\Prob(X\ge\kappa,\,Y\ge\kappa)$ for $(X,Y)$ bivariate
 standard Gaussian with correlation $\rho$.
 
@@ -50,12 +50,12 @@ $0<\int f\,d\Phi<\infty$.
 \end{lemma}
 
 \begin{proof}
-$\E Z=2^N\Psi(\kappa)^M$ by independence over constraints.  For a
+$\E Z=2^N\Psi(\kappa)^m$ by independence over constraints.  For a
 pair $w,w'$ at overlap $\rho$ the constraint fields are bivariate
 Gaussian with correlation $\rho$, so counting ordered pairs by
 Hamming distance $k$,
 \[
-\E[Z^2]=2^N\sum_{k=0}^N\binom Nk\,q_{1-2k/N}(\kappa)^M .
+\E[Z^2]=2^N\sum_{k=0}^N\binom Nk\,q_{1-2k/N}(\kappa)^m .
 \]
 Fix $\rho_0\in(0,1)$, let $k^*=\lceil N(1-\rho_0)/2\rceil$ and
 $\rho^*=1-2k^*/N$.  Keeping the single term $k^*$ and using
@@ -71,7 +71,7 @@ _{=:\,\psi_{\alpha,\kappa}(\rho_0)}\;+\;O(N^{-1}\log N),
 the error, of order $N^{-1}\log N$, collecting the binomial
 prefactor, the $|\rho^*-\rho_0|\le
 2/N$ continuity of $\rho\mapsto\log q_\rho$ (differentiable, below),
-and $|M-\alpha N|\le1$.  Now $q_0=\Psi(\kappa)^2$ and $H(1/2)=\log2$
+and $|m-\alpha N|\le1$.  Now $q_0=\Psi(\kappa)^2$ and $H(1/2)=\log2$
 give $\psi_{\alpha,\kappa}(0)=0$.  Reflecting the orthant to a joint
 CDF, $q_\rho(\kappa)=\Phi_2(-\kappa,-\kappa;\rho)$, and Plackett's
 identity $\partial\Phi_2/\partial\rho=\varphi_2$ with the symmetry
@@ -87,7 +87,7 @@ vanishes at $0$,
 so $\psi_{\alpha,\kappa}(\rho_0)\ge\rho_0\,\psi'(0)/2>0$ for all
 small $\rho_0>0$; fix such a $\rho_0$ and set
 $c=\psi_{\alpha,\kappa}(\rho_0)$.  For the weighted counts, the diagonal
-term of $\E[Z_f^2]$ is $2^N\E[f(X)^2]^M$, so either
+term of $\E[Z_f^2]$ is $2^N\E[f(X)^2]^m$, so either
 $\E[Z_f^2]=\infty$ and the claim is trivial, or $f\in L^2(\Phi)$ and
 Mehler's expansion gives
 $\E[f(X)f(Y)]=\sum_{j\ge0}\rho^j\langle f,\mathrm{He}_j\rangle^2/j!$,
@@ -119,7 +119,7 @@ Let $\kappa<0$ and let $\alpha^{\mathrm{sym}}_c(K)=
 threshold at width $K$.  For every
 $\alpha<\alpha^{\mathrm{sym}}_c(|\kappa|)$, with probability
 $1-o(1)$ the margin-$\kappa$ perceptron admits a solution:
-$M_N(\kappa)/N\ge\alpha$ whp.
+$m_N(\kappa)/N\ge\alpha$ whp.
 \end{prop}
 
 \begin{proof}
@@ -139,14 +139,14 @@ here.)
 
 The bound should be read next to monotonicity.  A solution at
 margin $0$ is a solution at every $\kappa<0$, so
-$M_N(\kappa)\ge M_N(0)$, and at $\kappa=0$ the ratio $M_N(0)/N$
+$m_N(\kappa)\ge m_N(0)$, and at $\kappa=0$ the ratio $m_N(0)/N$
 converges in probability to $\alpha_\star(0)\approx0.8330786$ (the
 lower half by~\cite{ding2019capacity} with the sharp-threshold
 transfer of~\cite{nakajimasun2022}, its numerical hypotheses
 certified in~\cite{shmalo2026capacity}).  Hence
 for $\kappa<0$
 \[
-\frac{M_N(\kappa)}{N}\;\ge\;
+\frac{m_N(\kappa)}{N}\;\ge\;
 \max\bigl\{\alpha_\star(0),\,\alpha^{\mathrm{sym}}_c(|\kappa|)\bigr\}
 -o(1)\quad\text{whp}.
 \]
@@ -166,13 +166,13 @@ The construction underlying the $\kappa=0$ lower bound
 of~\cite{ding2019capacity} is written at general margin throughout
 their Section~2: their equations (34)--(48) define, for parameters
 $(\kappa_{\mathrm{all}},\alpha_{\mathrm{all}})$, an explicit
-univariate function $S_{\kappa,\alpha}(\lambda)$ on
-$[\lambda_{\min},1]$ built from the fixed point $(q_\star,\psi_\star)$
---- an entropy term through the two-spin measure $P_{H,D}$, a
+univariate function $S_{\kappa,\alpha}(\omega)$ on
+$[\omega_{\min},1]$ built from the fixed point $(q_\star,\psi_\star)$
+(an entropy term through the two-spin measure $P_{H,D}$, a
 constraint term through the conditional Mills law
-$\varphi_\xi$, and a convex $\inf_s$ correction --- and their
-Condition~1.2 is the statement $S_{0,\alpha_\star}(\lambda)<0$ for
-$\lambda\notin\{0,1\}$.  The $\kappa$-analog of that hypothesis is
+$\varphi_\xi$, and a convex $\inf_s$ correction), and their
+Condition~1.2 is the statement $S_{0,\alpha_\star}(\omega)<0$ for
+$\omega\notin\{0,1\}$.  The $\kappa$-analog of that hypothesis is
 therefore already defined in their own notation, and every
 $\kappa$-dependent ingredient it consumes is an object this paper
 certifies: the fixed point, its uniqueness rectangle, and the
@@ -193,9 +193,9 @@ strictly negative off $\{0,1\}$, at most
 $-5\cdot10^{-5}$ outside windows of half-width $0.02$ around the two
 roots (inside them it climbs to its maxima at the roots, reaching
 $-1.6\cdot10^{-6}$ at the closest grid points), the maximum at
-$\lambda=0$ is degenerate exactly as
+$\omega=0$ is degenerate exactly as
 at $\kappa=0$, and the whole family collapses nearly onto a single
-shape, with $\lambda_{\min}$ drifting from $-0.441$ at
+shape, with $\omega_{\min}$ drifting from $-0.441$ at
 $\kappa=-0.45$ to $-0.421$ at $\kappa=0.13$.  These are diagnostics,
 not certificates; certifying $S_{\kappa,\alpha_\star}<0$ off the
 roots is a univariate problem of exactly the species the

@@ -1,13 +1,5 @@
-% Further certified margins.
-% Sync note: stage-2 counts refer to the enlarged exclusion box.
-% The 0.05 manifests were regenerated 2026-07-17 with exact B-matrix
-% packets (leaf counts shifted 867 -> 855 and 1365 -> 1363 under the
-% same policy, zero failures at every stage).  The -0.05 stage-2 and
-% shoulder supplement were regenerated the same night with GRID_N
-% recorded (1294 -> 1282 leaves; the supplement is new - the enlarged
-% box's lattice needs it, and the first rerun's single shoulder leaf
-% is preserved as evidence).  The remaining margins ship their
-% original manifests.
+% Further certified margins.  Stage-2 counts refer to the enlarged
+% exclusion box; every count is read from the shipped manifests.
 
 \section{Further margins}
 \label{sec:margins}
@@ -18,11 +10,11 @@ Sections~\ref{sec:twovar}--\ref{sec:regionI} runs unchanged at any
 $\kappa$ inside the strip where the fixed point is certified unique:
 the pilot locates the $(q_0,\psi_0)$ boxes at both endpoints of the
 $\alpha$ window, configures the exact-arithmetic modules from those
-balls, and runs the same four pieces.  Beyond $\kappa=0.05$ we have
-certified Condition~2varfn at $\kappa=-0.05$, where the fixed-point
+balls, and runs the same four pieces.  Besides $\kappa=0.05$ it
+certifies Condition~\ref{cond:2var} at $\kappa=-0.45$, $-0.05$,
+$0.0995$ and $0.13$.  At the two negative margins the fixed-point
 uniqueness input comes entirely from the contraction certificates of
-the companion strip (there is no independent derivation on the
-negative side).  The certified pieces at both margins:
+Section~\ref{sec:slabs}.  The certified pieces at the five margins:
 
 \begin{table}[h]
 \centering
@@ -41,7 +33,7 @@ $-0.05$ & $[0.889408031,\ 0.889409783]$ & 884 & 1404 (+12) & 1282 &
 $0.01527\ /\ 0.01209$ \\
 $0.0995$ & $[0.733478513,\ 0.733480205]$ & 904 & 1404 (+12) & 1394 &
 $0.01459\ /\ 0.01209$ \\
-$0.13$  & $[0.705932217,\ 0.705933898]$ & 883 & 1404 (+12) & 1421 &
+$0.13$  & $[0.705932217,\ 0.705933898]$ & 874 & 1404 (+12) & 1422 &
 $0.01446\ /\ 0.01210$ \\
 \hline
 \end{tabular}
@@ -61,23 +53,15 @@ $108$ bands together with a decided total count ($55$ kernel theorems
 per margin; the mutation battery rejects a sign corruption in each
 family).
 
-The $0.13$ run additionally exposed a completeness
-defect in the stage-2 containment---supplement arcs stored on one
-angular branch were invisible to cells whose interval fell on the
-other, weakening containment only, never soundness---which was fixed
-and the margin re-certified with zero failures.  One observation from
-the $0.0995$ run is also methodologically relevant.  Its Region~II sweep initially
-failed a single minimal-size cell just above the exclusion box's
-upper edge, where the dual certificate degenerates in a thin ridge
-(the certified value interval collapses to $[\pm 0.181]$ on a cell of
-width $0.0018$, recovering two cell-widths higher).  The exclusion
-box's upper offset moved from $+0.0961$ to $+0.1030$ in response;
-this is sound without revisiting Region~I because the stage-2
-containment derives its tiling from the same box and fails loudly if
-the enlarged region outgrows what the star and supplement cover.  The
-$0.05$ stage-2 was re-run against its published Region~I manifest
-under the enlarged box on two machines independently; both certify
-with 1365 leaves and zero failures, and the shipped manifest is the
-box run with its bindings intact.
+The stage-2 containment reads each supplement arc on both angular
+branches, so a cell sees every arc whichever branch its interval lies
+on.  At $\kappa=0.0995$ the exclusion box has upper offset $+0.1030$.
+Just above the smaller offset $+0.0961$ the dual certificate of
+Region~II degenerates along a thin ridge: on a cell of width $0.0018$
+the certified value interval is $[\pm 0.181]$, and the bound is
+negative again two cell-widths higher.  Enlarging the box needs no
+change to Region~I, because the stage-2 containment derives its
+tiling from the box and fails if the enlarged region leaves what the
+star and the supplement cover.
 
 \input{interval_section}

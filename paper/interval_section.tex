@@ -29,7 +29,7 @@ slab-hulled parameters (ball $2.3\cdot10^{-2}$) inflates cell
 enclosures to $\pm 1.3$, and the scaling back to the floor ball
 leaves $\pm 0.2$.  Third, the certificates that matter are thin:
 the sweep's weakest certified cells at point margins sit at
-$-5\cdot10^{-4}$, and Region~I's thinnest bands at $-4.7\cdot10^{-5}$,
+$-5\cdot10^{-4}$, and Region~I's thinnest bands at $-7.5\cdot10^{-5}$,
 because the two-variable function is genuinely flat at its degenerate
 maximizer.  A $10^{-4}$-margin certificate cannot survive
 $10^{-1}$-scale fuzz, at any slab width, with this evaluator
@@ -41,15 +41,15 @@ the certified Hessian gives quadratic control whose constants vary
 slowly in $\kappa$ (the fixed-tilt determinant moves by about
 $2\cdot10^{-4}$ per unit margin), so a $\kappa$-uniform neighborhood
 estimate is available from point certificates plus a crude
-$\kappa$-derivative bound --- crude is enough, because a Lipschitz
+$\kappa$-derivative bound; crude is enough, because a Lipschitz
 constant needs no thin margin.  Far from the maximizer the
 certificates are fat and absorb hull fuzz directly.  What remains is
 the intermediate annulus, where quadratic control must be extended
 beyond the star radius with explicit remainder bounds before the two
-regimes meet.  We record this as the open engineering of the margin
-program: the obstruction is measured, the two easy regimes are in
-hand, and the annulus estimate is the one genuinely new ingredient an
-interval theorem requires.
+regimes meet.  This estimate is the open mathematical step of the
+interval problem: the obstruction is measured and the two outer
+regimes are in hand, but a remainder bound on the annulus is a new
+estimate, not a matter of computing budget.
 
 The certified artifacts also price that ingredient.  Across the three
 positive margins the Region~I band populations have nearly identical
@@ -61,7 +61,7 @@ band would hold over a $\kappa$-radius $m_i/L_i$ of its margin
 $m_i$, and re-certifying each band at its own pitch would cover
 $10^{-2}$ of margin axis for $1.1$ times the cost of one point run
 at unit derivative bound, $1.3$ times at a conservative bound of
-three --- against roughly $3\cdot10^{5}$ band evaluations for
+three, against roughly $3\cdot10^{5}$ band evaluations for
 uniform slabs at the thinnest band's pitch.  The
 compute is therefore not the obstruction; what is missing is the
 derivative enclosure itself, one certified $\kappa$-derivative per
@@ -76,7 +76,7 @@ favor: the median band moves at $|\Delta S/\Delta\kappa|\approx 6$,
 but the thin-trough bands move at $0.1$--$0.3$, so the thinnest band
 (margin $5.6\cdot10^{-4}$) already holds over a $\kappa$-radius
 near $2\cdot10^{-3}$, and with per-band measured pitches the count
-is $1.04$ runs per $10^{-2}$ of margin axis --- about eight
+is $1.04$ runs per $10^{-2}$ of margin axis, about eight
 Region~I run-equivalents for all of $[0.05,0.13]$.  A difference
 over a $0.05$ gap bounds the mean drift rather than the local
 derivative, so these numbers size the project rather than prove it;
