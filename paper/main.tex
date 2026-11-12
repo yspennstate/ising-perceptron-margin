@@ -71,7 +71,10 @@ conjectured it sharp; at $\kappa=0$ their constant is
 $\alpha_\star=0.8330786\dots$, in the margin framework of Gardner
 and Derrida \cite{gardnerderrida1988}.  Rigorous bounds at zero margin
 go back to Kim and Roche \cite{kimroche1998} and Talagrand
-\cite{talagrand1999}.  Three decades later the zero-margin
+\cite{talagrand1999}, who showed that with high probability no
+solution exists at density $\alpha>0.996$; Altschuler and Tikhomirov
+\cite{altschulertikhomirov2024} give a complete proof of the bound
+$0.847$ outlined by Krauth and M\'ezard.  Three decades later the zero-margin
 conjecture was resolved: Ding and Sun \cite{ding2019capacity}
 proved the lower bound and Huang \cite{huang2024capacity} the upper
 bound.  Both proofs are conditional on numerical hypotheses
@@ -798,7 +801,8 @@ two large balls and the kernels explode (we measured certified
 upper bounds of $+2\cdot10^{3}$ on cells whose true ray second
 derivative is $-6.6$).  Three elementary bounds, applied as
 intersections with the computed balls, remove the failure mode
-entirely.
+entirely.  The bounds $0<E'<1$ in the following lemma are due to
+Sampford~\cite{sampford1953}.
 
 \begin{lemma}[Mills clamps]\label{lem:mills}
 Let $E$ be the inverse Mills ratio and $\sigma=E-V$.  For every
@@ -809,8 +813,6 @@ E'=E\sigma\in(0,1),\qquad
 0<E''<\sigma .
 \]
 \end{lemma}
-
-The bounds $0<E'<1$ are due to Sampford~\cite{sampford1953}.
 
 \begin{proof}
 For $\sigma>0$: when $V\le0$ this follows from $E>0$, and when $V>0$ integrating
@@ -1221,12 +1223,23 @@ Some inequalities on Mill's ratio and related functions,
 \bibitem{ding2019capacity}
 J.~Ding and N.~Sun,
 Capacity lower bound for the Ising perceptron,
+\emph{Probab. Theory Related Fields} \textbf{193} (2025), 627--715;
 STOC 2019; arXiv:1809.07742.
 
 \bibitem{huang2024capacity}
 B.~Huang,
 Capacity threshold for the Ising perceptron,
-FOCS 2024; arXiv:2404.18902.
+\emph{FOCS 2024}, 1126--1136; arXiv:2404.18902.
+
+\bibitem{xu2021}
+C.~Xu,
+Sharp threshold for the Ising perceptron model,
+\emph{Ann. Probab.} \textbf{49} (2021), 2399--2415.
+
+\bibitem{altschulertikhomirov2024}
+D.~J.~Altschuler and K.~Tikhomirov,
+A note on the capacity of the binary perceptron,
+arXiv:2401.15092.
 
 \bibitem{nakajima2025}
 S.~Nakajima,
@@ -1265,6 +1278,7 @@ FOCS 2021; arXiv:2102.13069.
 \bibitem{altschuler2022}
 D.~J.~Altschuler,
 Critical window of the symmetric perceptron,
+\emph{Electron. J. Probab.} \textbf{28} (2023), 1--28;
 arXiv:2205.02319.
 
 \bibitem{gamarnik2022algorithms}
@@ -1276,7 +1290,7 @@ Algorithms and barriers in the symmetric binary perceptron model,
 S.~Nakajima and N.~Sun,
 Sharp threshold sequence and universality for Ising perceptron
 models,
-arXiv:2204.03469.
+\emph{SODA 2023}, 638--674; arXiv:2204.03469.
 
 \bibitem{stojnic2023}
 M.~Stojnic,
@@ -1286,7 +1300,7 @@ arXiv:2312.00073.
 \bibitem{lsz2024}
 S.~Li, T.~Schramm and K.~Zhou,
 Discrepancy algorithms for the binary perceptron,
-arXiv:2408.00796.
+\emph{STOC 2025}, 1668--1679; arXiv:2408.00796.
 
 \bibitem{MathBrainRepo} Y.~Shmalo, \emph{Math Brain: public snapshot, code and tests}, 2026, \url{https://github.com/yspennstate/math-brain-public/tree/f96f1dd117d2869e61d01d7090c137548875ce3d}.
 
