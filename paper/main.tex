@@ -38,21 +38,15 @@ at every margin, provided four numerical hypotheses on explicit
 low-dimensional problems hold at that margin.  We verify the four
 hypotheses in ball arithmetic at the margins $\kappa=-0.45$, $-0.05$,
 $0.05$, $0.0995$ and $0.13$, so the upper bound holds there without
-conditions; for instance the capacity at $\kappa=0.05$ is at most
-$\alpha_\star(0.05)\in[0.781073068,0.781074776]$.  Three of the
+conditions; for instance at $\kappa=0.05$ the capacity is at most
+$\alpha_\star(0.05)$, which lies in $[0.781073068,0.781074776]$.  Three of the
 hypotheses are verified on the whole strip $\kappa\in[-0.65,0.19]$.
-Two identities make this possible.  The replica-symmetric free energy
-is stationary in both order parameters at its fixed point, so
-$\alpha_\star(\kappa)$ is the root of a strictly decreasing function,
-and the derivative of the fixed-point map reduces to a one-term
-integral with positive integrand.  The fourth hypothesis, global
-nonpositivity of a two-variable rate function, is verified by keeping
-its maximizer symbolic and enclosing the dual localization through a
-Bregman integrand.  For every $\kappa<0$ we also prove a capacity lower
-bound by embedding a symmetric perceptron; it lies well below
-$\alpha_\star(\kappa)$, and the exact threshold at $\kappa\ne0$ remains
-open.  Code and certificates are at
-\url{https://github.com/yspennstate/ising-perceptron-margin}.
+Two identities make this possible: the replica-symmetric free energy
+is stationary in both order parameters at its fixed point, and the
+derivative of the fixed-point map reduces to a one-term integral with
+positive integrand.  For every $\kappa<0$ we also prove a capacity
+lower bound by embedding a symmetric perceptron.  The matching lower
+bound at $\alpha_\star(\kappa)$ remains open.
 \end{abstract}
 
 \section{Introduction}\label{sec:intro}
@@ -68,7 +62,7 @@ $w\in\{-1,+1\}^N$ satisfies
 Krauth and M\'ezard \cite{krauth1989storage} computed the
 replica-symmetric prediction for the largest such $\alpha$ and
 conjectured it sharp; at $\kappa=0$ their constant is
-$\alpha_\star=0.8330786\ldots$, in the margin framework of Gardner
+$\alpha_\star=0.8330786\dots$, in the margin framework of Gardner
 and Derrida \cite{gardnerderrida1988}.  Rigorous bounds at zero margin
 go back to Kim and Roche \cite{kimroche1998} and Talagrand
 \cite{talagrand1999}.  Three decades later the zero-margin
@@ -96,7 +90,7 @@ Section~\ref{sec:system}).  At $\kappa=0$ these are exactly the hypotheses close
 \cite{shmalo2026capacity}; at $\kappa\ne0$ they were open.
 Stojnic's fully-lifted random duality theory~\cite{stojnic2023}
 predicts the same replica-symmetric values at every margin by
-non-rigorous means; the rigorous certification of the hypotheses had
+nonrigorous means; the rigorous certification of the hypotheses had
 reached only $\kappa=0$.  We verify all four at five nonzero margins.
 
 \begin{mainthm}[Theorem~\ref{thm:main}]
@@ -136,7 +130,7 @@ identity that makes a tight interval enclosure of the contraction
 possible at all.
 
 Second, ball-arithmetic certificates (Sections~\ref{sec:slabs}
-and~\ref{sec:hessian}) discharging the fixed-point, AMP, and
+and~\ref{sec:hessian}) discharging the fixed-point, approximate message passing (AMP), and
 local-concavity hypotheses on the strip $\kappa\in[-0.65,0.19]$,
 covered by $1680$ contiguous slabs of width $5\cdot10^{-4}$.
 Uniqueness of the fixed point is carried by a per-slab contraction
@@ -565,7 +559,7 @@ quadrature floors breaks through exactly as budgeted.
 
 \section{The two-variable function}\label{sec:twovarfn}
 
-\subsection{The center of the landscape}\label{sec:hessian}
+\subsection{The maximizer and its Hessian}\label{sec:hessian}
 
 The local ingredient of Condition~\ref{cond:2var} is the negative
 definiteness of the Hessian $\mathcal H$ of Huang's first-moment functional at
@@ -619,7 +613,7 @@ one-sided where sign is the claim:
 \end{array}
 \]
 the trend, both margins thinning as $\kappa$ grows, being the
-quantitative form of the landscape flattening that
+quantitative form of the flattening of $F$ near its maximizer that
 Section~\ref{sec:interval} prices.
 
 Certification requires parameter boxes far tighter than the slabs
@@ -694,7 +688,7 @@ already a complete witness, and the runaway directions are the
 capped-tilt case handled inside Huang's own argument.
 
 Float diagnostics along the curve (the certified analogue follows)
-show a landscape essentially independent of $\kappa$: a single peak
+show a function essentially independent of $\kappa$: a single peak
 at $(1,0)$, off-center values below $-3\cdot10^{-3}$, negative far
 rays, Hessian eigenvalues near $(-0.22,-0.0045)$, and moment-body
 clearance near $0.017$, with the weak eigenvalue degrading toward
@@ -1056,7 +1050,7 @@ parameters give up proportionally less storage precisely where the
 robustness requirement is stiffest.  On the relaxed side ($\kappa<0$,
 tolerating margin violations up to $|\kappa|$) capacity grows toward
 the annealed bound (the ratio reaches $0.996$ by $\kappa=-2$) and the
-landscape measurably approaches the replica-symmetry-breaking regime
+solution space measurably approaches the replica-symmetry-breaking regime
 (the weak Hessian eigenvalue of the rate function degrades threefold
 by $\kappa=-1.5$), which is where the replica-symmetric prediction
 itself should eventually fail.
@@ -1156,33 +1150,22 @@ not certificates.
 \section*{Acknowledgements and funding}
 The author acknowledges support from the European Research Council under the
 European Union's Horizon Europe programme (grant 101041711), the Simons
-Foundation, Heights Labs, and Israel Science Foundation grants 2258/19 and
-4101/25.
-
-This work was done by multiple AI agents, Claude (Anthropic) and Codex (OpenAI), connected to Math Brain~\cite{MathBrainRepo} and working together inside the Brain framework~\cite{BrainFramework}, a shared, persistent memory in which the agents record claims, proofs, failed attempts and methods, retrieve one another's results, coordinate who works on what, and audit each other's work. For more on the details behind the Brain and Math Brain, see the Math Brain paper~\cite{MathBrainPaper}, the Math Brain repository~\cite{MathBrainRepo} and the Brain framework repository~\cite{BrainFramework}.
+Foundation, Heights Labs, Convex Nexus Capital, and Israel Science
+Foundation grants 2258/19 and 4101/25.  Computational resources were
+provided in part by Google Cloud through its education credits
+program (credit 530550103).
 
 \section*{Declaration of competing interest}
 The author holds equity in Heights Labs and in Convex Nexus Capital and
 has a management role at Convex Nexus Capital.
 
 \section*{Declaration of generative AI and AI-assisted technologies}
-Most of the work reported here was done by Fable~5 (Anthropic), an AI
-system: the mathematical theory (the stationarity and derivative
-identities, the general-margin Hessian formulas, the symbolic-
-maximizer and correlated-Bregman devices, the stability bounds), the
-software, the certificates, and the drafting of this manuscript.  The
-system operated in an autonomous goal mode: the author set the
-objective of extending the verified capacity results to nonzero
-margin, and it worked toward that objective over extended unattended
-sessions, choosing the approach, implementing and running the
-certificates, detecting and repairing its own errors through
-independent cross-checks (several such repairs are documented, with
-the failed artifacts preserved, in the repository), and iterating
-until the verifications closed.  The author supervised the runs,
-reviewed the mathematics, and accepts responsibility for the final
-manuscript.  The work is part of Math Brain, the author's project on
-methods for using AI systems to resolve open problems in
-mathematics~\cite{MathBrainPaper}.
+The mathematics, the software, the certificates and the drafting of
+this paper were done by AI agents, Claude (Anthropic) and Codex
+(OpenAI), working through the shared memory of the Math Brain
+project~\cite{MathBrainRepo,BrainFramework,MathBrainPaper}.  The
+author set the objective, supervised the runs, reviewed the
+mathematics and accepts responsibility for the paper.
 
 \section*{Data availability}
 No data were used. The verification programs, certificates and raw
