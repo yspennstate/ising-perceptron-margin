@@ -46,7 +46,7 @@ At $\kappa\ne0$ the fixed point of the replica-symmetric equations
 is known only to a box about $8\cdot10^3$ times wider in one coordinate
 than at zero margin, and the zero-margin proof of Huang's two-variable
 condition fails at that width.  It is restored by computing the
-moments of the maximizer as functions of the box, and by writing each difference of
+moments of the maximizing profile as functions of the box, and by writing each difference of
 log-partition values that the proof needs as a single expectation
 expanded about the maximizer.  Whether
 $\alpha_\star(\kappa)$ is also a lower bound at $\kappa\ne0$ is open.
@@ -150,7 +150,12 @@ of the fixed point across the interval.  On such a box each enclosure
 of $\Phi$ has width about $2\cdot10^{-5}$, and a box no wider than
 that motion still leaves $5\cdot10^{-6}$, so the sign tests of
 \cite{shmalo2026capacity} are not decided and its argument does not
-apply as written.
+apply as written.  Narrowing the interval does not remove the
+difficulty: at each end $\psi_0$ is enclosed as $R(q_0,\alpha)$ by a
+Riemann sum of $4000$ cells, to width $6.9\cdot10^{-5}$
+(Section~\ref{sec:regionI}), and the sign tests need each enclosure
+of $\Phi$ below $10^{-7}$, so both that width and the motion of the
+fixed point would have to shrink, by factors of about $150$ and $50$.
 
 Four changes make it apply on such boxes.  First, $a^\star$ is never stored as
 a number.  At the fixed point $\nabla\Phi(1,0)=(\psi_0(1-q_0),q_0)$,
@@ -191,9 +196,11 @@ $5\cdot10^{-4}$ (Section~\ref{sec:slabs} and
 Theorem~\ref{thm:strip}).  The fixed point is
 unique because the derivative of $q\mapsto P(R(q,\alpha))$, the
 composition of the two fixed-point equations of
-Section~\ref{sec:system}, has a certified bound below $1$: on each slab rectangle for
-$\kappa\in[-0.65,0.10]$, and for $\kappa\in(0.10,0.19]$ on narrower
-located rectangles (Section~\ref{sec:nak}), where Nakajima's uniqueness
+Section~\ref{sec:system}, has a certified bound below $1$: for
+$\kappa\in[-0.65,0.10]$ on each slab rectangle, and for
+$\kappa\in(0.10,0.19]$ on rectangles padded by $5\cdot10^{-4}$ in $q$
+about the fixed points located at the ends of each sub-slab
+(Section~\ref{sec:nak}).  On $(0.10,0.19]$ Nakajima's uniqueness
 theorem~\cite{nakajima2025}, whose premise is verified in ball
 arithmetic, gives uniqueness a second time.  The Hessian at the maximizer $(1,0)$ of the two-variable function
 with the tilt held at its optimal value, negative definite at
@@ -210,10 +217,13 @@ states it for $\kappa\ge0$, and the computation holds for every
 $\kappa$.
 
 For $\kappa<0$, Section~\ref{sec:lower} gives the lower bound
-$\max\{\alpha_\star(0),\alpha^{\mathrm{sym}}_c(|\kappa|)\}$, by
+$\max\{\alpha_\star(0),\alpha^{\mathrm{sym}}_c(|\kappa|)\}$, where
+$\alpha^{\mathrm{sym}}_c(r)$ is the threshold of the symmetric binary
+perceptron at width $r$, by
 monotonicity and by embedding a symmetric perceptron; it lies far
 below $\alpha_\star(\kappa)$.  The enclosures of the special functions
-and the quadrature rules are those of~\cite{shmalo2026capacity}.
+are those of~\cite{shmalo2026capacity}; integrals over wide
+parameter balls are Riemann sums (Section~\ref{sec:architecture}).
 
 Section~\ref{sec:system} states the replica-symmetric system,
 Huang's four conditions and the two identities.
@@ -278,11 +288,12 @@ $\sup_{q\in(q_{\mathrm{lb}},q_{\mathrm{ub}})}(P\circ R_\alpha)'(q)<1$,
 and $G_\star(\alpha)=G(\alpha,q_\star(\alpha),\psi_\star(\alpha))$,
 with $q_\star(\alpha)$ that fixed point and
 $\psi_\star(\alpha)=R(q_\star(\alpha),\alpha)$, is strictly decreasing
-on $[\alpha_-,\alpha_+]$ with a unique root there.  Huang's
-$\kappa=0$ instance (his Proposition~3.2) takes an interval of width
-$10^{-9}$ about the fixed point.  We call the uniqueness and
-contraction part the rectangle clause.
+on $[\alpha_-,\alpha_+]$ with a unique root there.
 \end{cond}
+
+Huang's $\kappa=0$ instance (his Proposition~3.2) takes an interval of
+width $10^{-9}$ about $\alpha_\star(0)$.  We call the uniqueness and
+contraction part the rectangle clause.
 
 \begin{cond}[approximate message passing, AMP]\label{cond:amp}
 At the fixed point,
@@ -552,14 +563,14 @@ changes at about $0.18$ per unit of $\kappa$.
 
 The contraction product exceeds $1$ near $\kappa=0.12$, while the
 contraction at the fixed point stays below $0.78$.  At $\kappa=0.13$
-the product over the slab rectangle is $1.32$; a certified sign
-bisection of the displacement $P(R(q))-q$ (which has certified signs at the interval endpoints and, by
-the uniqueness of the fixed point given by Nakajima's theorem (see
-below), a single zero between them, so it
-is positive below the fixed point and negative above) locates the fixed point at both $\alpha$
-endpoints to width $2\cdot10^{-8}$ with no contraction input, the
-contraction evaluated on the located intervals reads $0.79$, and the
-$G$ crossing resolves with slack $2\cdot10^{-3}$.
+the product over the slab rectangle is $1.32$.  The displacement
+$P(R(q))-q$ has certified signs at the ends of the $q$ interval and,
+the fixed point being unique by Nakajima's theorem~\cite{nakajima2025}, a
+single zero between them; a certified sign bisection of it locates
+the fixed point at both $\alpha$ endpoints to width $2\cdot10^{-8}$,
+with no contraction input.  On the located intervals the contraction
+reads $0.79$, and the $G$ crossing resolves with slack
+$2\cdot10^{-3}$.
 
 The rectangle clause itself is then discharged at $\kappa=0.13$
 exactly as Huang's Proposition~3.2 discharges it at $\kappa=0$: on
@@ -639,8 +650,7 @@ function of Section~\ref{sec:twovar} with the tilt held at its optimal
 value $s_0=\sqrt{1-q_0}$; at $\kappa=0$ this is
 \cite[Claim~2.6]{huang2024capacity}, verified in his Appendix~B.3.
 The second derivative in the tilt is positive: it is
-$\psi_0-\alpha\E[E'\eta^2]$ in the notation of
-Section~\ref{sec:twovar}, with $0<E'<1$ (Lemma~\ref{lem:mills}) and
+$\psi_0-\alpha\E[E'\eta^2]$, with $\eta=E(u)/\sqrt{1-q_0}$ and $0<E'<1$ (Lemma~\ref{lem:mills}) and
 $\alpha\E[\eta^2]=\psi_0$.  Minimizing over the tilt therefore
 subtracts a positive semidefinite matrix (a Schur complement), so the Hessian of the tilt-optimized function at
 $(1,0)$ is bounded above by $\mathcal H$ in the Loewner order and is
@@ -819,7 +829,7 @@ $b_0=(1,0)$, and kernels that stay finite where the argument of the
 inverse Mills ratio is large.
 
 \emph{The moment point from the box.}  Every certificate that references
-$a^\star$ or the base tilt $s_0$ uses them as the functions
+$a^\star$ or the optimal tilt $s_0$ uses them as the functions
 $(\,\psi_0(1-q_0),\,q_0\,)$ and $\sqrt{1-q_0}$ of the box, never as
 stored decimals; the enclosure of $a^\star$ is the image of the box
 under the first of these maps.  The true $a^\star$, at the true
@@ -974,12 +984,12 @@ $0.19$ radians off the weak direction, certify radius $0.0105$ there
 (certified values $-3.5\cdot10^{-3}$ to $-1.9$), as the stage-2
 leaves near those arcs require.
 \item[(iii)] \emph{Stage 2}: the exclusion region minus the star,
-$1363$ leaves, zero failures.  Star containment uses the certified
-radius of Region~I: a certified band covers every direction of its
+$1363$ leaves, zero failures.  Stage 2 takes the star to be the set
+covered by the certified bands: a certified band covers every direction of its
 angular range out to the star boundary, so the certified radius is
 the pointwise maximum of the main radius and the supplementary arcs,
 a piecewise-constant function of the angle.
-\item[(iv)] \emph{Star interior}: the certificate
+\item[(iv)] \emph{Star interior}: the star-interior certificate
 of~\cite[Lemma~5.2]{shmalo2026capacity}, run over the enclosure of
 $a^\star$, places the star strictly inside the moment body: constructive inradius
 $0.01481$ against required $0.01209$.
@@ -1084,7 +1094,7 @@ For binary weights the Euclidean norm is fixed at $\sqrt N$, so a
 margin constraint is a robustness certificate: if
 $y_a\langle w,x_a\rangle/\sqrt N\ge\kappa$, the label $y_a$ is
 unchanged under every perturbation of $x_a$ of Euclidean norm below
-$\kappa$.  With centrally symmetric i.i.d.\ designs and independent
+$\kappa$.  With standard Gaussian designs and independent
 labels, folding the labels into the design makes the event that a
 binary $w$ stores every label with robustness radius $\kappa$ the
 satisfiability event studied here.  Theorem~\ref{thm:main} at
@@ -1106,11 +1116,12 @@ the feature map.
 \section{Scope and further directions}\label{sec:scope}
 
 \emph{Other margins of the same family.}  The certificates of
-Section~\ref{sec:regionI} can be run wherever the continuation
-reaches: positive margins up to $\kappa\approx1.18$, where
-$\mathcal H$ loses definiteness and a local argument must re-optimize
-the tilt (Section~\ref{sec:hessian}), and negative margins until
-replica symmetry breaks.  Toward deep negative margin the weak
+Section~\ref{sec:regionI} are run here at five margins in
+$[-0.45,0.13]$.  Along the continuation $\mathcal H$ is negative
+definite up to $\kappa=1.15$ and loses definiteness near
+$\kappa\approx1.18$, beyond which a local argument must re-optimize
+the tilt (Section~\ref{sec:hessian}); on the negative side the
+continuation runs until replica symmetry breaks.  Toward deep negative margin the weak
 eigenvalue of $\mathcal H$ and the slack in $\ell_0$ shrink; whether
 Condition~\ref{cond:2var} holds down to the margin where replica
 symmetry breaks is open.
