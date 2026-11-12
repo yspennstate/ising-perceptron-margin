@@ -1,9 +1,9 @@
 # The Ising perceptron at nonzero margin: certified bounds along the replica-symmetric curve
 
 Verification code, certificates, and paper for the margin extension of
-the Ising perceptron capacity results: the replica-symmetric predicted
-capacity alpha_*(kappa) of the binary-weight perceptron with
-constraints <g_a, w>/sqrt(N) >= kappa.  What is certified here are
+the Ising perceptron capacity results: the replica-symmetric threshold
+alpha_*(kappa) of the binary-weight perceptron that stores
+patterns g_a with <g_a, w>/sqrt(N) >= kappa.  What is certified here are
 unconditional upper bounds at five margins; the matching lower bound
 is proved (by Ding-Sun) only at kappa = 0, so these are not exact
 thresholds at nonzero margin (see the "Toward the matching lower
