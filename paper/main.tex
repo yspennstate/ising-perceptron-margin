@@ -147,7 +147,7 @@ the branch still at about $5\cdot10^{-6}$, so the sign tests cannot
 be decided and the argument of \cite{shmalo2026capacity} does not
 apply as written.
 
-It applies after three changes.  First, $a^\star$ is never stored as
+It applies after four changes.  First, $a^\star$ is never stored as
 a number.  At the fixed point $\nabla\Phi(1,0)=(\psi_0(1-q_0),q_0)$,
 and the certificates use this pair and the optimal tilt
 $s_0=\sqrt{1-q_0}$ as functions of the box; the identities at
@@ -166,7 +166,10 @@ enclosures are $50$ to $160$ times tighter than differences of
 separate enclosures of $\Phi$.  Third, bounds on the inverse Mills
 ratio (Lemma~\ref{lem:mills}) keep the second derivatives of the
 constraint term finite where the argument of the inverse Mills ratio
-is large.  With these changes the four certificates of
+is large.  Fourth, the tilt along each ray from $a^\star$ moves with
+a slope fixed by the direction alone, one slope for each of $768$
+angular sectors, so that second-derivative bounds on successive radial
+bands chain along every ray.  With these changes the four certificates of
 \cite{shmalo2026capacity} (a sweep of $K$ away from $a^\star$; concavity
 along each ray from $a^\star$ up to a radius that depends on the
 direction, so on a star-shaped neighborhood of $a^\star$, the star; a
@@ -177,12 +180,14 @@ $0.13$ (Sections~\ref{sec:twovar} and~\ref{sec:regionI}).
 Conditions~\ref{cond:fp}--\ref{cond:lc} hold on the whole strip
 $\kappa\in[-0.65,0.19]$, on $1680$ contiguous slabs of width
 $5\cdot10^{-4}$ (Section~\ref{sec:slabs} and
-Theorem~\ref{thm:strip}).  Uniqueness of the fixed point comes from a
-certified bound below $1$ on the derivative of $q\mapsto P(R(q,\alpha))$
-over each slab (the contraction product of Section~\ref{sec:slabs}),
-and on $(0.10,0.19]$ also from Nakajima's uniqueness
+Theorem~\ref{thm:strip}).  The fixed point is
+unique because the derivative of $q\mapsto P(R(q,\alpha))$ has a
+certified bound below $1$: on each slab rectangle for
+$\kappa\in[-0.65,0.10]$, and for $\kappa\in(0.10,0.19]$ on located
+rectangles of $q$ half-width $5\cdot10^{-4}$
+(Section~\ref{sec:nak}), where Nakajima's uniqueness
 theorem~\cite{nakajima2025}, whose premise is verified in ball
-arithmetic.  The Hessian at the maximizer $(1,0)$ of the two-variable function
+arithmetic, gives uniqueness a second time.  The Hessian at the maximizer $(1,0)$ of the two-variable function
 with the tilt held at its optimal value, negative definite at
 $\kappa=0$ by \cite[Claim~2.6 and Appendix~B.3]{huang2024capacity},
 is negative definite at six margins (Section~\ref{sec:hessian}).
@@ -402,7 +407,7 @@ the contraction product on each slab; and positivity makes
 $q\mapsto P(R(q))$ increasing, which is what the location step of
 Section~\ref{sec:slabs} bisects on.
 
-\section{The capacity curve and the condition map}\label{sec:curve}
+\section{The capacity curve and the four conditions along it}\label{sec:curve}
 
 \begin{figure}[t]
 \centering
@@ -422,7 +427,7 @@ strip.}
 A warm-started continuation in high-precision floating point (not
 a certificate; Figure~\ref{fig:curve}) follows the fixed point along $\kappa\in[-2.0,1.5]$,
 recording at each of $71$ points the threshold, the fixed point, the
-contraction $(P\circ R_\alpha)'(q_\star)$, the AMP product and the
+contraction $(P\circ R_\alpha)'(q_\star)$, the left side of Condition~\ref{cond:amp} and the
 local-concavity minimum $\ell_0$.  Selected values:
 
 \begin{center}
@@ -695,7 +700,7 @@ against $-0.718$ at zero margin) and $0.13$.
 
 Along the continuation $\mathcal H$ stays negative definite at least
 up to $\kappa=1.15$ and loses definiteness inside $(1.1812,1.1844)$,
-while the Hessian of the tilt-optimized functional remains negative
+while the Hessian of the tilt-optimized function remains negative
 out to at least $\kappa=1.5$, as the Schur relation allows, so past
 $\kappa\approx1.18$ a local argument must re-optimize the tilt, as
 the ray certificates below already do.
@@ -755,7 +760,7 @@ closed form.  And on a region close to the half-plane $\lambda_1<0$
 the $s$-infimum is $-\infty$: $\alpha\,\E[\eta^2]=\psi_0$ exactly
 at the fixed point, so the quadratic tilt coefficient cancels, and
 wherever the surviving linear coefficient of the tilt is nonpositive
-the functional runs away (in floating point, the boundary of that region at
+the function runs away (in floating point, the boundary of that region at
 $\kappa=0.05$ crosses $\lambda_1=0.04$ on the $\lambda_2=0$ axis and
 bends left as $|\lambda_2|$ grows).  Condition~\ref{cond:2var}
 takes the infimum over all $s\ge0$, so a negative value at one finite
@@ -772,13 +777,14 @@ deep negative margin ($-0.0013$ at $\kappa=-1.5$).
 \section{Certifying the two-variable condition}\label{sec:regionI}
 
 The zero-margin certificate has four parts: a sweep of the moment
-body outside an exclusion box, which is a rectangle about $a^\star$
-containing the star (Region~II); banded ray-concavity certificates on
-the star (Region~I); a second sweep of the exclusion box minus the
+body outside an exclusion region, a product of two intervals about
+$a^\star$ in the moment plane that contains the star (Region~II); ray
+certificates on the star, one for each radial band and angular cell
+(Region~I); a second sweep of the exclusion region minus the
 star (stage~2); and an interior-ball certificate placing the star
 strictly inside the moment body.  At $\kappa\ne0$ all four meet the same difficulty.
 At zero margin the parameters $(q_0,\psi_0)$ are certified to a
-rectangle of width $10^{-9}$, so the moment point $a^\star$ can be
+box of width $10^{-9}$, so the moment point $a^\star$ can be
 stored as decimals and every enclosure treats them as exact; at
 $\kappa=0.05$ the hull of the boxes located at the two ends of the
 deep $\alpha_\star$ interval has width $1.5\cdot10^{-6}$ in $q_0$ and
@@ -790,20 +796,22 @@ Section~\ref{sec:hessian} is narrower in $\psi_0$ and wider in $q_0$,
 and both contain the fixed point for every $\alpha$ of the deep
 $\alpha_\star$ interval.  The width of the hull enters every plain evaluation of
 $\Phi$ at about $2\cdot10^{-5}$, much wider than the differences of
-order $10^{-7}$ whose signs place the dual points.  Three changes make the four certificates apply at
-$\kappa\ne0$: $a^\star$ computed from the box, differences of $\Phi$
-written against $b_0=(1,0)$, and kernels that stay finite where the
-argument of the inverse Mills ratio is large.
+order $10^{-7}$ whose signs place the dual points.  Four changes make the four certificates apply at
+$\kappa\ne0$: $a^\star$ computed from the box, one tilt slope per
+angular sector on the rays, differences of $\Phi$ written against
+$b_0=(1,0)$, and kernels that stay finite where the argument of the
+inverse Mills ratio is large.
 
 \emph{The moment point from the box.}  Every certificate that references
 $a^\star$ or the base tilt $s_0$ uses them as the functions
 $(\,\psi_0(1-q_0),\,q_0\,)$ and $\sqrt{1-q_0}$ of the box, never as
-stored decimals, so the true $a^\star$, at the true parameters, is
-covered exactly and the ray identities ($\sS=0$, $\nabla\sS=0$, tilt
-optimality at the true $a^\star$) hold on the certified rays with no
-enlargement of the box of $a^\star$.  Certificates evaluated over the
-box of $a^\star$ cover in particular the rays from the true
-$a^\star$.
+stored decimals; the enclosure of $a^\star$ is the image of the box
+under the first of these maps.  The true $a^\star$, at the true
+parameters, is therefore covered exactly, and the identities at
+$a^\star$ ($\sS=0$, $\nabla\sS=0$ and tilt optimality, at the true
+$a^\star$) hold on the certified rays with no enlargement of the
+enclosure.  Certificates evaluated over the enclosure of $a^\star$
+cover in particular the rays from the true $a^\star$.
 
 \emph{The ray argument.}  The ray part
 of~\cite[Lemma~6.1]{shmalo2026capacity} carries over; what changes at
@@ -812,7 +820,7 @@ $c\in\R$ put $\chi_{v,c}(t)=\mathcal F(a^\star+tv,\,s_0+ct)$, with
 $\mathcal F$ as in Section~\ref{sec:twovarfn}, so that
 $\bar\sS(a^\star+tv)\le\chi_{v,c}(t)$ whenever $s_0+ct\ge0$.  At
 the true parameters $\chi_{v,c}(0)=\chi_{v,c}'(0)=0$ for every $c$,
-by the value, gradient and tilt identities at $a^\star$.  If
+by the identities at $a^\star$.  If
 $\chi_{v,c}''\le0$ on $[0,T(v)]$ then $\chi_{v,c}\le0$ there, hence
 $\bar\sS\le0$ on the segment.  The chain needs one slope per ray: the
 second-derivative bound on a radial band $[t_0,t_1]$ with $t_0>0$
@@ -830,7 +838,8 @@ the main and supplementary certificates use the same slope table.
 
 \emph{Differences against $b_0$.}  The dual localization
 of~\cite[Lemma~6.1]{shmalo2026capacity}, which keeps the dual maximizer
-$\lambda(x)$ inside a certified box so that the entropy Hessian can be
+$\lambda(x)$ inside a certified region of the dual plane (its dual
+enclosure) so that the entropy Hessian can be
 bounded there, needs signs of differences
 $\Phi(\lambda)-\Phi(\lambda')-(\lambda-\lambda')\cdot x$ for pairs of
 dual points $\lambda,\lambda'$ and moment points $x$ near $a^\star$.
@@ -847,9 +856,9 @@ because the gradient of $b\mapsto\log2\cosh(b\cdot(\dot H,M))$ at
 $b_0$ is $M\,(\dot H,M)$, whose inner product with $\lambda-b_0$ is
 $M\Delta$.  Every
 factor is a small ball with thin coefficients, so the parameter
-width enters only at second order in $|\lambda-b_0|$; at the box
-corners, where plain differences of enclosures fail, the enclosures
-are $50$ to $160$ times tighter, and at $b_0$ the enclosure is
+width enters only at second order in $|\lambda-b_0|$; within
+distance $0.01$ of $b_0$, where plain differences of enclosures fail,
+the enclosures are $50$ to $160$ times tighter, and at $b_0$ the enclosure is
 exactly $\{0\}$.  Differences between arbitrary points are then
 differences of two such enclosures, and the gradient term the
 localization needs is the same trick applied to $\nabla\Phi$:
@@ -858,8 +867,8 @@ $(\dot H,M)\,(1-M^2)\tanh\Delta/(1+M\tanh\Delta)$.
 
 The factor $\cosh\Delta+M\sinh\Delta$ itself has two exact
 evaluations with disjoint stability regimes: the cosh/sinh form is
-exact at $\Delta=0$ (which the inner-band gaps of order $10^{-7}$
-require) but subtracts two $e^{|\Delta|}$-sized balls when
+exact at $\Delta=0$ (which the differences of order $10^{-7}$ in the bands nearest
+$a^\star$ require) but subtracts two $e^{|\Delta|}$-sized balls when
 $M\approx\pm1$ and $|\Delta|$ is large, where the enclosure of the
 factor contains $0$ and its logarithm is not enclosed; the
 split $e^{\Delta}(1+M)/2+e^{-\Delta}(1-M)/2$ has both terms
@@ -923,7 +932,7 @@ the last integrand being nonpositive and not almost everywhere zero.
 So $\E[W^2]<2(\E W)^2$, that is $E''>0$, at every real $V$.
 \end{proof}
 
-With these three changes
+With these four changes
 the four certificates hold at each of the five
 margins.  We give the counts at $\kappa=0.05$; the other margins are in
 Section~\ref{sec:margins}.  At $\kappa=0.05$, on
@@ -931,26 +940,31 @@ that hull and the deep $\alpha_\star$ interval of
 Section~\ref{sec:slabs}:
 
 \begin{itemize}
-\item[(i)] \emph{Region II}: $1296$ top cells over the moment
-rectangle minus the exclusion box, refining to $855$ leaves, zero
-failures.
-\item[(ii)] \emph{Region I}: the banded ray-concavity certificates
+\item[(i)] \emph{Region II}: the $1296$ cells of a $48\times27$ grid
+on $[-1.351,1.351]\times[-0.76,0.76]$, which contains $K$; cells
+inside the exclusion region or outside $K$ need no bound, and the
+others are bisected until the duality bound certifies each piece,
+$855$ certified pieces (the leaves) in all, zero failures.
+\item[(ii)] \emph{Region I}: the ray certificates
 over the star, $1404$ bands from $a^\star$, zero failures; the
 certified band values lie between $-1.6\cdot10^{2}$ and
 $-7.5\cdot10^{-5}$.  The main star has radius $0.012$ within $0.16$
-radians of the weak axes, $0.008$ out to $0.45$ radians and $0.005$
-beyond.  Twelve supplementary angular ranges, on the arcs $0.14$ to
-$0.19$ radians off the weak axes, certify radius $0.0105$ there
+radians of the weak direction $\pm w$, where $w$ is a unit
+eigenvector of the Hessian of $\sS$ at $a^\star$ for its eigenvalue
+nearest $0$ (a floating-point estimate; the certificates hold for any
+choice of these angles), $0.008$ out to $0.45$ radians and $0.005$
+beyond.  Twelve supplementary arcs, angular ranges $0.14$ to
+$0.19$ radians off the weak direction, certify radius $0.0105$ there
 (certified values $-3.5\cdot10^{-3}$ to $-1.9$), as the stage-2
 leaves near those arcs require.
-\item[(iii)] \emph{Stage 2}: the exclusion box minus the star,
+\item[(iii)] \emph{Stage 2}: the exclusion region minus the star,
 $1363$ leaves, zero failures.  Star containment uses the certified
 radius of Region~I: a certified band covers every direction of its
 angular range out to the star boundary, so the certified radius is
 the pointwise maximum of the main radius and the supplementary arcs,
 a piecewise-constant function of the angle.
 \item[(iv)] \emph{Star interior}: the certificate
-of~\cite[Lemma~5.2]{shmalo2026capacity}, run over the box of
+of~\cite[Lemma~5.2]{shmalo2026capacity}, run over the enclosure of
 $a^\star$, places the star strictly inside the moment body: constructive inradius
 $0.01481$ against required $0.01209$.
 \end{itemize}

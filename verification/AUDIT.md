@@ -192,7 +192,7 @@ maximizer) is guarded to the moderate-tilt regime near the star,
 where the kappa = 0 proof always ran it.  Float-to-decimal seams use
 fixed-point formatting (`dec_f`) after a measured crash on scientific
 notation.  Manifest: results/huang_sweep_0p05.json (1296 top cells,
-868 leaves, zero failures).
+855 leaves, zero failures).
 
 ## 6. Region I star (huang_cert_region1.py)
 
