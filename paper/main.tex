@@ -41,8 +41,8 @@ the bound holds there unconditionally; at $\kappa=0.05$ the
 capacity is at most $0.781075$.  Three of the conditions hold on the
 strip $\kappa\in[-0.65,0.19]$.  Away from zero margin the threshold is
 known only within an interval, and over that interval the fixed point
-of the replica-symmetric equations ranges over a box about $8\cdot10^3$ times wider in one coordinate than
-the enclosure available at $\kappa=0$; at that width the zero-margin
+of the replica-symmetric equations is enclosed only in a box about $8\cdot10^3$ times wider in one coordinate
+than at $\kappa=0$; at that width the zero-margin
 proof of one of the conditions fails.  We write the differences of the
 log-partition function that this condition needs against a point at
 which they vanish identically, so that their enclosures shrink in
@@ -144,11 +144,13 @@ needs the signs of differences $\Phi(\lambda)-\Phi(\lambda')-(\lambda-\lambda')\
 $\lambda,\lambda'\in\R^2$, that are of order $10^{-7}$.  At $\kappa=0$ the fixed point is
 enclosed to width $8\cdot10^{-10}$ in $q_0$ and $1.2\cdot10^{-8}$ in $\psi_0$, and separate
 enclosures of the values of $\Phi$ decide these signs.  At $\kappa\ne0$ the threshold is known
-only within an interval, of width $1.7\cdot10^{-6}$ at $\kappa=0.05$, and the conditions must
+only within an interval, of width $1.7\cdot10^{-6}$ at $\kappa=0.05$, found by a certified
+bisection on the sign of the function whose zero defines the threshold and limited by the width
+of its enclosure near that zero (Section~\ref{sec:nak}), and the conditions must
 hold at every $\alpha$ of that interval.  The fixed point then ranges over a box of width
 $1.5\cdot10^{-6}$ in $q_0$ and $9.2\cdot10^{-5}$ in $\psi_0$: it moves by $2.4\cdot10^{-5}$ in
-$\psi_0$ across the interval, and at each end $\psi_0$ is a Gaussian integral that is enclosed
-to width $6.9\cdot10^{-5}$.  Over this box an enclosure of a value of $\Phi$ has width about
+$\psi_0$ across the interval, and at each end $\psi_0$ is a Gaussian integral, enclosed by a
+Riemann sum of $4000$ cells to width $6.9\cdot10^{-5}$.  Over this box an enclosure of a value of $\Phi$ has width about
 $2\cdot10^{-5}$, two hundred times the differences whose signs are needed, and the proof
 of~\cite{shmalo2026capacity} does not apply.
 
@@ -160,7 +162,8 @@ gives $\nabla\Phi(b_0)=(\E[\dot HM],\E[M^2])=a^\star$.  For every $\lambda\in\R^
 =\E\bigl[\log\bigl(\cosh\Delta+M\sinh\Delta\bigr)-M\Delta\bigr],
 \qquad \Delta=(\lambda_1-1)\dot H+\lambda_2M .
 \end{equation}
-The right side vanishes at $\lambda=b_0$ for every $\psi_0$, and its enclosure over the box has
+The right side vanishes at $\lambda=b_0$ for every $\psi_0$ and is of second order in
+$|\lambda-b_0|$; its enclosure over the box, an interval evaluation of the integrand, has
 width proportional to $|\lambda-b_0|$: at distance $0.01$ from $b_0$ it is $57$ to $251$ times
 narrower, depending on the direction, than a difference of two enclosures of values of $\Phi$.
 With $a^\star$ carried as the function $(\psi_0(1-q_0),q_0)$ on the box, the signs are decided.
@@ -870,7 +873,7 @@ each band tile its angle range, and the main and supplementary
 certificates use the same slope table.
 
 \emph{Differences against $b_0$.}  The dual localization
-of~\cite[Lemma~6.1]{shmalo2026capacity}, which keeps the dual maximizer
+of~\cite[Lemma~6.1]{shmalo2026capacity}, which keeps the optimal dual point
 $\lambda(a)$ inside a certified region of the dual plane (its dual
 enclosure) so that the entropy Hessian can be
 bounded there, needs signs of differences
@@ -1208,7 +1211,7 @@ mathematics and accepts responsibility for the paper.
 \section*{Data availability}
 No external data were used. The verification programs, certificates and raw
 records are available at
-\url{https://github.com/yspennstate/ising-perceptron-margin/tree/v2.0},
+\url{https://github.com/yspennstate/ising-perceptron-margin/tree/v2.1},
 with the certificates in the folder \texttt{verification/results}.
 
 \begin{thebibliography}{99}
