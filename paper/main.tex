@@ -129,9 +129,11 @@ $\alpha_\star(\kappa)$, hence at most the right end of the interval.
 
 Let $(q_0,\psi_0)$ be the fixed point of the replica-symmetric equations at
 $\alpha=\alpha_\star(\kappa)$ (Section~\ref{sec:system}), let $\dot H\sim N(0,\psi_0)$ and
-$M=\tanh\dot H$.  The fourth condition is an inequality over all functions $\Lambda$ of $\dot H$
-with values in $[-1,1]$, with equality at $\Lambda=M$.  At $\kappa=0$ it is proved
-in~\cite{shmalo2026capacity} by bounding the entropy of $\Lambda$ through the two moments
+$M=\tanh\dot H$.  The fourth condition asks that $\sS_\star(\lambda)\le0$ for every $\lambda\in\R^2$,
+where $\sS_\star(\lambda)$ is an infimum over $s\ge0$ of a functional of
+$\Lambda=\tanh(\lambda_1\dot H+\lambda_2M)$ and $s$; equality holds at $\lambda=(1,0)$, where $\Lambda=M$.  At $\kappa=0$ it is proved in~\cite{shmalo2026capacity}
+through the stronger inequality over all functions $\Lambda$ of $\dot H$ with values in $[-1,1]$,
+by bounding the entropy of $\Lambda$ through the two moments
 $a=(\E[\dot H\Lambda],\E[M\Lambda])$ and the log-partition function
 \[
 \Phi(b)=\E\log2\cosh(b_1\dot H+b_2M),\qquad b\in\R^2 :
@@ -384,6 +386,7 @@ For all $\alpha>0$, $\kappa\in\R$ and $0<q<1$,
 \end{lemma}
 
 \begin{proof}
+To keep the paper self-contained we derive the formula from \eqref{eq:PR}.
 Differentiating \eqref{eq:PR} in $q$ produces
 $R/(1-q)+\tfrac{\alpha}{1-q}\E[2EE'u_q]$.  Splitting $u_q$ as in
 Lemma~\ref{lem:stat} and applying Stein's lemma to
@@ -937,7 +940,8 @@ below.  The upper bound on $E''$ is
 the identity $E''-\sigma=(E'-1)(E+\sigma)$ with $E'<1$ and $E+\sigma>0$.
 
 Positivity of $E''$ is the convexity of the inverse Mills ratio, proved
-by Sampford~\cite{sampford1953}; the following short proof compares the
+by Sampford~\cite{sampford1953}; to keep the paper self-contained we give a
+short proof, which compares the
 residual law of $Z$ beyond $V$ with the exponential law of the same mean.
 Differentiating $E'$ gives
 $E''=E\,[\,\sigma(E+\sigma)-1\,]$, and for $W$ distributed as $Z-V$ conditioned
